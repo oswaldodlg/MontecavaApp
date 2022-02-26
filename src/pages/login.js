@@ -1,19 +1,26 @@
+import React, {useState} from 'react';
 import Head from 'next/head';
 import NextLink from 'next/link';
+import NextImage from 'next/image'
 import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Box, Button, Container, Grid, Link, TextField, Typography } from '@mui/material';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Facebook as FacebookIcon } from '../icons/facebook';
-import { Google as GoogleIcon } from '../icons/google';
+import { useLogin } from '../hooks/useLogin';
+
+import Logo from '../../assets/img/MontecavaLogo.png';
 
 const Login = () => {
+
+  const [isVisible, setIsVisible] = useState(false)
+  const {login, error, isPending} = useLogin()
+
+
   const router = useRouter();
   const formik = useFormik({
     initialValues: {
-      email: 'demo@devias.io',
-      password: 'Password123'
+      email: '',
+      password: ''
     },
     validationSchema: Yup.object({
       email: Yup
@@ -29,15 +36,18 @@ const Login = () => {
         .required(
           'Password is required')
     }),
+
     onSubmit: () => {
-      router.push('/');
-    }
+     
+        login(formik.values.email, formik.values.password).then(!error && router.push('/'))
+       
+      }
   });
 
   return (
     <>
       <Head>
-        <title>Login | Material Kit</title>
+        <title>Iniciar Sesión</title>
       </Head>
       <Box
         component="main"
@@ -45,11 +55,13 @@ const Login = () => {
           alignItems: 'center',
           display: 'flex',
           flexGrow: 1,
-          minHeight: '100%'
+          minHeight: '100%',
+          backgroundColor:'#020226',
+         
         }}
       >
         <Container maxWidth="sm">
-          <NextLink
+          {/* <NextLink
             href="/"
             passHref
           >
@@ -59,21 +71,24 @@ const Login = () => {
             >
               Dashboard
             </Button>
-          </NextLink>
+          </NextLink> */}
+          <Grid item textAlign='end'>
+            <NextImage src={Logo.src} height={150} width={150} />
+          </Grid>
           <form onSubmit={formik.handleSubmit}>
-            <Box sx={{ my: 3 }}>
+            <Box sx={{ my: 3, }}>
               <Typography
-                color="textPrimary"
+                color="white"
                 variant="h4"
               >
-                Sign in
+                Iniciar Sesión
               </Typography>
               <Typography
-                color="textSecondary"
+                color="white"
                 gutterBottom
                 variant="body2"
               >
-                Sign in on the internal platform
+                Inicia Sesión para accesar a Montecava App
               </Typography>
             </Box>
             <Grid
@@ -85,7 +100,7 @@ const Login = () => {
                 xs={12}
                 md={6}
               >
-                <Button
+                {/* <Button
                   color="info"
                   fullWidth
                   startIcon={<FacebookIcon />}
@@ -110,10 +125,10 @@ const Login = () => {
                   variant="contained"
                 >
                   Login with Google
-                </Button>
+                </Button> */}
               </Grid>
             </Grid>
-            <Box
+            {/* <Box
               sx={{
                 pb: 1,
                 pt: 3
@@ -126,12 +141,13 @@ const Login = () => {
               >
                 or login with email address
               </Typography>
-            </Box>
+            </Box> */}
             <TextField
               error={Boolean(formik.touched.email && formik.errors.email)}
               fullWidth
               helperText={formik.touched.email && formik.errors.email}
-              label="Email Address"
+              sx={{ input: { color: 'white' }, label: {color: 'white'} }} 
+              label="Email"
               margin="normal"
               name="email"
               onBlur={formik.handleBlur}
@@ -141,10 +157,11 @@ const Login = () => {
               variant="outlined"
             />
             <TextField
+             sx={{ input: { color: 'white' }, label: {color: 'white'}}} 
               error={Boolean(formik.touched.password && formik.errors.password)}
               fullWidth
               helperText={formik.touched.password && formik.errors.password}
-              label="Password"
+              label="Contraseña"
               margin="normal"
               name="password"
               onBlur={formik.handleBlur}
@@ -162,10 +179,10 @@ const Login = () => {
                 type="submit"
                 variant="contained"
               >
-                Sign In Now
+                Iniciar Sesión
               </Button>
             </Box>
-            <Typography
+            {/* <Typography
               color="textSecondary"
               variant="body2"
             >
@@ -185,7 +202,7 @@ const Login = () => {
                   Sign Up
                 </Link>
               </NextLink>
-            </Typography>
+            </Typography> */}
           </form>
         </Container>
       </Box>

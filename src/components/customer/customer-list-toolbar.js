@@ -26,10 +26,10 @@ export const CustomerListToolbar = (props) => (
         sx={{ m: 1 }}
         variant="h4"
       >
-        Customers
+        Clientes
       </Typography>
       <Box sx={{ m: 1 }}>
-        <Button
+        {/* <Button
           startIcon={(<UploadIcon fontSize="small" />)}
           sx={{ mr: 1 }}
         >
@@ -40,12 +40,12 @@ export const CustomerListToolbar = (props) => (
           sx={{ mr: 1 }}
         >
           Export
-        </Button>
+        </Button> */}
         <Button
           color="primary"
           variant="contained"
         >
-          Add Customers
+          Añadir Usuario
         </Button>
       </Box>
     </Box>
@@ -67,7 +67,7 @@ export const CustomerListToolbar = (props) => (
                   </InputAdornment>
                 )
               }}
-              placeholder="Search customer"
+              placeholder="Buscar Usuario"
               variant="outlined"
             />
           </Box>

@@ -8,7 +8,7 @@ const Account = () => (
   <>
     <Head>
       <title>
-        Account | Material Kit
+        Mi Perfil
       </title>
     </Head>
     <Box
@@ -23,7 +23,7 @@ const Account = () => (
           sx={{ mb: 3 }}
           variant="h4"
         >
-          Account
+          Mi Perfil
         </Typography>
         <Grid
           container
@@ -47,6 +47,9 @@ const Account = () => (
           </Grid>
         </Grid>
       </Container>
+      <Button>
+        Cerrar Sesión
+      </Button>
     </Box>
   </>
 );

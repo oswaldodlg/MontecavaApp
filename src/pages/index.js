@@ -1,5 +1,6 @@
 import Head from 'next/head';
-import { Box, Container, Grid } from '@mui/material';
+import React, {useEffect, useState} from 'react'
+import { Box, Container, Grid, Typography} from '@mui/material';
 import { Budget } from '../components/dashboard/budget';
 import { LatestOrders } from '../components/dashboard/latest-orders';
 import { LatestProducts } from '../components/dashboard/latest-products';
@@ -10,11 +11,22 @@ import { TotalProfit } from '../components/dashboard/total-profit';
 import { TrafficByDevice } from '../components/dashboard/traffic-by-device';
 import { DashboardLayout } from '../components/dashboard-layout';
 
-const Dashboard = () => (
+import { useAuthContext } from '../hooks/useAuthContext'
+
+
+
+
+function Dashboard () {
+
+  const {user} = useAuthContext()
+
+  console.log(user)
+
+  return (
   <>
     <Head>
       <title>
-        Dashboard | Material Kit
+        Home 
       </title>
     </Head>
     <Box
@@ -25,7 +37,13 @@ const Dashboard = () => (
       }}
     >
       <Container maxWidth={false}>
-        <Grid
+        <Typography
+            sx={{ mb: 3 }}
+            variant="h4"
+          >
+           Home
+          </Typography>
+        {/* <Grid
           container
           spacing={3}
         >
@@ -101,11 +119,12 @@ const Dashboard = () => (
           >
             <LatestOrders />
           </Grid>
-        </Grid>
+        </Grid> */}
       </Container>
     </Box>
   </>
-);
+  )
+};
 
 Dashboard.getLayout = (page) => (
   <DashboardLayout>

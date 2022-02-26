@@ -7,6 +7,9 @@ import { ThemeProvider } from '@mui/material/styles';
 import { createEmotionCache } from '../utils/create-emotion-cache';
 import { theme } from '../theme';
 
+import { AuthContextProvider } from '../context/AuthContext';
+
+
 const clientSideEmotionCache = createEmotionCache();
 
 const App = (props) => {
@@ -15,10 +18,11 @@ const App = (props) => {
   const getLayout = Component.getLayout ?? ((page) => page);
 
   return (
+    <AuthContextProvider>
     <CacheProvider value={emotionCache}>
       <Head>
         <title>
-          Material Kit Pro
+          MonteCava App
         </title>
         <meta
           name="viewport"
@@ -32,6 +36,7 @@ const App = (props) => {
         </ThemeProvider>
       </LocalizationProvider>
     </CacheProvider>
+    </AuthContextProvider>
   );
 };
 

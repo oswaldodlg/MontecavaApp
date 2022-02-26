@@ -46,18 +46,18 @@ export const DashboardNavbar = (props) => {
           >
             <MenuIcon fontSize="small" />
           </IconButton>
-          <Tooltip title="Search">
+          {/* <Tooltip title="Search">
             <IconButton sx={{ ml: 1 }}>
               <SearchIcon fontSize="small" />
             </IconButton>
-          </Tooltip>
+          </Tooltip> */}
           <Box sx={{ flexGrow: 1 }} />
-          <Tooltip title="Contacts">
+          <Tooltip title="Clientes">
             <IconButton sx={{ ml: 1 }}>
               <UsersIcon fontSize="small" />
             </IconButton>
           </Tooltip>
-          <Tooltip title="Notifications">
+          <Tooltip title="Notificaciones">
             <IconButton sx={{ ml: 1 }}>
               <Badge
                 badgeContent={4}
@@ -74,9 +74,8 @@ export const DashboardNavbar = (props) => {
               width: 40,
               ml: 1
             }}
-            src="/static/images/avatars/avatar_1.png"
           >
-            <UserCircleIcon fontSize="small" />
+            OD
           </Avatar>
         </Toolbar>
       </DashboardNavbarRoot>

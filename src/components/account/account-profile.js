@@ -14,9 +14,38 @@ const user = {
   city: 'Los Angeles',
   country: 'USA',
   jobTitle: 'Senior Developer',
-  name: 'Katarina Smith',
+  name: 'Oswaldo Delgado',
   timezone: 'GTM-7'
 };
+
+function stringToColor(string) {
+  let hash = 0;
+  let i;
+
+  /* eslint-disable no-bitwise */
+  for (i = 0; i < string.length; i += 1) {
+    hash = string.charCodeAt(i) + ((hash << 5) - hash);
+  }
+
+  let color = '#';
+
+  for (i = 0; i < 3; i += 1) {
+    const value = (hash >> (i * 8)) & 0xff;
+    color += `00${value.toString(16)}`.substr(-2);
+  }
+  /* eslint-enable no-bitwise */
+
+  return color;
+}
+
+function stringAvatar(name) {
+  return {
+    sx: {
+      bgcolor: stringToColor(name),
+    },
+    children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
+  };
+}
 
 export const AccountProfile = (props) => (
   <Card {...props}>
@@ -29,7 +58,7 @@ export const AccountProfile = (props) => (
         }}
       >
         <Avatar
-          src={user.avatar}
+           {...stringAvatar(user.name)} 
           sx={{
             height: 64,
             mb: 2,
@@ -43,7 +72,7 @@ export const AccountProfile = (props) => (
         >
           {user.name}
         </Typography>
-        <Typography
+        {/* <Typography
           color="textSecondary"
           variant="body2"
         >
@@ -54,7 +83,7 @@ export const AccountProfile = (props) => (
           variant="body2"
         >
           {user.timezone}
-        </Typography>
+        </Typography> */}
       </Box>
     </CardContent>
     <Divider />
@@ -64,7 +93,7 @@ export const AccountProfile = (props) => (
         fullWidth
         variant="text"
       >
-        Upload picture
+        Subir Imagen
       </Button>
     </CardActions>
   </Card>
