@@ -20,7 +20,7 @@ function App (props)  {
   const getLayout = Component.getLayout ?? ((page) => page);
 
   return (
-    
+    <AuthContextProvider>
     <CacheProvider value={emotionCache}>
       <Head>
         <title>
@@ -34,14 +34,15 @@ function App (props)  {
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          <AuthContextProvider>
+          
           <AuthRoute>
           {getLayout(<Component {...pageProps} />)}
           </AuthRoute>
-          </AuthContextProvider>
+          
         </ThemeProvider>
       </LocalizationProvider>
     </CacheProvider>
+    </AuthContextProvider>
     
   );
 };

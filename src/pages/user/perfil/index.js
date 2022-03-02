@@ -1,10 +1,11 @@
 import React from 'react'
 import Head from 'next/head';
 import { Box, Container, Grid, Typography, Button} from '@mui/material';
-import { AccountProfile } from '../components/account/account-profile';
-import { AccountProfileDetails } from '../components/account/account-profile-details';
-import { DashboardLayout } from '../components/dashboard-layout';
+import { AccountProfile } from '../../../components/account/account-profile';
+import { AccountProfileDetails } from '../../../components/account/account-profile-details';
+import { DashboardLayout } from '../../../components/dashboard-layout';
 import { useLogout } from 'src/hooks/useLogout';
+import { useAuthContext } from 'src/hooks/useAuthContext';
 
 
 
@@ -12,10 +13,15 @@ function Account() {
 
   const { logout } = useLogout()
 
-  const handleLogout = async () => {
+  const handleLogout = async (e) => {
+      
         await logout()
         return;
   }
+
+  const {user} = useAuthContext()
+
+  console.log(user)
 
   return (
     <>
@@ -60,7 +66,7 @@ function Account() {
           </Grid>
         </Grid>
       </Container>
-      <Button onClick={handleLogout} variant='contained'>
+      <Button onClick={() => handleLogout()} variant='contained'>
         Cerrar Sesión
       </Button>
     </Box>

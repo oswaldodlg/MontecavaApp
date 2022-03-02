@@ -20,28 +20,6 @@ import { useAuthContext } from 'src/hooks/useAuthContext';
 
 
 
-const adminItems = [
-  {
-    href: '/admin',
-    icon: (<ChartBarIcon fontSize="small" />),
-    title: 'Home'
-  },
-  {
-    href: '/admin/clientes',
-    icon: (<UsersIcon fontSize="small" />),
-    title: 'Clientes'
-  },
-  {
-    href: '/admin/perfil',
-    icon: (<UserIcon fontSize="small" />),
-    title: 'Mi Perfil'
-  },
-  {
-    href: '/admin/ajustes',
-    icon: (<CogIcon fontSize="small" />),
-    title: 'Ajustes'
-  },
-];
 
 const userItems = [
   {
@@ -55,13 +33,13 @@ const userItems = [
     title: 'Mi Perfil'
   },
   {
-    href: '/ajustes',
+    href: '/user/ajustes',
     icon: (<CogIcon fontSize="small" />),
     title: 'Ajustes'
   },
 ];
 
-export const AdminDashboardSidebar = (props) => {
+export const UserDashboardSidebar = (props) => {
   const { open, onClose } = props;
   const router = useRouter();
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up('lg'), {
@@ -69,7 +47,7 @@ export const AdminDashboardSidebar = (props) => {
     noSsr: false
   });
 
-  const {authIsReady, user, credentials} = useAuthContext()
+  
 
   useEffect(
     () => {
@@ -85,7 +63,8 @@ export const AdminDashboardSidebar = (props) => {
     [router.asPath]
   );
 
-  const adminContent = (
+
+  const userContent = (
     <>
       <Box
         sx={{
@@ -97,7 +76,7 @@ export const AdminDashboardSidebar = (props) => {
         <div>
           <Box sx={{ px: 3, paddingTop:'3vh' }}>
             <NextLink
-              href="/admin"
+              href="/user"
               passHref
             >
             <Grid item textAlign='center'>
@@ -114,7 +93,7 @@ export const AdminDashboardSidebar = (props) => {
           }}
         />
         <Box sx={{ flexGrow: 1 }}>
-          {adminItems.map((item) => (
+          {userItems.map((item) => (
             <NavItem
               key={item.title}
               icon={item.icon}
@@ -135,7 +114,6 @@ export const AdminDashboardSidebar = (props) => {
     </>
   );
 
-
   if (lgUp) {
     return (
       <Drawer
@@ -150,7 +128,7 @@ export const AdminDashboardSidebar = (props) => {
         }}
         variant="permanent"
       >
-        {adminContent}
+        {userContent}
       </Drawer>
     );
   }
@@ -171,12 +149,12 @@ export const AdminDashboardSidebar = (props) => {
       sx={{ zIndex: (theme) => theme.zIndex.appBar + 100 }}
       variant="temporary"
     >
-      {adminContent}
+      {userContent}
     </Drawer>
   );
 };
 
-AdminDashboardSidebar.propTypes = {
+UserDashboardSidebar.propTypes = {
   onClose: PropTypes.func,
   open: PropTypes.bool
 };

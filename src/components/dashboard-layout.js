@@ -2,8 +2,9 @@ import { useState } from 'react';
 import { Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { DashboardNavbar } from './dashboard-navbar';
-import { DashboardSidebar } from './dashboard-sidebar';
+import { AdminDashboardSidebar } from './dashboard-sidebar';
 import { useAuthContext } from 'src/hooks/useAuthContext';
+import { UserDashboardSidebar } from './dashboard-sidebar-user';
 
 const DashboardLayoutRoot = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -17,11 +18,12 @@ const DashboardLayoutRoot = styled('div')(({ theme }) => ({
 
 export const DashboardLayout = (props) => {
   const { children } = props;
+  const {authIsReady, user, credentials} = useAuthContext()
   const [isSidebarOpen, setSidebarOpen] = useState(true);
 
-  const {user} = useAuthContext()
+  
 
-  if (!user){
+  if (!user && credentials===null){
     return <></>
   } else {
     return (
@@ -39,10 +41,16 @@ export const DashboardLayout = (props) => {
           </Box>
         </DashboardLayoutRoot>
         <DashboardNavbar onSidebarOpen={() => setSidebarOpen(true)} />
-        <DashboardSidebar
+        {credentials === 'admin' &&
+          <AdminDashboardSidebar
           onClose={() => setSidebarOpen(false)}
           open={isSidebarOpen}
-        />
+        />}
+        {credentials === 'user' &&
+          <UserDashboardSidebar
+          onClose={() => setSidebarOpen(false)}
+          open={isSidebarOpen}
+        />}
       </>
     )
   }

@@ -2,6 +2,7 @@ import React, { createContext, useEffect, useReducer, useState } from "react";
 import { auth } from "../firebase/config";
 import { onAuthStateChanged } from "firebase/auth";
 import { useGetRole } from "../hooks/useGetRole";
+import { useRouter } from "next/router"
 import { db } from '../firebase/config';
 import { collection, doc, setDoc, updateDoc} from 'firebase/firestore';
 
@@ -30,7 +31,9 @@ export const AuthContextProvider = ({ children } ) => {
     const [userId, setUserId] = useState()
     
 
-    const {credentials} = useGetRole('users', userId)   
+    const {credentials} = useGetRole('users', userId)  
+    
+    const route = useRouter()
 
     useEffect(() => {
         const unsub= onAuthStateChanged(auth, (user) => {
@@ -44,15 +47,15 @@ export const AuthContextProvider = ({ children } ) => {
                     unsub()  
                 }   
                
-                
+                return unsub()
         })
-    }, [userId, credentials, state.user])
+    }, [userId, credentials, state.user, route])
 
    
     useEffect(() => {
         console.log('AuthContext state:', state)
 
-    }, [state.credentials])
+    }, [credentials])
    
     return (
         <AuthContext.Provider value={{ ...state, dispatch}}>

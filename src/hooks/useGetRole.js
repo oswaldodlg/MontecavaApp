@@ -4,9 +4,11 @@ import { auth } from "../firebase/config";
 
 //firebase Imports
 import {collection, doc, getDoc, onSnapshot} from 'firebase/firestore'
+import { useRouter } from 'next/router';
 
 export const useGetRole = (c, id) => {
 
+    const router = useRouter()
 
     const [credentials, setCredentials] = useState(null)
     
@@ -18,14 +20,16 @@ export const useGetRole = (c, id) => {
                console.log(c, id)
                 let ref = collection(db, c)
                 let docRef = doc(ref, id) 
-                return getDoc(docRef).then((doc) =>  setCredentials(doc.data().credentials))
+                return getDoc(docRef).then(async(doc) =>  await setCredentials(doc.data().credentials))
             } catch{
                 return setCredentials(null);
             }
            
         }        
+
+        console.log(credentials)
         return getRole()
-    }, [c, id])
+    }, [c, id, credentials])
 
 
     

@@ -13,9 +13,12 @@ const AuthRoute = ({ children }) => {
     }, [user, authIsReady])
     
     
-  if (user && authIsReady) {
+  if (user && authIsReady && credentials ==='admin') {
     return <>{children}</>
-  } else if(!authIsReady){
+  } else if (user && authIsReady && credentials ==='user'){
+    return <>{children}</>
+  }
+  else if(!authIsReady && credentials === null){
     return <></>
   } 
   else{

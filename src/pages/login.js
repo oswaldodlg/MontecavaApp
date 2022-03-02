@@ -20,9 +20,12 @@ const Login = () => {
   const {authIsReady, user, credentials} = useAuthContext()
 
   useEffect(() => {
-    if (user)
-    {router.push("/")} 
-  }, [user])
+    if (user && credentials==='admin')
+    {router.push("/admin")} 
+    else if (user && credentials==='user') {
+      router.push("/user")
+    }
+  }, [user, credentials, router])
 
   const router = useRouter();
   const formik = useFormik({
