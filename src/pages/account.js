@@ -1,11 +1,24 @@
+import React from 'react'
 import Head from 'next/head';
-import { Box, Container, Grid, Typography } from '@mui/material';
+import { Box, Container, Grid, Typography, Button} from '@mui/material';
 import { AccountProfile } from '../components/account/account-profile';
 import { AccountProfileDetails } from '../components/account/account-profile-details';
 import { DashboardLayout } from '../components/dashboard-layout';
+import { useLogout } from 'src/hooks/useLogout';
 
-const Account = () => (
-  <>
+
+
+function Account() {
+
+  const { logout } = useLogout()
+
+  const handleLogout = async () => {
+        await logout()
+        return;
+  }
+
+  return (
+    <>
     <Head>
       <title>
         Mi Perfil
@@ -47,12 +60,15 @@ const Account = () => (
           </Grid>
         </Grid>
       </Container>
-      <Button>
+      <Button onClick={handleLogout} variant='contained'>
         Cerrar Sesión
       </Button>
     </Box>
   </>
-);
+  )
+}
+
+
 
 Account.getLayout = (page) => (
   <DashboardLayout>

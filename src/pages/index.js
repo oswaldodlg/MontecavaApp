@@ -12,6 +12,7 @@ import { TrafficByDevice } from '../components/dashboard/traffic-by-device';
 import { DashboardLayout } from '../components/dashboard-layout';
 
 import { useAuthContext } from '../hooks/useAuthContext'
+import AuthRoute from 'src/HOC/authRoute';
 
 
 
@@ -23,7 +24,7 @@ function Dashboard () {
   console.log(user)
 
   return (
-  <>
+    <>
     <Head>
       <title>
         Home 
@@ -127,9 +128,11 @@ function Dashboard () {
 };
 
 Dashboard.getLayout = (page) => (
+  
   <DashboardLayout>
     {page}
   </DashboardLayout>
+  
 );
 
 export default Dashboard;
