@@ -13,7 +13,7 @@ function Account() {
 
   const { logout } = useLogout()
 
-  const handleLogout = async (e) => {
+  const handleLogout = async () => {
       
         await logout()
         return;

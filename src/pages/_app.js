@@ -12,12 +12,16 @@ import { AuthContextProvider } from '../context/AuthContext';
 import AuthRoute from 'src/HOC/authRoute';
 
 
+
 const clientSideEmotionCache = createEmotionCache();
 
 function App (props)  {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
 
   const getLayout = Component.getLayout ?? ((page) => page);
+
+  
+  
 
   return (
     <AuthContextProvider>
