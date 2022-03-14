@@ -8,6 +8,7 @@ import {
   SvgIcon, Typography
 } from '@mui/material';
 import { Search as SearchIcon } from '../../icons/search';
+import NextLink from 'next/link'
 import { Upload as UploadIcon } from '../../icons/upload';
 import { Download as DownloadIcon } from '../../icons/download';
 
@@ -41,12 +42,15 @@ export const CustomerListToolbar = (props) => (
         >
           Export
         </Button> */}
-        <Button
-          color="primary"
-          variant="contained"
-        >
-          Añadir Usuario
-        </Button>
+        <NextLink href="/admin/clientes/registrarUsuario" passHref>
+          <Button
+            color="primary"
+            variant="contained"
+          >
+            Añadir Usuario
+          </Button>
+        </NextLink>
+        
       </Box>
     </Box>
     <Box sx={{ mt: 3 }}>

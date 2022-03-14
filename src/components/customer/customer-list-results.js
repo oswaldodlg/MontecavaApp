@@ -17,7 +17,7 @@ import {
 } from '@mui/material';
 import { getInitials } from '../../utils/get-initials';
 
-export const CustomerListResults = ({ customers, ...rest }) => {
+export const CustomerListResults = ({ customers, uid, ...rest }) => {
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
@@ -93,12 +93,14 @@ export const CustomerListResults = ({ customers, ...rest }) => {
                   Telefono
                 </TableCell>
                 <TableCell>
-                  Fecha de Registro
+                  Credenciales
                 </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {customers.slice(0, limit).map((customer) => (
+              {customers.slice(0, limit).map((customer) => {
+                if(customer.id != uid) {
+                return (
                 <TableRow
                   hover
                   key={customer.id}
@@ -119,16 +121,16 @@ export const CustomerListResults = ({ customers, ...rest }) => {
                       }}
                     >
                       <Avatar
-                        src={customer.avatarUrl}
+                        // src={customer.avatarUrl}
                         sx={{ mr: 2 }}
                       >
-                        {getInitials(customer.name)}
+                        {getInitials(customer.firstName)}
                       </Avatar>
                       <Typography
                         color="textPrimary"
                         variant="body1"
                       >
-                        {customer.name}
+                        {customer.firstName} {customer.lastName}
                       </Typography>
                     </Box>
                   </TableCell>
@@ -136,16 +138,18 @@ export const CustomerListResults = ({ customers, ...rest }) => {
                     {customer.email}
                   </TableCell>
                   <TableCell>
-                    {`${customer.address.city}, ${customer.address.state}, ${customer.address.country}`}
+                    {customer.location}
                   </TableCell>
                   <TableCell>
-                    {customer.phone}
+                    {customer.phoneNumber}
                   </TableCell>
                   <TableCell>
-                    {format(customer.createdAt, 'dd/MM/yyyy')}
+                    {customer.credentials}
+                    {/* {format(customer.createdAt, 'dd/MM/yyyy')} */}
                   </TableCell>
-                </TableRow>
-              ))}
+                </TableRow> 
+                )}
+            })}
             </TableBody>
           </Table>
         </Box>

@@ -8,11 +8,8 @@ import { useAuthContext } from 'src/hooks/useAuthContext';
 
 function Settings() {
 
-  const {user, credentials} = useAuthContext()
+  const {user} = useAuthContext()
 
-  useEffect(() => {
-    console.log(credentials)
-  }, [credentials])
 
   return(
   <>

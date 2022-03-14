@@ -6,17 +6,11 @@ import {
   CardActions,
   CardContent,
   Divider,
-  Typography
+  Typography,
+  Grid
 } from '@mui/material';
+import { useAuthContext } from 'src/hooks/useAuthContext';
 
-const user = {
-  avatar: '/static/images/avatars/avatar_6.png',
-  city: 'Los Angeles',
-  country: 'USA',
-  jobTitle: 'Senior Developer',
-  name: 'Oswaldo Delgado',
-  timezone: 'GTM-7'
-};
 
 function stringToColor(string) {
   let hash = 0;
@@ -58,7 +52,7 @@ export const AccountProfile = (props) => (
         }}
       >
         <Avatar
-           {...stringAvatar(user.name)} 
+           {...stringAvatar(props.user.displayName)} 
           sx={{
             height: 64,
             mb: 2,
@@ -70,7 +64,7 @@ export const AccountProfile = (props) => (
           gutterBottom
           variant="h5"
         >
-          {user.name}
+          {props.user.displayName}
         </Typography>
         {/* <Typography
           color="textSecondary"
@@ -87,7 +81,8 @@ export const AccountProfile = (props) => (
       </Box>
     </CardContent>
     <Divider />
-    <CardActions>
+    <CardActions style={{flexDirection: 'column', py: '3vh'}}>
+      <Grid fullWidth>
       <Button
         color="primary"
         fullWidth
@@ -95,6 +90,12 @@ export const AccountProfile = (props) => (
       >
         Subir Imagen
       </Button>
+      </Grid>
+      <Grid fullWidth>
+      <Button onClick={() => props.handleLogout()} variant='contained' color="primary">
+        Cerrar Sesión
+      </Button>
+      </Grid>
     </CardActions>
   </Card>
 );

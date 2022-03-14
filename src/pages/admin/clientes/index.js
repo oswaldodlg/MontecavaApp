@@ -5,8 +5,18 @@ import { CustomerListToolbar } from '../../../components/customer/customer-list-
 import { DashboardLayout } from '../../../components/dashboard-layout';
 import { customers } from '../../../__mocks__/customers';
 
-const Customers = () => (
-  <>
+import React from 'react'
+import { useCollection } from 'src/hooks/useCollection';
+import { useAuthContext } from 'src/hooks/useAuthContext';
+
+export default function Customers() {
+  const { documents } = useCollection('users')
+  const {user} = useAuthContext()
+
+  console.log(documents)
+
+  return (
+    <>
     <Head>
       <title>
         Clientes
@@ -22,16 +32,19 @@ const Customers = () => (
       <Container maxWidth={false}>
         <CustomerListToolbar />
         <Box sx={{ mt: 3 }}>
-          <CustomerListResults customers={customers} />
+          {documents && <CustomerListResults customers={documents} uid={user.uid} />}
         </Box>
       </Container>
     </Box>
   </>
-);
+  )
+}
+
+
 Customers.getLayout = (page) => (
   <DashboardLayout>
     {page}
   </DashboardLayout>
 );
 
-export default Customers;
+

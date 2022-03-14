@@ -54,7 +54,7 @@ function Account() {
             md={6}
             xs={12}
           >
-            <AccountProfile />
+            <AccountProfile handleLogout={handleLogout} user={user}/>
           </Grid>
           <Grid
             item
@@ -62,13 +62,10 @@ function Account() {
             md={6}
             xs={12}
           >
-            <AccountProfileDetails />
+            <AccountProfileDetails user={user} />
           </Grid>
         </Grid>
       </Container>
-      <Button onClick={() => handleLogout()} variant='contained'>
-        Cerrar Sesión
-      </Button>
     </Box>
   </>
   )
