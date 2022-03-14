@@ -6,6 +6,7 @@ import { AccountProfileDetails } from '../../../components/account/account-profi
 import { DashboardLayout } from '../../../components/dashboard-layout';
 import { useLogout } from 'src/hooks/useLogout';
 import { useAuthContext } from 'src/hooks/useAuthContext';
+import { useCollectionUserDetail } from 'src/hooks/useCollectionUserDetail';
 
 
 
@@ -20,6 +21,8 @@ function Account() {
   }
 
   const {user} = useAuthContext()
+  const {details} = useCollectionUserDetail('users', user.uid)
+
 
   console.log(user)
 
@@ -62,7 +65,7 @@ function Account() {
             md={6}
             xs={12}
           >
-            <AccountProfileDetails user={user} />
+           { details && <AccountProfileDetails user={user} details={details} />}
           </Grid>
         </Grid>
       </Container>

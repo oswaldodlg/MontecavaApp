@@ -99,7 +99,7 @@ export const CustomerListResults = ({ customers, uid, ...rest }) => {
             </TableHead>
             <TableBody>
               {customers.slice(0, limit).map((customer) => {
-                if(customer.id != uid) {
+                if(customer.id != uid && customer.credentials != 'admin') {
                 return (
                 <TableRow
                   hover

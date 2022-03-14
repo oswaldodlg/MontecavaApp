@@ -12,11 +12,11 @@ export default function useUpdateUser() {
         return () => setIsCancelled(true)
     }, [])
 
-    const updateUser = async (user, displayName, email, phoneNumber) => {
+    const updateUser = async (user, displayName, location, phoneNumber) => {
         setError(null) 
         setIsPending(true)
 
-        console.log(user, displayName, email, phoneNumber)
+       
 
         try {
             // update user variables
@@ -24,7 +24,7 @@ export default function useUpdateUser() {
             //await updateEmail(user, {newEmail: email})
             //add info to collection
             const userRef= await doc(db, 'users', user.uid);
-            await updateDoc(userRef, {phoneNumber})
+            await updateDoc(userRef, {phoneNumber, location})
 
             if (!isCancelled){
                 setIsPending(false)

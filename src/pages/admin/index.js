@@ -6,6 +6,7 @@ import { DashboardLayout } from '../../components/dashboard-layout';
 
 import { useAuthContext } from '../../hooks/useAuthContext'
 import AuthRoute from 'src/HOC/authRoute';
+import { useCollectionUserDetail } from 'src/hooks/useCollectionUserDetail';
 
 
 
@@ -13,6 +14,7 @@ import AuthRoute from 'src/HOC/authRoute';
 function Dashboard () {
 
   const {user, credentials} = useAuthContext()
+  //const {details} = useCollectionUserDetail()
 
   console.log(user)
 

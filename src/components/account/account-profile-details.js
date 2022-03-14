@@ -22,24 +22,21 @@ export const AccountProfileDetails = (props) => {
 
   const {error, isPending, updateUser} = useUpdateUser()
 
-
   
 
   const formik = useFormik({
     initialValues: {
-      email: props.user.email,
       displayName: props.user.displayName,
-      phoneNumber: props.user.phoneNumber
+      phoneNumber: props.details[0].phoneNumber,
+      location: props.details[0].location,
     },
     enableReinitialize:true, 
     validationSchema: Yup.object({
-      email: Yup
+      location: Yup
         .string()
-        .email(
-          'Introducir un email válido')
         .max(255)
         .required(
-          'Introduce una dirección de email'),
+          'Introduce aqui la ciudad en donde vives, p.e Monterrey'),
       displayName: Yup
         .string()
         .max(255)
@@ -51,7 +48,7 @@ export const AccountProfileDetails = (props) => {
     }),
     onSubmit: (values, {setSubmitting}) => {
         console.log(values.displayName, values.email, values.phoneNumber)
-        updateUser(props.user, values.displayName, values.email, values.phoneNumber).then(setSubmitting(false))
+        updateUser(props.user, values.displayName, values.location, values.phoneNumber).then(setSubmitting(false))
       }
   });
 
@@ -76,7 +73,7 @@ export const AccountProfileDetails = (props) => {
           >
             <Grid
               item
-              
+              md={6}
               xs={12}
             >
               <TextField
@@ -97,19 +94,31 @@ export const AccountProfileDetails = (props) => {
               md={6}
               xs={12}
             >
-              <TextField
+              {/* <TextField
               error={Boolean(formik.touched.email && formik.errors.email)}
               fullWidth
               helperText={formik.touched.email && formik.errors.email}
               label="Dirección de Email"
               margin="normal"
-              name="email"
+              name="loaction"
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
               type="email"
               value={formik.values.email}
               variant="outlined"
-              />
+              /> */}
+              <TextField
+              error={Boolean(formik.touched.location && formik.errors.location)}
+              fullWidth
+              helperText={formik.touched.location && formik.errors.location}
+              label="Ubicación"
+              margin="normal"
+              name="location"
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              value={formik.values.location}
+              variant="outlined"
+            />
             </Grid>
             <Grid
               item
