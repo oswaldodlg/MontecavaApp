@@ -41,7 +41,7 @@ import {
     };
   }
   
-  export const AccountProfileUser = (props) => (
+  export const AccountProfileUser  = (props) => (
     <Card {...props}>
       <CardContent>
         <Box
