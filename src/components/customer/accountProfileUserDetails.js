@@ -17,7 +17,7 @@ import useUpdateUser from 'src/hooks/useUpdateUser';
 
 
 
-export const AccountProfileUserDetails = (props) => {
+export const AccountProfileUserDetails = ({data}) => {
 
 
   // const {error, isPending, updateUser} = useUpdateUser()
@@ -72,88 +72,71 @@ export const AccountProfileUserDetails = (props) => {
             spacing={3}
           >
             <Grid
-              
               item
-              md={12}
+              md={6}
               xs={12}
               display="inline-flex"
-              justifyContent='space-evenly'
+              justifyContent='center'
               alignItems='flex-end'
             >
               <Typography variant='h6' fontWeight='bold'>Email</Typography>
-              <Typography variant='h7' >{props.user.displayName}</Typography>
-              {/* <TextField
-              error={Boolean(formik.touched.firstName && formik.errors.firstName)}
-              fullWidth
-              helperText={formik.touched.firstName && formik.errors.firstName}
-              label="Nombre"
-              margin="normal"
-              name="displayName"
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-              value={formik.values.displayName}
-              variant="outlined"
-            /> */}
-            </Grid> 
-            <Grid
+            </Grid>
+
+            <Grid         
               item
-              md={12}
+              md={6}
               xs={12}
               display="inline-flex"
-              justifyContent='space-evenly'
+              justifyContent='center'
+              alignItems='flex-start'
+            >
+              
+              <Typography variant='h7' >{data.email}</Typography>
+            </Grid>
+            <Grid
+              item
+              md={6}
+              xs={12}
+              display="inline-flex"
+              justifyContent='center'
               alignItems='flex-end'
             >
               <Typography variant='h6' fontWeight='bold'>Teléfono</Typography>
-              <Typography variant='h7' >{props.details[0].phoneNumber}</Typography>
-              {/* <TextField
-              error={Boolean(formik.touched.email && formik.errors.email)}
-              fullWidth
-              helperText={formik.touched.email && formik.errors.email}
-              label="Dirección de Email"
-              margin="normal"
-              name="loaction"
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-              type="email"
-              value={formik.values.email}
-              variant="outlined"
-              /> */}
-              {/* <TextField
-              error={Boolean(formik.touched.location && formik.errors.location)}
-              fullWidth
-              helperText={formik.touched.location && formik.errors.location}
-              label="Ubicación"
-              margin="normal"
-              name="location"
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-              value={formik.values.location}
-              variant="outlined"
-            /> */}
             </Grid>
-            <Grid
+
+            <Grid         
               item
-              md={12}
+              md={6}
               xs={12}
               display="inline-flex"
-              justifyContent='space-evenly'
+              justifyContent='center'
+              
+            >
+              
+              <Typography variant='h7' >{data.phoneNumber}</Typography>
+            </Grid> 
+            <Grid
+              item
+              md={6}
+              xs={12}
+              display="inline-flex"
+              justifyContent='center'
               alignItems='flex-end'
             >
               <Typography variant='h6' fontWeight='bold'>Ubicación</Typography>
-              <Typography variant='h7' >{props.details[0].location}</Typography>
-              {/* <TextField
-                error={Boolean(formik.touched.phoneNumber && formik.errors.phoneNumber)}
-                fullWidth
-                helperText={formik.touched.phoneNumber && formik.errors.phoneNumber}
-                label="Número Telefónico"
-                name="phoneNumber"
-                onBlur={formik.handleBlur}
-                onChange={formik.handleChange}
-                
-                value={formik.values.phoneNumber}
-                variant="outlined"
-              /> */}
             </Grid>
+
+            <Grid         
+              item
+              md={6}
+              xs={12}
+              display="inline-flex"
+              justifyContent='center'
+              
+            >
+              
+              <Typography variant='h7' >{data.location}</Typography>
+            </Grid>   
            
             
           </Grid>

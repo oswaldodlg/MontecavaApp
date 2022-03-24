@@ -54,7 +54,8 @@ import {
           }}
         >
           <Avatar
-             {...stringAvatar(props.user.displayName)} 
+             {...stringAvatar(props.data.displayName)} 
+             
             sx={{
               height: 64,
               mb: 2,
@@ -66,19 +67,20 @@ import {
             gutterBottom
             variant="h5"
           >
-            {props.user.displayName}
+            {props.data.displayName}
+            
           </Typography>
           {/* <Typography
             color="textSecondary"
             variant="body2"
           >
-            {`${user.city} ${user.country}`}
+            {data.city}data.country}`}
           </Typography>
           <Typography
             color="textSecondary"
             variant="body2"
           >
-            {user.timezone}
+        data.timezone}
           </Typography> */}
         </Box>
       </CardContent>

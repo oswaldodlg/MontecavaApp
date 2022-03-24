@@ -8,24 +8,41 @@ import { AccountProfileUser } from 'src/components/customer/accountProfileUser';
 import { AccountProfileUserDetails } from 'src/components/customer/accountProfileUserDetails';
 import UserDocumentDrawer from 'src/components/customer/userDocumentDrawer';
 import UserDocumentDisplay from 'src/components/customer/userDocumentDisplay';
+import { useRouter } from 'next/router';
 
 
 
 function Details() {
 
   const[currentDocView, setCurrentDocView] = useState(0)
+  const [data, setData] = useState()
 
  
+ 
   const {user, credentials} = useAuthContext()
-  const {details} = useCollectionUserDetail('users', user.uid)
+  const router = useRouter()
 
+  const { id } = router.query
 
-  useEffect(() => {
-    
-    console.log(currentDocView)
-  }, [currentDocView])
+  const {details} = useCollectionUserDetail('users', id)
+
   
+  useEffect(() => {
+    {details && details.map((detail) => {
+       setData(
+         {
+           displayName: `${detail.firstName} ${detail.lastName}`,
+           email: detail.email,
+           phoneNumber: detail.phoneNumber,
+           location: detail.location
+         }
+       )
+    })}
 
+}, [details, router])
+
+
+console.log(data)
 
   return (
     <>
@@ -59,7 +76,7 @@ function Details() {
             md={6}
             xs={12}
           >
-            <AccountProfileUser user={user}/>
+            {data && <AccountProfileUser data={data} />}
           </Grid>
           <Grid
             item
@@ -67,7 +84,7 @@ function Details() {
             md={6}
             xs={12}
           >
-           { details && <AccountProfileUserDetails user={user} details={details} />}
+           { data && <AccountProfileUserDetails data={data} />}
           </Grid>
           <Grid
             item

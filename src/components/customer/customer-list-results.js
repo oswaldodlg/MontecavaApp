@@ -16,6 +16,7 @@ import {
   Typography
 } from '@mui/material';
 import { getInitials } from '../../utils/get-initials';
+import NextLink from 'next/link'
 
 export const CustomerListResults = ({ customers, uid, ...rest }) => {
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
@@ -101,10 +102,12 @@ export const CustomerListResults = ({ customers, uid, ...rest }) => {
               {customers.slice(0, limit).map((customer) => {
                 if(customer.id != uid && customer.credentials != 'admin') {
                 return (
+                <NextLink href={`clientes/detalles?id=${customer.id}`}>
                 <TableRow
                   hover
                   key={customer.id}
                   selected={selectedCustomerIds.indexOf(customer.id) !== -1}
+                  sx={{cursor: 'pointer'}}
                 >
                   <TableCell padding="checkbox">
                     <Checkbox
@@ -148,9 +151,11 @@ export const CustomerListResults = ({ customers, uid, ...rest }) => {
                     {/* {format(customer.createdAt, 'dd/MM/yyyy')} */}
                   </TableCell>
                 </TableRow> 
+                </NextLink>
                 )}
             })}
             </TableBody>
+            
           </Table>
         </Box>
       </PerfectScrollbar>
