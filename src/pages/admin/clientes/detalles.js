@@ -9,6 +9,7 @@ import { AccountProfileUserDetails } from 'src/components/customer/accountProfil
 import UserDocumentDrawer from 'src/components/customer/userDocumentDrawer';
 import UserDocumentDisplay from 'src/components/customer/userDocumentDisplay';
 import { useRouter } from 'next/router';
+import { DocumentScanner } from '@mui/icons-material';
 
 
 
@@ -100,7 +101,7 @@ console.log(data)
             md={6}
             xs={12}
           >
-           <UserDocumentDisplay currentDocView={currentDocView} />
+           { id && <UserDocumentDisplay currentDocView={currentDocView} id={id} />}
           </Grid>
         </Grid>
       </Container>

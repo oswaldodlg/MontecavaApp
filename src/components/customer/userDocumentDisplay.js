@@ -2,7 +2,7 @@ import { Box, Card, CardContent, Typography, Button, Grid} from '@mui/material';
 import React from 'react';
 import UploadFileModal from './uploadFileModal';
 
-const DocViewComponent = ({name}) => {
+const DocViewComponent = ({name, id}) => {
   return(
     <>
     <Grid container flexDirection='row' sx={{height: '5vh', justifyContent: 'center', alignItems: 'center'}}>
@@ -10,14 +10,14 @@ const DocViewComponent = ({name}) => {
         <Typography>{name}</Typography>
       </Grid>
       <Grid item xs={12} md={6} lg={4} sx={{textAlign: {xs: 'center', md: 'end'}}}>
-        <UploadFileModal />
+        <UploadFileModal name={name} id={id}/>
       </Grid>
     </Grid>
     </>
   )
 }
 
-export default function UserDocumentDisplay({currentDocView}) {
+export default function UserDocumentDisplay({currentDocView, id}) {
   return (
       
     <Card>
@@ -30,15 +30,15 @@ export default function UserDocumentDisplay({currentDocView}) {
                 minHeight: '40vh'
               }}
             >
-              {currentDocView === 0 && <DocViewComponent name='Declaraciones Mensuales'/>}
-              {currentDocView === 1 && <DocViewComponent name='Declaraciones Anuales'/>}
-              {currentDocView === 2 && <DocViewComponent name='Comprobantes IMSS'/>}
-              {currentDocView === 3 && <DocViewComponent name='Comprobantes AFORE'/>}
-              {currentDocView === 4 && <DocViewComponent name='Comprobantes INFONAVIT'/>}
-              {currentDocView === 5 && <DocViewComponent name='Comprobantes Tesoreria'/>}
-              {currentDocView === 6 && <DocViewComponent name='Estados Financieros'/>}
-              {currentDocView === 7 && <DocViewComponent name='Constancia Situación Fiscal'/>}
-              {currentDocView === 8 && <DocViewComponent name='Opinión'/>}                
+              {currentDocView === 0 && <DocViewComponent name='Declaraciones Mensuales' id={id}/>}
+              {currentDocView === 1 && <DocViewComponent name='Declaraciones Anuales' id={id}/>}
+              {currentDocView === 2 && <DocViewComponent name='Comprobantes IMSS' id={id}/>}
+              {currentDocView === 3 && <DocViewComponent name='Comprobantes AFORE' id={id}/>}
+              {currentDocView === 4 && <DocViewComponent name='Comprobantes INFONAVIT' id={id}/>}
+              {currentDocView === 5 && <DocViewComponent name='Comprobantes Tesoreria' id={id}/>}
+              {currentDocView === 6 && <DocViewComponent name='Estados Financieros' id={id}/>}
+              {currentDocView === 7 && <DocViewComponent name='Constancia Situación Fiscal' id={id}/>}
+              {currentDocView === 8 && <DocViewComponent name='Opinión' id={id}/>}                
             </Box>
         </CardContent>
     </Card>

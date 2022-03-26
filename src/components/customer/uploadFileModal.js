@@ -5,17 +5,31 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import 'react-dropzone-uploader/dist/styles.css'
 import Dropzone from 'react-dropzone-uploader'
+import useUploadDoc from 'src/hooks/useUploadDoc';
 
-const MyUploader = () => {
+const MyUploader = ({name, id}) => {
+
+    const {addDocuments , error, isPending} = useUploadDoc()
+
+    let filesArray = []
     // specify upload params and url for your files
-    const getUploadParams = ({ meta }) => { return { url: 'https://httpbin.org/post' } }
+    const getUploadParams = ({ file, meta }) => {
+      const body = new FormData()
+      body.append('fileField', file)
+      return { url: 'https://httpbin.org/post', body }
+    }
     
     // called every time a file's `status` changes
-    const handleChangeStatus = ({ meta, file }, status) => { console.log(status, meta, file) }
+    const handleChangeStatus = ({ meta, file }, status) => { console.log(status, meta, file)
+    
+    }
     
     // receives array of files that are done uploading when submit button is clicked
-    const handleSubmit = (files, allFiles) => {
-      console.log(files.map(f => f.meta))
+    const handleSubmit = async (files, allFiles) => {
+      
+      files.map((file) => filesArray.push(file))
+      console.log(filesArray)
+      addDocuments(id, name, filesArray)
       allFiles.forEach(f => f.remove())
     }
   
@@ -24,7 +38,7 @@ const MyUploader = () => {
         getUploadParams={getUploadParams}
         onChangeStatus={handleChangeStatus}
         onSubmit={handleSubmit}
-        accept="*"
+        accept=".pdf"
         submitButtonContent={"Subir"}
         inputContent={"Arrastra o elige los archivos"}
         inputWithFilesContent={"Agregar Archivo"}
@@ -51,9 +65,9 @@ const style = {
   p: 4,
 };
 
-export default function BasicModal() {
+export default function BasicModal({name, id}) {
   const [open, setOpen] = useState(false);
-  const [files, setFiles] = useState([]);
+  
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -67,7 +81,7 @@ export default function BasicModal() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-            <MyUploader />
+            <MyUploader name={name} id={id}/>
         </Box>
       </Modal>
     </div>

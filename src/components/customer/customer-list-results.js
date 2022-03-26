@@ -102,7 +102,7 @@ export const CustomerListResults = ({ customers, uid, ...rest }) => {
               {customers.slice(0, limit).map((customer) => {
                 if(customer.id != uid && customer.credentials != 'admin') {
                 return (
-                <NextLink href={`clientes/detalles?id=${customer.id}`}>
+                <NextLink href={`clientes/detalles?id=${customer.id}`} key={customer.id}>
                 <TableRow
                   hover
                   key={customer.id}
