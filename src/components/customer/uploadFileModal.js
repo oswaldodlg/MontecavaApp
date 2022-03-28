@@ -9,9 +9,10 @@ import useUploadDoc from 'src/hooks/useUploadDoc';
 
 const MyUploader = ({name, id}) => {
 
-    const {addDocuments , error, isPending} = useUploadDoc()
+    const {addDocuments , error, isPending, success} = useUploadDoc()
 
-    let filesArray = []
+    let filesArray = [];
+
     // specify upload params and url for your files
     const getUploadParams = ({ file, meta }) => {
       const body = new FormData()
@@ -20,23 +21,26 @@ const MyUploader = ({name, id}) => {
     }
     
     // called every time a file's `status` changes
-    const handleChangeStatus = ({ meta, file }, status) => { console.log(status, meta, file)
-    
+    const handleChangeStatus = ({ meta, file }, status) => { 
+      return;
     }
     
     // receives array of files that are done uploading when submit button is clicked
     const handleSubmit = async (files, allFiles) => {
-      
       files.map((file) => filesArray.push(file))
+      // files.map((file) => {return setFilesArray([...filesArray, file])})
       console.log(filesArray)
       addDocuments(id, name, filesArray)
       allFiles.forEach(f => f.remove())
+
+      
+      
     }
   
     return (
       <Dropzone
         getUploadParams={getUploadParams}
-        onChangeStatus={handleChangeStatus}
+        // onChangeStatus={handleChangeStatus}
         onSubmit={handleSubmit}
         accept=".pdf"
         submitButtonContent={"Subir"}

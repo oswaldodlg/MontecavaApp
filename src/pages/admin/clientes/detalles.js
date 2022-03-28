@@ -9,7 +9,6 @@ import { AccountProfileUserDetails } from 'src/components/customer/accountProfil
 import UserDocumentDrawer from 'src/components/customer/userDocumentDrawer';
 import UserDocumentDisplay from 'src/components/customer/userDocumentDisplay';
 import { useRouter } from 'next/router';
-import { DocumentScanner } from '@mui/icons-material';
 
 
 
@@ -32,6 +31,7 @@ function Details() {
     {details && details.map((detail) => {
        setData(
          {
+           documents: detail.documents,
            displayName: `${detail.firstName} ${detail.lastName}`,
            email: detail.email,
            phoneNumber: detail.phoneNumber,
@@ -101,7 +101,7 @@ console.log(data)
             md={6}
             xs={12}
           >
-           { id && <UserDocumentDisplay currentDocView={currentDocView} id={id} />}
+           { id && <UserDocumentDisplay currentDocView={currentDocView} id={id} data={data} />}
           </Grid>
         </Grid>
       </Container>

@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react'
-import { doc, updateDoc, arrayUnion} from "firebase/firestore";
+import { doc, updateDoc, arrayUnion, setDoc} from "firebase/firestore";
 import { db, storageRef} from '../firebase/config';
 import { getDownloadURL, ref, uploadBytes} from 'firebase/storage';
 
@@ -10,26 +10,73 @@ export default function useUploadDoc() {
     const [error, setError] = useState()
     const [success, setSuccess] = useState(false)
     const [isPending, setIsPending] = useState(false)
+
+    const [docArray, setDocArray] = useState([])
+
+    const [documents, setDocuments] = useState([])
+    const [userRef, setUserRef] = useState([])
+    const [carpet, setCarpet] = useState()
+
+    useEffect(() => {
+        console.log(docArray)
+        console.log(docArray.length, documents.length)
+        console.log(userRef)
+        // if (docArray) {
+        //     updateDoc(userRef, arrayUnion(...docArray) )
+        // }
+        // if (docArray.length > 0){
+        //     if (carpet === 'Declaraciones Mensuales'){
+        //       updateDoc(userRef, {
+        //           'documents': {
+        //               "Declaraciones Mensuales": arrayUnion(...docArray) 
+        //           } 
+        //       })
+        //     }
+        // }
+        // if (docArray.length > 0){
+        //     if (carpet === 'Declaraciones Anuales'){
+        //       updateDoc(userRef, {
+        //           'documents': {
+        //               "Declaraciones Anuales": arrayUnion(...docArray) 
+        //           } 
+        //       })
+        //     }
+        // }
+        
+      }, [docArray, documents])
+
+    
+
+    
     
 
     const addDocuments= async(id, carpet, documents) => {
         setSuccess(false)
         setError(null)
         setIsPending(true)
+        setDocuments(documents)
+        setCarpet(carpet)
 
         console.log(id, carpet, documents)
 
-        try {
         
-        const userRef= await doc(db, 'users', id);
 
+        const userRef= await doc(db, 'users', id, 'documents', carpet );
+
+        setUserRef(userRef)
        
         
         //add and store contract
         const docRef = ref(storageRef, `${id}/${carpet}/`)
+
         
-                
-      
+        
+
+        
+
+        try {
+        
+          
         
         documents.map((file) => {
             //convert files path to blobs
@@ -57,27 +104,15 @@ export default function useUploadDoc() {
                 await getDownloadURL(snapshot.ref).then((url) => {
                     console.log('File available at', url);
                 if(url != null){
-                    if (carpet === 'Declaraciones Mensuales'){
-                        updateDoc(userRef, {
-                            'Documentos': 
-                            arrayUnion({
-                                'DeclaracionesMensuales' : {
-                                   docName: file.file.name,
-                                   url: (url)
-                                }
-                            }) 
-                        })
-                    } 
-                    // else if (carper === 'Declaraciones Anuales'){
-                    //     updateDoc(userRef, {
-                    //         documents: {
-                    //             doc : url
-                    //         } 
-                    //     })
-                    // }
-                    
+                    setDocArray([...docArray, {
+                        docName: file.file.name,
+                        url: (url)
+                    }])
                     setIsPending(false)
+                if (docArray.length === documents.length){
                     setSuccess(true)
+                }
+                    
                 }
                 });
                 }).catch((error) => {
@@ -94,7 +129,7 @@ export default function useUploadDoc() {
             }
         }
 
-
+        return {userRef, documents}
     }
 
     
