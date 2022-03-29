@@ -19,31 +19,49 @@ export default function useUploadDoc() {
 
     useEffect(() => {
         console.log(docArray)
-        console.log(docArray.length, documents.length)
-        console.log(userRef)
-        // if (docArray) {
-        //     updateDoc(userRef, arrayUnion(...docArray) )
-        // }
-        // if (docArray.length > 0){
-        //     if (carpet === 'Declaraciones Mensuales'){
-        //       updateDoc(userRef, {
-        //           'documents': {
-        //               "Declaraciones Mensuales": arrayUnion(...docArray) 
-        //           } 
-        //       })
-        //     }
-        // }
-        // if (docArray.length > 0){
-        //     if (carpet === 'Declaraciones Anuales'){
-        //       updateDoc(userRef, {
-        //           'documents': {
-        //               "Declaraciones Anuales": arrayUnion(...docArray) 
-        //           } 
-        //       })
-        //     }
-        // }
         
-      }, [docArray, documents])
+        if (docArray.length > 0){
+           
+            if (carpet === 'Declaraciones Mensuales'){
+                updateDoc(userRef, ({
+                    'Declaraciones Mensuales': arrayUnion(...docArray) 
+                }))
+            } else if (carpet === 'Declaraciones Anuales'){
+                updateDoc(userRef, ({
+                    'Declaraciones Anuales': arrayUnion(...docArray) 
+                }))
+            } else if (carpet === 'Comprobantes IMSS'){
+                updateDoc(userRef, ({
+                    'Comprobantes IMSS': arrayUnion(...docArray) 
+                }))
+            } else if (carpet === 'Comprobantes AFORE'){
+                updateDoc(userRef, ({
+                    'Comprobantes AFORE': arrayUnion(...docArray) 
+                }))
+            } else if (carpet === 'Comprobantes INFONAVIT'){
+                updateDoc(userRef, ({
+                    'Comprobantes INFONAVIT': arrayUnion(...docArray) 
+                }))
+            } else if (carpet === 'Comprobantes Tesoreria'){
+                updateDoc(userRef, ({
+                    'Comprobantes Tesoreria': arrayUnion(...docArray) 
+                }))
+            } else if (carpet === 'Estados Financieros'){
+                updateDoc(userRef, ({
+                    'Estados Financieros': arrayUnion(...docArray) 
+                }))
+            } else if (carpet === 'Constancia'){
+                updateDoc(userRef, ({
+                    'Constancia': arrayUnion(...docArray) 
+                }))
+            } else if (carpet === 'Opinión'){
+                updateDoc(userRef, ({
+                    'Opinión': arrayUnion(...docArray) 
+                }))
+            } 
+        }
+        
+      }, [docArray, documents, isPending])
 
     
 
@@ -61,7 +79,7 @@ export default function useUploadDoc() {
 
         
 
-        const userRef= await doc(db, 'users', id, 'documents', carpet );
+        const userRef= await doc(db, 'users', id );
 
         setUserRef(userRef)
        
@@ -95,17 +113,17 @@ export default function useUploadDoc() {
             //   xhr.send(null);
             // });
 
-            console.log(file)
+            console.log(file.name)
 
-            let contractRef = ref(docRef, `/${file.file.name}`)
+            let contractRef = ref(docRef, `/${file.name}`)
 
-            uploadBytes(contractRef, file.file, file.metadata).then(async(snapshot) => {
+            uploadBytes(contractRef, file).then(async(snapshot) => {
                 // Let's get a download URL for the file.
                 await getDownloadURL(snapshot.ref).then((url) => {
                     console.log('File available at', url);
                 if(url != null){
                     setDocArray([...docArray, {
-                        docName: file.file.name,
+                        docName: file.name,
                         url: (url)
                     }])
                     setIsPending(false)

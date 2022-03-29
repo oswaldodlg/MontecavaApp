@@ -9,7 +9,7 @@ const DocViewComponent = ({name, id, data}) => {
 
   useEffect(() => {
     
-    data && data['documents'] && setCurrentDocs((data['documents'][name]))
+    data && data.docs[name] && setCurrentDocs((data.docs[name]))
 
   }, [data])
   

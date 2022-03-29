@@ -19,7 +19,8 @@ function Details() {
 
  
  
-  const {user, credentials} = useAuthContext()
+  // const {user, credentials} = useAuthContext()
+
   const router = useRouter()
 
   const { id } = router.query
@@ -31,7 +32,17 @@ function Details() {
     {details && details.map((detail) => {
        setData(
          {
-           documents: detail.documents,
+           docs: {
+            'Declaraciones Mensuales': detail['Declaraciones Mensuales'],
+            'Declaraciones Anuales': detail['Declaraciones Anuales'],
+            'Comprobantes IMSS': detail['Comprobantes IMSS'],
+            'Comprobantes AFORE': detail['Comprobantes AFORE'],
+            'Comprobantes INFONAVIT': detail['Comprobantes INFONAVIT'],
+            'Comprobantes Tesoreria': detail['Comprobantes Tesoreria'],
+            'Estados Financieros': detail['Estados Financieros'],
+            'Constancia de Situación Fiscal': detail['Constancia'],
+            'Opinion': detail['Opinion']
+           },
            displayName: `${detail.firstName} ${detail.lastName}`,
            email: detail.email,
            phoneNumber: detail.phoneNumber,
@@ -42,8 +53,8 @@ function Details() {
 
 }, [details, router])
 
-
 console.log(data)
+
 
   return (
     <>
