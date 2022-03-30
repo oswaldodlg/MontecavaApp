@@ -120,19 +120,48 @@ export default function IconExpansionTreeView({setCurrentDocView}) {
         //overflowY: 'auto' 
         }}
     >
-      <TreeItem nodeId="1" label="Declaraciones">
-        <TreeItem nodeId="2" label="Mensuales" onClick={() => setCurrentDocView(0)}/>
-        <TreeItem nodeId="3" label="Anuales" onClick={() => setCurrentDocView(1)} />
+      <TreeItem 
+      nodeId="1" 
+      label="Declaraciones">
+        <TreeItem 
+        nodeId="2" 
+        label="Mensuales" 
+        onClick={() => setCurrentDocView(0)}/>
+        <TreeItem 
+        nodeId="3" 
+        label="Anuales" 
+        onClick={() => setCurrentDocView(1)} />
       </TreeItem>
-      <TreeItem nodeId="5" label="Comprobantes" >
-        <TreeItem nodeId="6" label="IMSS" onClick={() => setCurrentDocView(2)}/>
-        <TreeItem nodeId="7" label="AFORE"  onClick={() => setCurrentDocView(3)}/>
-        <TreeItem nodeId="8" label="INFONAVIT" onClick={() => setCurrentDocView(4)} />
-        <TreeItem nodeId="9" label="TESORERIA" onClick={() => setCurrentDocView(5)}/>
+      <TreeItem 
+      nodeId="5" 
+      label="Comprobantes" >
+        <TreeItem 
+        nodeId="6" 
+        label="IMSS" 
+        onClick={() => setCurrentDocView(2)}/>
+        <TreeItem 
+        nodeId="7" 
+        label="AFORE"  
+        onClick={() => setCurrentDocView(3)}/>
+        <TreeItem 
+        nodeId="8" 
+        label="INFONAVIT" 
+        onClick={() => setCurrentDocView(4)} />
+        <TreeItem 
+        nodeId="9" 
+        label="TESORERIA" 
+        onClick={() => setCurrentDocView(5)}/>
       </TreeItem>
-      <TreeItem nodeId="10" label="Estados Financieros" onClick={() => setCurrentDocView(6)}/>
-      <TreeItem nodeId="11" label="Constancia Situacion Fiscal" onClick={() => setCurrentDocView(7)}/>
-      <TreeItem nodeId="12" label="Opinión" onClick={() => setCurrentDocView(8)} />
+      <TreeItem 
+      nodeId="10" 
+      label="Estados Financieros" 
+      onClick={() => setCurrentDocView(6)}/>
+      <TreeItem nodeId="11" 
+      label="Constancia Situacion Fiscal" 
+      onClick={() => setCurrentDocView(7)}/>
+      <TreeItem nodeId="12" 
+      label="Opinión" 
+      onClick={() => setCurrentDocView(8)} />
     </TreeView>
   );
 }

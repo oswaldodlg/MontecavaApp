@@ -42,7 +42,8 @@ export const CustomerListToolbar = (props) => (
         >
           Export
         </Button> */}
-        <NextLink href="/admin/clientes/registrarUsuario" passHref>
+        <NextLink href="/admin/clientes/registrarUsuario" 
+        passHref>
           <Button
             color="primary"
             variant="contained"
