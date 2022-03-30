@@ -54,7 +54,8 @@ const DocAdminModal = ({doc, name, id}) => {
       </Typography>
       <Box sx={{display: 'flex', justifyContent:"space-around"}}>
       <NextLink href={doc.url}>
-        <a target="_blank" 
+        <a target="_blank"
+        rel="noreferrer" 
         href={doc.url}
         style={{textDecoration: 'none'}}
         >
