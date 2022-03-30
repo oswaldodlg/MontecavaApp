@@ -50,9 +50,9 @@ export default function useUploadDoc() {
                 updateDoc(userRef, ({
                     'Estados Financieros': arrayUnion(...docArray) 
                 }))
-            } else if (carpet === 'Constancia'){
+            } else if (carpet === 'Constancia Situación Fiscal'){
                 updateDoc(userRef, ({
-                    'Constancia': arrayUnion(...docArray) 
+                    'Constancia Situación Fiscal': arrayUnion(...docArray) 
                 }))
             } else if (carpet === 'Opinión'){
                 updateDoc(userRef, ({
@@ -85,7 +85,7 @@ export default function useUploadDoc() {
        
         
         //add and store contract
-        const docRef = ref(storageRef, `${id}/${carpet}/`)
+        const docRef = await ref(storageRef, `${id}/${carpet}/`)
 
         
         
@@ -96,7 +96,7 @@ export default function useUploadDoc() {
         
           
         
-        documents.map((file) => {
+        documents.map(async(file) => {
             //convert files path to blobs
 
             // const blob = await new Promise((resolve, reject) => {
@@ -115,14 +115,14 @@ export default function useUploadDoc() {
 
             console.log(file.name)
 
-            let contractRef = ref(docRef, `/${file.name}`)
+            let contractRef = await ref(docRef, `/${file.name}`)
 
             uploadBytes(contractRef, file).then(async(snapshot) => {
                 // Let's get a download URL for the file.
-                await getDownloadURL(snapshot.ref).then((url) => {
+                await getDownloadURL(snapshot.ref).then(async(url) => {
                     console.log('File available at', url);
                 if(url != null){
-                    setDocArray([...docArray, {
+                    await setDocArray([...docArray, {
                         docName: file.name,
                         url: (url)
                     }])

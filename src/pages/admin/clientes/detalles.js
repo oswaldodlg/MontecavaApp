@@ -40,7 +40,7 @@ function Details() {
             'Comprobantes INFONAVIT': detail['Comprobantes INFONAVIT'],
             'Comprobantes Tesoreria': detail['Comprobantes Tesoreria'],
             'Estados Financieros': detail['Estados Financieros'],
-            'Constancia de Situación Fiscal': detail['Constancia'],
+            'Constancia Situación Fiscal': detail['Constancia Situación Fiscal'],
             'Opinion': detail['Opinion']
            },
            displayName: `${detail.firstName} ${detail.lastName}`,

@@ -1,7 +1,10 @@
 import { Box, Card, CardContent, Typography, Button, Grid} from '@mui/material';
 import React, {useEffect, useState} from 'react';
 import UploadFileModal from './uploadFileModal';
-import NextLink from 'next/link'
+import NextLink from 'next/link';
+import NextImage from 'next/image';
+
+import ImgArchivo from '../../../assets/img/archivo-pdf.png';
 
 const DocViewComponent = ({name, id, data}) => {
 
@@ -17,24 +20,27 @@ const DocViewComponent = ({name, id, data}) => {
   
   return(
     <>
-    <Grid container flexDirection='row' sx={{height: '5vh', justifyContent: 'center', alignItems: 'center'}}>
+    <Grid container flexDirection='row' sx={{minHeight: '5vh', justifyContent: 'center', alignItems: 'center'}}>
       <Grid item xs={12} md={6} lg={8} sx={{textAlign: {xs: 'center', md: 'start'}}}>
         <Typography>{name}</Typography>
       </Grid>
       <Grid item xs={12} md={6} lg={4} sx={{textAlign: {xs: 'center', md: 'end'}}}>
         <UploadFileModal name={name} id={id}/>
       </Grid>
+      <Grid container sx={{p: 5}}>
         {currentDocs && currentDocs.map((doc, index) => {
-          return  (<NextLink href={doc.url} key={index}>
-                  <a target="_blank"> 
-                  <Typography sx={{cursor: 'pointer'}}>{doc.docName}</Typography>
-                  </a>
-                  </NextLink> )
+          return  (
+          <Grid item xs={4} md={3} sx={{textAlign: 'center', p: 3}}>
+          <NextLink href={doc.url} key={index}>
+          <a target="_blank">
+          <NextImage src={ImgArchivo.src} height={50} width={50} /> 
+          <Typography sx={{cursor: 'pointer'}}>{doc.docName}</Typography>
+          </a>
+          </NextLink> 
+          </Grid>
+          )
         })}
-        {/* {data && data.documents.map((doc) => {
-          return <Typography>{doc.name}</Typography>
-        })} */}
-      
+      </Grid>
     </Grid>
     </>
   )
