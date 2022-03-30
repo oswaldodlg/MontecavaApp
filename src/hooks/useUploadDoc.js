@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react'
-import { doc, updateDoc, arrayUnion, setDoc} from "firebase/firestore";
+import { doc, updateDoc, arrayUnion} from "firebase/firestore";
 import { db, storageRef} from '../firebase/config';
 import { getDownloadURL, ref, uploadBytes} from 'firebase/storage';
 
@@ -81,7 +81,8 @@ export default function useUploadDoc() {
 
         const userRef= await doc(db, 'users', id );
 
-        setUserRef(userRef)
+
+        await setUserRef(userRef)
        
         
         //add and store contract
@@ -97,21 +98,6 @@ export default function useUploadDoc() {
           
         
         documents.map(async(file) => {
-            //convert files path to blobs
-
-            // const blob = await new Promise((resolve, reject) => {
-            //   const xhr = new XMLHttpRequest();
-            //   xhr.onload = function () {
-            //     resolve(xhr.response);
-            //   };
-            //   xhr.onerror = function (e) {
-            //     console.log(e);
-            //     reject(new TypeError("Network request failed"));
-            //   };
-            //   xhr.responseType = "blob";
-            //   xhr.open("GET", file, true);
-            //   xhr.send(null);
-            // });
 
             console.log(file.name)
 
