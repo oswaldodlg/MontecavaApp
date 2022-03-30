@@ -119,10 +119,10 @@ export default function useUploadDoc() {
 
             uploadBytes(contractRef, file).then(async(snapshot) => {
                 // Let's get a download URL for the file.
-                await getDownloadURL(snapshot.ref).then(async(url) => {
+                await getDownloadURL(snapshot.ref).then((url) => {
                     console.log('File available at', url);
                 if(url != null){
-                    await setDocArray([...docArray, {
+                    setDocArray([...docArray, {
                         docName: file.name,
                         url: (url)
                     }])
