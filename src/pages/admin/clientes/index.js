@@ -13,8 +13,6 @@ export default function Customers() {
   const { documents } = useCollection('users')
   const {user} = useAuthContext()
 
-  console.log(documents)
-
   return (
     <>
     <Head>
