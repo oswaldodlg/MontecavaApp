@@ -37,6 +37,11 @@ const userItems = [
     icon: (<CogIcon fontSize="small" />),
     title: 'Ajustes'
   },
+  // {
+  //   href: '/user/subscripción',
+  //   icon: (<CogIcon fontSize="small" />),
+  //   title: 'Subscripción'
+  // },
 ];
 
 export const UserDashboardSidebar = (props) => {

@@ -8,6 +8,12 @@ import { ThemeProvider } from '@mui/material/styles';
 import { createEmotionCache } from '../utils/create-emotion-cache';
 import { theme } from '../theme';
 
+import {Elements} from '@stripe/react-stripe-js';
+import {loadStripe} from '@stripe/stripe-js';
+
+
+const stripePromise = loadStripe('pk_test_51KW3K3IRdJgHOkTq299TgYNvXjauKnJfHbYYUmnN6gsNpKbHweb6FsO2AzMOqITmteVKxw089tUz9ZCNTpVIp5PE00K6aMQUj3');
+
 import { AuthContextProvider } from '../context/AuthContext';
 import AuthRoute from 'src/HOC/authRoute';
 
@@ -20,10 +26,18 @@ function App (props)  {
 
   const getLayout = Component.getLayout ?? ((page) => page);
 
+  const options = {
+    // passing the client secret obtained from the server
+    clientSecret: process.env.NEXT_PUBLIC_STRIPE_SECRET,
+    LocalizationProvider
+  };
+
+
   
   
 
   return (
+    <Elements stripe={stripePromise} options={options}>
     <AuthContextProvider>
     <CacheProvider value={emotionCache}>
       <Head>
@@ -47,7 +61,7 @@ function App (props)  {
       </LocalizationProvider>
     </CacheProvider>
     </AuthContextProvider>
-    
+    </Elements>
   );
 };
 

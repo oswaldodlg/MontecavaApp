@@ -17,41 +17,7 @@ import useUpdateUser from 'src/hooks/useUpdateUser';
 
 
 
-export const AccountProfileUserDetails = ({data}) => {
-
-
-  // const {error, isPending, updateUser} = useUpdateUser()
-
-  
-
-  // const formik = useFormik({
-  //   initialValues: {
-  //     displayName: props.user.displayName,
-  //     phoneNumber: props.details[0].phoneNumber,
-  //     location: props.details[0].location,
-  //   },
-  //   enableReinitialize:true, 
-  //   validationSchema: Yup.object({
-  //     location: Yup
-  //       .string()
-  //       .max(255)
-  //       .required(
-  //         'Introduce aqui la ciudad en donde vives, p.e Monterrey'),
-  //     displayName: Yup
-  //       .string()
-  //       .max(255)
-  //       .required(
-  //         'Se requiere escribir el nombre'),
-  //     phoneNumber: Yup
-  //       .number()
-  //       .nullable()
-  //   }),
-  //   onSubmit: (values, {setSubmitting}) => {
-  //       console.log(values.displayName, values.email, values.phoneNumber)
-  //       updateUser(props.user, values.displayName, values.location, values.phoneNumber).then(setSubmitting(false))
-  //     }
-  // });
-
+export const AccountProfileUserDetails = ({data, credentials}) => {
   
 
   return (
@@ -61,10 +27,17 @@ export const AccountProfileUserDetails = ({data}) => {
       {...props}
     > */}
       <Card sx={{minHeight: '33vh'}}>
-        <CardHeader
-          subheader="Información del Cliente"
-          title="Perfil"
-        />
+        {credentials === 'user' ?
+         <CardHeader
+         subheader="Mi Información"
+         title="Perfil"
+       /> 
+        :  <CardHeader
+        subheader="Información del Cliente"
+        title="Perfil"
+      />
+      }
+       
         <Divider />
         <CardContent>
           <Grid

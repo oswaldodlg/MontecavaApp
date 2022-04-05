@@ -70,7 +70,7 @@ const DocAdminModal = ({doc, name, id}) => {
   )
 }
 
-const DocViewComponent = ({name, id, data}) => {
+const DocViewComponent = ({name, id, data, credentials}) => {
 
   const [currentDocs, setCurrentDocs] = useState()
   
@@ -90,15 +90,33 @@ const DocViewComponent = ({name, id, data}) => {
         <Typography>{name}</Typography>
       </Grid>
       <Grid item xs={12} md={6} lg={4} sx={{textAlign: {xs: 'center', md: 'end'}}}>
-        <UploadFileModal name={name} id={id}/>
+        {credentials === 'admin' && <UploadFileModal name={name} id={id}/>}
       </Grid>
       <Grid container sx={{p: 5}}>
-        {currentDocs && currentDocs.map((doc, index) => {
+        {credentials === 'admin' && currentDocs && currentDocs.map((doc, index) => {
           return  (
           <Grid key={index} item xs={6} md={3} sx={{textAlign: 'center', p: 3}}>
           <DocAdminModal doc={doc} name={name} id={id} />
           {/* <NextLink href={doc.url} key={index}>
           </NextLink>  */}
+          </Grid>
+          )
+        })}
+        {credentials === 'user' && currentDocs && currentDocs.map((doc, index) => {
+          return  (
+          <Grid key={index} item xs={6} md={3} sx={{textAlign: 'center', p: 3}}>
+          <NextLink href={doc.url}>
+          <a target="_blank"
+          rel="noreferrer" 
+          href={doc.url}
+          style={{textDecoration: 'none'}}
+          >
+          <NextImage src={ImgArchivo.src} height={50} width={50} /> 
+          <Typography sx={{cursor: 'pointer'}}>{doc.docName}</Typography>
+          </a>
+          </NextLink>
+          
+          
           </Grid>
           )
         })}
@@ -108,7 +126,7 @@ const DocViewComponent = ({name, id, data}) => {
   )
 }
 
-export default function UserDocumentDisplay({currentDocView, id, data}) {
+export default function UserDocumentDisplay({currentDocView, id, data, credentials}) {
   return (
       
     <Card>
@@ -125,47 +143,56 @@ export default function UserDocumentDisplay({currentDocView, id, data}) {
               <DocViewComponent 
               name='Declaraciones Mensuales' 
               id={id} 
-              data={data} />}
+              data={data}
+              credentials={credentials} />}
               {currentDocView === 1 && 
               <DocViewComponent 
               name='Declaraciones Anuales' 
               id={id} 
-              data={data}/>}
+              data={data}
+              credentials={credentials}/>}
               {currentDocView === 2 && 
               <DocViewComponent 
               name='Comprobantes IMSS' 
               id={id} 
-              data={data}/>}
+              data={data}
+              credentials={credentials}/>}
               {currentDocView === 3 && 
               <DocViewComponent 
               name='Comprobantes AFORE' 
               id={id} 
-              data={data}/>}
+              data={data}
+              credentials={credentials}/>}
               {currentDocView === 4 && 
               <DocViewComponent 
               name='Comprobantes INFONAVIT' 
               id={id} 
-              data={data}/>}
+              data={data}
+              credentials={credentials}/>}
               {currentDocView === 5 && 
               <DocViewComponent 
               name='Comprobantes Tesoreria' 
               id={id} 
-              data={data}/>}
+              data={data}
+              credentials={credentials}/>}
               {currentDocView === 6 && 
               <DocViewComponent 
               name='Estados Financieros' 
               id={id} 
-              data={data}/>}
+              data={data}
+              credentials={credentials}/>}
               {currentDocView === 7 && 
               <DocViewComponent 
               name='Constancia Situación Fiscal' 
               id={id} 
-              data={data}/>}
+              data={data}
+              credentials={credentials}/>}
               {currentDocView === 8 && 
               <DocViewComponent 
               name='Opinión' 
               id={id} 
-              data={data}/>}                
+              data={data}
+              credentials={credentials}/>}                
             </Box>
         </CardContent>
     </Card>
