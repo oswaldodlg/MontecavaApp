@@ -78,7 +78,7 @@ const DocViewComponent = ({name, id, data, credentials}) => {
   useEffect(() => {
     
     data && data.docs[name] && setCurrentDocs((data.docs[name]))
-
+    console.log(credentials)
   }, [data])
   
 
@@ -90,10 +90,10 @@ const DocViewComponent = ({name, id, data, credentials}) => {
         <Typography>{name}</Typography>
       </Grid>
       <Grid item xs={12} md={6} lg={4} sx={{textAlign: {xs: 'center', md: 'end'}}}>
-        {credentials === 'admin' && <UploadFileModal name={name} id={id}/>}
+        {credentials != 'user' && <UploadFileModal name={name} id={id}/>}
       </Grid>
       <Grid container sx={{p: 5}}>
-        {credentials === 'admin' && currentDocs && currentDocs.map((doc, index) => {
+        {credentials != 'user' && currentDocs && currentDocs.map((doc, index) => {
           return  (
           <Grid key={index} item xs={6} md={3} sx={{textAlign: 'center', p: 3}}>
           <DocAdminModal doc={doc} name={name} id={id} />
@@ -102,7 +102,7 @@ const DocViewComponent = ({name, id, data, credentials}) => {
           </Grid>
           )
         })}
-        {credentials === 'user' && currentDocs && currentDocs.map((doc, index) => {
+        {credentials && credentials === 'user' && currentDocs && currentDocs.map((doc, index) => {
           return  (
           <Grid key={index} item xs={6} md={3} sx={{textAlign: 'center', p: 3}}>
           <NextLink href={doc.url}>
