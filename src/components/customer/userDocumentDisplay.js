@@ -31,7 +31,8 @@ const DocAdminModal = ({doc, name, id}) => {
   const handleClose = () => setOpen(false);
 
   const handleDelete = () => {
-    deleteDoc(id, doc, name).then(handleClose)
+    deleteDoc(id, doc, name)
+    handleClose()
   }
 
   return(
@@ -70,15 +71,15 @@ const DocAdminModal = ({doc, name, id}) => {
   )
 }
 
-const DocViewComponent = ({name, id, data, credentials}) => {
+const DocViewComponent = ({name, id, data, credentials, carpet}) => {
 
   const [currentDocs, setCurrentDocs] = useState()
   
 
   useEffect(() => {
     
-    data && data.docs[name] && setCurrentDocs((data.docs[name]))
-    console.log(credentials)
+    carpet && data &&  data.docs[carpet] && data.docs[carpet][name]  && setCurrentDocs((data.docs[carpet][name]))
+    !carpet && data && setCurrentDocs((data.docs[name]))
   }, [data])
   
 
@@ -141,37 +142,43 @@ export default function UserDocumentDisplay({currentDocView, id, data, credentia
             >
               {currentDocView === 0 && 
               <DocViewComponent 
-              name='Declaraciones Mensuales' 
+              name='Mensuales'
+              carpet = 'Declaraciones' 
               id={id} 
               data={data}
               credentials={credentials} />}
               {currentDocView === 1 && 
-              <DocViewComponent 
-              name='Declaraciones Anuales' 
+              <DocViewComponent
+              carpet = 'Declaraciones'  
+              name='Anuales' 
               id={id} 
               data={data}
               credentials={credentials}/>}
               {currentDocView === 2 && 
-              <DocViewComponent 
-              name='Comprobantes IMSS' 
+              <DocViewComponent
+              carpet = 'Comprobantes'  
+              name='IMSS' 
               id={id} 
               data={data}
               credentials={credentials}/>}
               {currentDocView === 3 && 
               <DocViewComponent 
-              name='Comprobantes AFORE' 
+              carpet = 'Comprobantes' 
+              name='AFORE' 
               id={id} 
               data={data}
               credentials={credentials}/>}
               {currentDocView === 4 && 
               <DocViewComponent 
-              name='Comprobantes INFONAVIT' 
+              carpet = 'Comprobantes' 
+              name='INFONAVIT' 
               id={id} 
               data={data}
               credentials={credentials}/>}
               {currentDocView === 5 && 
               <DocViewComponent 
-              name='Comprobantes Tesoreria' 
+              carpet = 'Comprobantes' 
+              name='Tesoreria' 
               id={id} 
               data={data}
               credentials={credentials}/>}
@@ -183,7 +190,7 @@ export default function UserDocumentDisplay({currentDocView, id, data, credentia
               credentials={credentials}/>}
               {currentDocView === 7 && 
               <DocViewComponent 
-              name='Constancia Situación Fiscal' 
+              name='Constancia' 
               id={id} 
               data={data}
               credentials={credentials}/>}

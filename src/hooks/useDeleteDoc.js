@@ -20,46 +20,63 @@ export default function useDeleteDoc() {
 
 
         let docRef = await ref(projectStorage, `${currentDocData.url}`)
+
+
+        if (carpet === 'Mensuales' || carpet === 'Anuales' ){
+            updateDoc(userRef, ({
+                ['Documentos' +'.Declaraciones' + `.${carpet}`]: arrayRemove(currentDocData) 
+            }))
+        } else if (carpet === 'IMSS' || carpet === 'AFORE' || carpet === 'INFONAVIT' || carpet === 'Tesoreria' ){
+            updateDoc(userRef, ({
+                ['Documentos' +'.Comprobantes' + `.${carpet}`]: arrayRemove(currentDocData) 
+            }))
+        } else if (carpet === 'Estados Financieros' || carpet === 'Constancia'){
+            updateDoc(userRef, ({
+                ['Documentos' + `.${carpet}`]: arrayRemove(currentDocData)
+            }))
+        }  else if (carpet === 'Opinión'){
+            return; 
+        }
     
         
 
-        if (carpet === 'Declaraciones Mensuales'){
-            updateDoc(userRef, ({
-                'Declaraciones Mensuales': arrayRemove(currentDocData) 
-            }))
-        } else if (carpet === 'Declaraciones Anuales'){
-            updateDoc(userRef, ({
-                'Declaraciones Anuales': arrayRemove(currentDocData) 
-            }))
-        } else if (carpet === 'Comprobantes IMSS'){
-            updateDoc(userRef, ({
-                'Comprobantes IMSS': arrayRemove(currentDocData) 
-            }))
-        } else if (carpet === 'Comprobantes AFORE'){
-            updateDoc(userRef, ({
-                'Comprobantes AFORE': arrayRemove(currentDocData) 
-            }))
-        } else if (carpet === 'Comprobantes INFONAVIT'){
-            updateDoc(userRef, ({
-                'Comprobantes INFONAVIT': arrayRemove(currentDocData) 
-            }))
-        } else if (carpet === 'Comprobantes Tesoreria'){
-            updateDoc(userRef, ({
-                'Comprobantes Tesoreria': arrayRemove(currentDocData) 
-            }))
-        } else if (carpet === 'Estados Financieros'){
-            updateDoc(userRef, ({
-                'Estados Financieros': arrayRemove(currentDocData) 
-            }))
-        } else if (carpet === 'Constancia Situación Fiscal'){
-            updateDoc(userRef, ({
-                'Constancia Situación Fiscal': arrayRemove(currentDocData) 
-            }))
-        } else if (carpet === 'Opinión'){
-            updateDoc(userRef, ({
-                'Opinión': arrayRemove(currentDocData) 
-            }))
-        } 
+        // if (carpet === 'Declaraciones Mensuales'){
+        //     updateDoc(userRef, ({
+        //         'Declaraciones Mensuales': arrayRemove(currentDocData) 
+        //     }))
+        // } else if (carpet === 'Declaraciones Anuales'){
+        //     updateDoc(userRef, ({
+        //         'Declaraciones Anuales': arrayRemove(currentDocData) 
+        //     }))
+        // } else if (carpet === 'Comprobantes IMSS'){
+        //     updateDoc(userRef, ({
+        //         'Comprobantes IMSS': arrayRemove(currentDocData) 
+        //     }))
+        // } else if (carpet === 'Comprobantes AFORE'){
+        //     updateDoc(userRef, ({
+        //         'Comprobantes AFORE': arrayRemove(currentDocData) 
+        //     }))
+        // } else if (carpet === 'Comprobantes INFONAVIT'){
+        //     updateDoc(userRef, ({
+        //         'Comprobantes INFONAVIT': arrayRemove(currentDocData) 
+        //     }))
+        // } else if (carpet === 'Comprobantes Tesoreria'){
+        //     updateDoc(userRef, ({
+        //         'Comprobantes Tesoreria': arrayRemove(currentDocData) 
+        //     }))
+        // } else if (carpet === 'Estados Financieros'){
+        //     updateDoc(userRef, ({
+        //         'Estados Financieros': arrayRemove(currentDocData) 
+        //     }))
+        // } else if (carpet === 'Constancia Situación Fiscal'){
+        //     updateDoc(userRef, ({
+        //         'Constancia Situación Fiscal': arrayRemove(currentDocData) 
+        //     }))
+        // } else if (carpet === 'Opinión'){
+        //     updateDoc(userRef, ({
+        //         'Opinión': arrayRemove(currentDocData) 
+        //     }))
+        // } 
 
         if (docRef) {
             await deleteObject(docRef)

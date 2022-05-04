@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -6,11 +6,14 @@ import Modal from '@mui/material/Modal';
 import 'react-dropzone-uploader/dist/styles.css'
 import Dropzone from 'react-dropzone-uploader'
 import useUploadDoc from 'src/hooks/useUploadDoc';
+import { CircularProgress, Grid } from '@mui/material';
 
-const MyUploader = ({name, id}) => {
+const MyUploader = ({name, id, handleClose, filesArray, setFilesArray, setShowDateContainer}) => {
 
-    const {addDocuments , error, isPending, success} = useUploadDoc()
-    const [filesArray, setFilesArray] = useState([])
+    const {addDocuments , error, isPending, success } = useUploadDoc()
+    
+    
+
 
     // specify upload params and url for your files
     const getUploadParams = ({ file, meta }) => {
@@ -21,8 +24,17 @@ const MyUploader = ({name, id}) => {
     
     // called every time a file's `status` changes
     const handleChangeStatus = ({ meta, file }, status) => { 
-      if (status === 'done')
+      console.log(status)
+      if (status ==='preparing') {
+      return setShowDateContainer(true)
+      }
+      else if (status === 'done') {
       return setFilesArray([...filesArray, file])
+      } else if (status === 'removed'){
+        return setShowDateContainer(false)
+      }
+      // if (status === 'removed')
+      // return handleClose()
     }
     
     // receives array of files that are done uploading when submit button is clicked
@@ -33,9 +45,20 @@ const MyUploader = ({name, id}) => {
       addDocuments(id, name, filesArray)
       allFiles.forEach(f => f.remove())
     }
+
+    useEffect(() => {
+      !isPending && success && handleClose()
+    }, [success, isPending])
+    
   
     return (
-      <Dropzone
+     <>
+      {isPending && !success
+        ? 
+        <Grid sx={{textAlign: 'center'}}>
+          <CircularProgress color='primary' />
+        </Grid>
+        :<Dropzone
         getUploadParams={getUploadParams}
         onChangeStatus={handleChangeStatus}
         onSubmit={handleSubmit}
@@ -45,11 +68,14 @@ const MyUploader = ({name, id}) => {
         inputWithFilesContent={"Agregar Archivo"}
         styles={
           {
+          borderColor: 'transparent',
           dropzone: {
             overflow: 'hidden'
           }}
         }
-      />
+      />}
+      
+     </>
     )
   }
   
@@ -59,32 +85,56 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  minWidth: {xs: '50vh', md: '70vh'},
+  minWidth: {xs: '50vh', md: '150vh'},
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
   p: 4,
+  display: 'inline-flex',
+  flexDirection: 'row'
+  
 };
 
 export default function BasicModal({name, id}) {
   const [open, setOpen] = useState(false);
-  
+  const [filesArray, setFilesArray] = useState([])
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {setOpen(false)
+  setShowDateContainer(false)
+  setFilesArray([])
+  };
+  const [dateContainer, setShowDateContainer] = useState(false)
+
+  const {isPending, success} = useUploadDoc()
 
   return (
-    <div>
+    <>
       <Button variant='contained' onClick={handleOpen}>Agregar Documento</Button>
       <Modal
         open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
+        onClose={() => !isPending && handleClose()}
+       
       >
         <Box sx={style}>
-            <MyUploader name={name} id={id}/>
+            <Grid item xs={12} md={12}>
+            <MyUploader name={name} id={id} handleClose={handleClose} filesArray={filesArray} setFilesArray={setFilesArray} setShowDateContainer={setShowDateContainer}/>
+            </Grid>
+            {dateContainer && 
+            <Grid xs={12} md={2} sx={{textAlign: 'center'}}>
+              <Typography>
+                Fechas
+              </Typography>
+              {filesArray && filesArray.map((doc) => {
+                return (
+                  <>
+                    <Typography>{doc.name}</Typography>
+                  </>
+                )
+              })}
+            </Grid>}
+            
         </Box>
       </Modal>
-    </div>
+    </>
   );
 }

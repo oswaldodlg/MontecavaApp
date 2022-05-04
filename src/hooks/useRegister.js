@@ -32,7 +32,7 @@ export default function useRegister() {
 
             //add info to collection
             const userRef= await doc(db, 'users', res.user.uid);
-            await setDoc(userRef, {email, firstName, lastName, credentials: 'user',})
+            await setDoc(userRef, {email, firstName, lastName, credentials: 'user', 'Documentos': {}})
             
             await signOut(secondaryAuth)
 
@@ -53,39 +53,3 @@ export default function useRegister() {
     return {error, isPending, registerUser}
 }
 
-
-
-            // //add and store contracts
-            // const docRef = ref(storageRef, `${res.user.uid}/`)
-            // console.log(docArray.uri)
-            
-            // let contractRef = ref(docRef, docArray.name)
-
-            // const blob = await new Promise((resolve, reject) => {
-            //   const xhr = new XMLHttpRequest();
-            //   xhr.onload = function () {
-            //     resolve(xhr.response);
-            //   };
-            //   xhr.onerror = function (e) {
-            //     console.log(e);
-            //     reject(new TypeError("Network request failed"));
-            //   };
-            //   xhr.responseType = "blob";
-            //   xhr.open("GET", docArray.uri, true);
-            //   xhr.send(null);
-            // });
-          
-            //    uploadBytesResumable(contractRef, blob).then((snapshot) => {
-            //        //console.log('File metadata:', snapshot.metadata);
-            //        // Let's get a download URL for the file.
-            //        getDownloadURL(snapshot.ref).then((url) => {
-            //          console.log('File available at', url);
-            //          setUrlArray(url)
-            //          // ...
-            //        });
-            //      }).catch((error) => {
-            //        console.error('Upload failed', error);
-            //        setError(error)
-            //        // ...
-            //      });
-            // // })

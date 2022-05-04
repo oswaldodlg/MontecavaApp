@@ -30,30 +30,22 @@ function Details() {
   
   useEffect(() => {
     {details && details.map((detail) => {
-       setData(
+      // if( detail['Documentos']['Declaraciones']['Mensuales'] ||  detail['Documentos']['Declaraciones']['Anuales'] || ['Documentos']['Comprobantes']['IMSS']
+      // || ['Documentos']['Comprobantes']['AFORE'] || ['Documentos']['Comprobantes']['INFONAVIT'] || ['Documentos']['Comprobantes']['Tesoreria'] || ['Documentos']['Estados Financieros'] || detail['Documentos']['Constancia'] || detail['Opinion'] )
+      {
+      setData(
          {
-           docs: {
-            'Declaraciones Mensuales': detail['Declaraciones Mensuales'],
-            'Declaraciones Anuales': detail['Declaraciones Anuales'],
-            'Comprobantes IMSS': detail['Comprobantes IMSS'],
-            'Comprobantes AFORE': detail['Comprobantes AFORE'],
-            'Comprobantes INFONAVIT': detail['Comprobantes INFONAVIT'],
-            'Comprobantes Tesoreria': detail['Comprobantes Tesoreria'],
-            'Estados Financieros': detail['Estados Financieros'],
-            'Constancia Situación Fiscal': detail['Constancia Situación Fiscal'],
-            'Opinion': detail['Opinion']
-           },
+           docs: detail.Documentos,
            displayName: `${detail.firstName} ${detail.lastName}`,
            email: detail.email,
            phoneNumber: detail.phoneNumber,
            location: detail.location
          }
        )
+      }
     })}
 
 }, [details, router])
-
-console.log(data)
 
 
   return (
@@ -112,7 +104,7 @@ console.log(data)
             md={6}
             xs={12}
           >
-           { id && <UserDocumentDisplay currentDocView={currentDocView} id={id} data={data} />}
+           { id && data && <UserDocumentDisplay currentDocView={currentDocView} id={id} data={data} />}
           </Grid>
         </Grid>
       </Container>

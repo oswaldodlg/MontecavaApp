@@ -17,55 +17,40 @@ export default function useUploadDoc() {
     const [userRef, setUserRef] = useState([])
     const [carpet, setCarpet] = useState()
 
+    const [counter, setCounter] = useState(0)
+
+    
+
     useEffect(() => {
-        console.log(docArray)
         
         if (docArray.length > 0){
-           
-            if (carpet === 'Declaraciones Mensuales'){
+            
+            setSuccess(false)
+            if (carpet === 'Mensuales' || carpet === 'Anuales' ){
                 updateDoc(userRef, ({
-                    'Declaraciones Mensuales': arrayUnion(...docArray) 
+                    ['Documentos' +'.Declaraciones' + `.${carpet}`]: arrayUnion(...docArray) 
                 }))
-            } else if (carpet === 'Declaraciones Anuales'){
+            } else if (carpet === 'IMSS' || carpet === 'AFORE' || carpet === 'INFONAVIT' || carpet === 'Tesoreria' ){
                 updateDoc(userRef, ({
-                    'Declaraciones Anuales': arrayUnion(...docArray) 
+                    ['Documentos' +'.Comprobantes' + `.${carpet}`]: arrayUnion(...docArray) 
                 }))
-            } else if (carpet === 'Comprobantes IMSS'){
+            } else if (carpet === 'Estados Financieros' || carpet === 'Constancia'){
                 updateDoc(userRef, ({
-                    'Comprobantes IMSS': arrayUnion(...docArray) 
+                    ['Documentos' + `.${carpet}`]: arrayUnion(...docArray)
                 }))
-            } else if (carpet === 'Comprobantes AFORE'){
-                updateDoc(userRef, ({
-                    'Comprobantes AFORE': arrayUnion(...docArray) 
-                }))
-            } else if (carpet === 'Comprobantes INFONAVIT'){
-                updateDoc(userRef, ({
-                    'Comprobantes INFONAVIT': arrayUnion(...docArray) 
-                }))
-            } else if (carpet === 'Comprobantes Tesoreria'){
-                updateDoc(userRef, ({
-                    'Comprobantes Tesoreria': arrayUnion(...docArray) 
-                }))
-            } else if (carpet === 'Estados Financieros'){
-                updateDoc(userRef, ({
-                    'Estados Financieros': arrayUnion(...docArray) 
-                }))
-            } else if (carpet === 'Constancia Situación Fiscal'){
-                updateDoc(userRef, ({
-                    'Constancia Situación Fiscal': arrayUnion(...docArray) 
-                }))
-            } else if (carpet === 'Opinión'){
-                updateDoc(userRef, ({
-                    'Opinión': arrayUnion(...docArray) 
-                }))
-            } 
+            }  else if (carpet === 'Opinión'){
+                return; 
+            }
+            setCounter(counter + 1)   
         }
+
+        if (documents.length > 0 && counter === documents.length) {
+            setSuccess(true)
+        }
+        
         
       }, [docArray, documents, isPending])
 
-    
-
-    
     
 
     const addDocuments= async(id, carpet, documents) => {
@@ -77,7 +62,6 @@ export default function useUploadDoc() {
 
         console.log(id, carpet, documents)
 
-        
 
         const userRef= await doc(db, 'users', id );
 
@@ -112,10 +96,8 @@ export default function useUploadDoc() {
                         docName: file.name,
                         url: (url)
                     }])
+                    console.log(docArray)
                     setIsPending(false)
-                if (docArray.length === documents.length){
-                    setSuccess(true)
-                }
                     
                 }
                 });
