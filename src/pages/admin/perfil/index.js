@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import Head from 'next/head';
 import { Box, Container, Grid, Typography, Button} from '@mui/material';
 import { AccountProfile } from '../../../components/account/account-profile';
@@ -6,31 +6,24 @@ import { AccountProfileDetails } from '../../../components/account/account-profi
 import { DashboardLayout } from '../../../components/dashboard-layout';
 import { useLogout } from 'src/hooks/useLogout';
 import { useAuthContext } from 'src/hooks/useAuthContext';
-import { useCollectionUserDetail } from 'src/hooks/useCollectionUserDetail';
 
 
 
 function Account() {
 
-
-  
   const { logout } = useLogout()
 
   const handleLogout = async () => {
+      
         await logout()
         return;
   }
 
- 
-  const {user, credentials} = useAuthContext()
-  const {details} = useCollectionUserDetail('users', user.uid)
+  const {user, data} = useAuthContext()
+  // const {details} = useCollectionUserDetail('users', user.uid)
 
 
-  useEffect(() => {
-    console.log(details)
-  }, [details])
-  
-
+  console.log(user)
 
   return (
     <>
@@ -71,11 +64,10 @@ function Account() {
             md={6}
             xs={12}
           >
-           { details && <AccountProfileDetails user={user} details={details} />}
+           { data && <AccountProfileDetails user={user} details={data} />}
           </Grid>
         </Grid>
       </Container>
-      
     </Box>
   </>
   )
@@ -90,3 +82,4 @@ Account.getLayout = (page) => (
 );
 
 export default Account;
+

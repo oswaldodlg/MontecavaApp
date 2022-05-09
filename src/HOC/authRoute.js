@@ -6,7 +6,7 @@ import Login from "src/pages/login"
 import { route } from "next/dist/server/router"
 
 const AuthRoute = ({ children }) => {
-    const {authIsReady, user, credentials} = useAuthContext()
+    const {authIsReady, user, data} = useAuthContext()
     const router = useRouter()
 
     const [allowed, setAllowed] = useState(true)
@@ -16,15 +16,15 @@ const AuthRoute = ({ children }) => {
       if (!user && authIsReady)
       {router.push("/login")}
       
-
+      
       const permission = async() => {
       
-        if (router.pathname.startsWith("/admin") && credentials === "user"){
+        if (user && authIsReady && router.pathname.startsWith("/admin") && data && data.credentials === "user"){
           setAllowed(null)
           await setAllowed(false)
           return <></>
           }
-          if (router.pathname.startsWith("/user") && credentials === "admin"){
+          if (user && authIsReady && router.pathname.startsWith("/user") && data && data.credentials === "admin"){
           await setAllowed(false)
           return <></>
           }
@@ -33,7 +33,7 @@ const AuthRoute = ({ children }) => {
     console.log(allowed)
     return permission()
      
-    }, [user, authIsReady, credentials])
+    }, [user, authIsReady, data])
 
 
     // useEffect(() => {
@@ -53,24 +53,25 @@ const AuthRoute = ({ children }) => {
     // }, [credentials])
     
     
-    
-  if (user && authIsReady && credentials ==='admin') {
+  
+  if (user && authIsReady && data && data.credentials ==='admin') {
     return <>{!allowed ? <Home allowed= {allowed} setAllowed={setAllowed}/>  : children}</>
-  } else if (user && authIsReady && credentials ==='user'){
+  } else if (user && authIsReady && data && data.credentials ==='user'){
       return <>{!allowed ? <Home allowed= {allowed} setAllowed={setAllowed}/>  : children}</> 
   }
-  else if(!authIsReady && credentials === null){
+  else if(!authIsReady && data && data.credentials === null){
     return <></>
   } 
   else if(allowed === null || allowed === false){
     return <></>
   }
-  else if(!user && authIsReady && router.pathname.startsWith("/login")) {
+  else if(!user && authIsReady && (router.pathname.startsWith("/login") || router.pathname.startsWith("/"))) {
     return <Login />
   }
   else{
     return <></>
   }
+
 }
 
 export default AuthRoute;

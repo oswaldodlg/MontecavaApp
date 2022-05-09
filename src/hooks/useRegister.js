@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { db, secondaryAuth, storageRef} from '../firebase/config';
 import { createUserWithEmailAndPassword, updateProfile, signOut} from "firebase/auth";
 import { getDownloadURL, ref, uploadBytesResumable, } from 'firebase/storage';
-import { doc, setDoc} from 'firebase/firestore';
+import { doc, serverTimestamp, setDoc} from 'firebase/firestore';
 
 export default function useRegister() {
     const [isCancelled, setIsCancelled] = useState(false)
@@ -32,7 +32,7 @@ export default function useRegister() {
 
             //add info to collection
             const userRef= await doc(db, 'users', res.user.uid);
-            await setDoc(userRef, {email, firstName, lastName, credentials: 'user', 'Documentos': {}})
+            await setDoc(userRef, {email, firstName, lastName, credentials: 'user', 'Documentos': {}, termsandconditions: false, createdAt: serverTimestamp()})
             
             await signOut(secondaryAuth)
 

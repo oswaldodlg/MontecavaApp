@@ -33,28 +33,6 @@ export const useLogout = () => {
                 
             }
         })
-
-    //     //sign the user out
-    //     try {
-    //         await signOut(auth)
-    //         await setCredentials(null)
-
-    //         //dispatch logout action
-    //         dispatch({type: 'LOGOUT'})
-            
-    //         //update state
-    //         if (!isCancelled){
-    //             setIsPending(false)
-    //             setError(null)
-    //         }
-            
-    //     } catch(err){
-    //         if (!isCancelled){
-    //             console.log(err.message)
-    //             setError(err.message)
-    //             setIsPending(false)
-    //         }
-    //     }
     }
 
     useEffect(() => {

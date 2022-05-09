@@ -15,42 +15,42 @@ import { useRouter } from 'next/router';
 function Details() {
 
   const[currentDocView, setCurrentDocView] = useState(0)
-  const [data, setData] = useState()
+  const [docs, setDocs] = useState()
 
  
  
-  const {user, credentials} = useAuthContext()
+  const {user, data} = useAuthContext()
 
   console.log(user)
 
 
-  const {details} = useCollectionUserDetail('users', user.uid)
+  // const {details} = useCollectionUserDetail('users', user.uid)
 
   
-  useEffect(() => {
-    {details && details.map((detail) => {
-       setData(
-         {
-           docs: {
-            'Declaraciones Mensuales': detail['Declaraciones Mensuales'],
-            'Declaraciones Anuales': detail['Declaraciones Anuales'],
-            'Comprobantes IMSS': detail['Comprobantes IMSS'],
-            'Comprobantes AFORE': detail['Comprobantes AFORE'],
-            'Comprobantes INFONAVIT': detail['Comprobantes INFONAVIT'],
-            'Comprobantes Tesoreria': detail['Comprobantes Tesoreria'],
-            'Estados Financieros': detail['Estados Financieros'],
-            'Constancia Situación Fiscal': detail['Constancia Situación Fiscal'],
-            'Opinion': detail['Opinion']
-           },
-           displayName: `${detail.firstName} ${detail.lastName}`,
-           email: detail.email,
-           phoneNumber: detail.phoneNumber,
-           location: detail.location
-         }
-       )
-    })}
+//   useEffect(() => {
+//     {details && details.map((detail) => {
+//        setDocs(
+//          {
+//            docs: {
+//             'Declaraciones Mensuales': detail['Declaraciones Mensuales'],
+//             'Declaraciones Anuales': detail['Declaraciones Anuales'],
+//             'Comprobantes IMSS': detail['Comprobantes IMSS'],
+//             'Comprobantes AFORE': detail['Comprobantes AFORE'],
+//             'Comprobantes INFONAVIT': detail['Comprobantes INFONAVIT'],
+//             'Comprobantes Tesoreria': detail['Comprobantes Tesoreria'],
+//             'Estados Financieros': detail['Estados Financieros'],
+//             'Constancia Situación Fiscal': detail['Constancia Situación Fiscal'],
+//             'Opinion': detail['Opinion']
+//            },
+//            displayName: `${detail.firstName} ${detail.lastName}`,
+//            email: detail.email,
+//            phoneNumber: detail.phoneNumber,
+//            location: detail.location
+//          }
+//        )
+//     })}
 
-}, [details])
+// }, [details])
 
 console.log(data)
 
@@ -87,7 +87,7 @@ console.log(data)
             md={6}
             xs={12}
           >
-            {data && <AccountProfileUser data={data}/>}
+            {data && <AccountProfileUser data={user}/>}
           </Grid>
           <Grid
             item
@@ -95,7 +95,7 @@ console.log(data)
             md={6}
             xs={12}
           >
-           { data && <AccountProfileUserDetails data={data} credentials={credentials} />}
+           { data && <AccountProfileUserDetails data={data} credentials={data.credentials} />}
           </Grid>
           <Grid
             item
@@ -111,7 +111,7 @@ console.log(data)
             md={6}
             xs={12}
           >
-           { user.uid && <UserDocumentDisplay currentDocView={currentDocView} id={user.uid} data={data} credentials={credentials}/>}
+           { user.uid && <UserDocumentDisplay currentDocView={currentDocView} id={user.uid} data={data.Documentos} credentials={data.credentials}/>}
           </Grid>
         </Grid>
       </Container>

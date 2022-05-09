@@ -17,15 +17,15 @@ const Login = () => {
 
   const [isVisible, setIsVisible] = useState(false)
   const {login, error, isPending} = useLogin()
-  const {authIsReady, user, credentials} = useAuthContext()
+  const {authIsReady, user, data} = useAuthContext()
 
   useEffect(() => {
-    if (user && credentials==='admin')
+    if (user && data && data.credentials==='admin')
     {router.push("/admin")} 
-    else if (user && credentials==='user') {
+    else if (user && data && data.credentials==='user') {
       router.push("/user")
     }
-  }, [user, credentials, router])
+  }, [user, data, router])
 
   const router = useRouter();
   const formik = useFormik({

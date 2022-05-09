@@ -104,7 +104,7 @@ function Details() {
             md={6}
             xs={12}
           >
-           { id && data && <UserDocumentDisplay currentDocView={currentDocView} id={id} data={data} />}
+           { id && data && <UserDocumentDisplay currentDocView={currentDocView} id={id} data={data.docs} />}
           </Grid>
         </Grid>
       </Container>

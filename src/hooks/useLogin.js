@@ -26,7 +26,7 @@ export const useLogin = () => {
             //setUserId(res.user.uid)
             await setUser(res.user)
             await setUserId(res.user.uid)
-            await dispatch({type: 'LOGIN', payload: user, credentials: credentials}) 
+            await dispatch({type: 'LOGIN', payload: user, data: credentials}) 
             
         }). then(() => {
             setIsPending(false)
@@ -39,32 +39,6 @@ export const useLogin = () => {
             }
         })
         }
-        
-        
-
-        // //sign the user in
-        // try {
-        //     const res = await signInWithEmailAndPassword(auth, email, password)
-        //     setUser(res.user)
-        //     await setUserId(res.user.uid)
-        //     console.log(userId)
-        //     //dispatch login action
-           
-            
-
-        //     //update state
-        //     if (!isCancelled){
-        //         setIsPending(false)
-        //         setError(null)
-        //     }
-            
-        // } catch(err){
-        //     if (!isCancelled){
-        //         console.log(err.message)
-        //         setError(err.message)
-        //         setIsPending(false)
-        //     }
-        // }
     }
 
     useEffect(() => {

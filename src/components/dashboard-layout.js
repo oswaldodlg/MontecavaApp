@@ -18,12 +18,12 @@ const DashboardLayoutRoot = styled('div')(({ theme }) => ({
 
 export const DashboardLayout = (props) => {
   const { children } = props;
-  const {authIsReady, user, credentials} = useAuthContext()
+  const {authIsReady, user, data} = useAuthContext()
   const [isSidebarOpen, setSidebarOpen] = useState(true);
 
   
 
-  if (!user && credentials===null){
+  if (!user && data && data.credentials===null){
     return <></>
   } else {
     return (
@@ -41,12 +41,12 @@ export const DashboardLayout = (props) => {
           </Box>
         </DashboardLayoutRoot>
         <DashboardNavbar onSidebarOpen={() => setSidebarOpen(true)} />
-        {credentials === 'admin' &&
+        {data.credentials === 'admin' &&
           <AdminDashboardSidebar
           onClose={() => setSidebarOpen(false)}
           open={isSidebarOpen}
         />}
-        {credentials === 'user' &&
+        {data.credentials === 'user' &&
           <UserDashboardSidebar
           onClose={() => setSidebarOpen(false)}
           open={isSidebarOpen}

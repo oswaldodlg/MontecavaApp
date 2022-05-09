@@ -78,8 +78,8 @@ const DocViewComponent = ({name, id, data, credentials, carpet}) => {
 
   useEffect(() => {
     
-    carpet && data &&  data.docs[carpet] && data.docs[carpet][name]  && setCurrentDocs((data.docs[carpet][name]))
-    !carpet && data && setCurrentDocs((data.docs[name]))
+    data && setCurrentDocs(data)
+
   }, [data])
   
 
@@ -145,60 +145,60 @@ export default function UserDocumentDisplay({currentDocView, id, data, credentia
               name='Mensuales'
               carpet = 'Declaraciones' 
               id={id} 
-              data={data}
+              data={data.Declaraciones && data.Declaraciones.Mensuales}
               credentials={credentials} />}
               {currentDocView === 1 && 
               <DocViewComponent
               carpet = 'Declaraciones'  
               name='Anuales' 
               id={id} 
-              data={data}
+              data={data.Declaraciones && data.Declaraciones.Anuales}
               credentials={credentials}/>}
               {currentDocView === 2 && 
               <DocViewComponent
               carpet = 'Comprobantes'  
               name='IMSS' 
               id={id} 
-              data={data}
+              data={data.Comprobantes && data.Comprobantes.IMSS}
               credentials={credentials}/>}
               {currentDocView === 3 && 
               <DocViewComponent 
               carpet = 'Comprobantes' 
               name='AFORE' 
               id={id} 
-              data={data}
+              data={data.Comprobantes && data.Comprobantes.AFORE}
               credentials={credentials}/>}
               {currentDocView === 4 && 
               <DocViewComponent 
               carpet = 'Comprobantes' 
               name='INFONAVIT' 
               id={id} 
-              data={data}
+              data={data.Comprobantes && data.Comprobantes.INFONAVIT}
               credentials={credentials}/>}
               {currentDocView === 5 && 
               <DocViewComponent 
               carpet = 'Comprobantes' 
               name='Tesoreria' 
               id={id} 
-              data={data}
+              data={data.Comprobantes && data.Comprobantes.Tesoreria}
               credentials={credentials}/>}
               {currentDocView === 6 && 
               <DocViewComponent 
               name='Estados Financieros' 
               id={id} 
-              data={data}
+              data={data['Estados Financieros'] && data['Estados Financieros']}
               credentials={credentials}/>}
               {currentDocView === 7 && 
               <DocViewComponent 
               name='Constancia' 
               id={id} 
-              data={data}
+              data={data.Constancia && data.Constancia}
               credentials={credentials}/>}
               {currentDocView === 8 && 
               <DocViewComponent 
               name='Opinión' 
               id={id} 
-              data={data}
+              data={data.Opinion}
               credentials={credentials}/>}                
             </Box>
         </CardContent>

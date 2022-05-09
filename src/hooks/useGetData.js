@@ -7,42 +7,38 @@ import {collection, doc, getDoc, onSnapshot} from 'firebase/firestore'
 import { useRouter } from 'next/router';
 import { CollectionsOutlined } from '@mui/icons-material';
 
-export const useGetRole = (c, id) => {
+export const useGetData = (c, id) => {
 
     const router = useRouter()
 
-    const [credentials, setCredentials] = useState(null)
+    const [data, setData] = useState(null)
     
 
     useEffect(() => {
 
-        const getRole = async() => {
+        const getData = async() => {
             try{
-             
                 console.log(c, id)
                 let ref = collection(db, c)
                 let docRef = doc(ref, id) 
-                return getDoc(docRef).then(async(doc) => setCredentials(doc.data()))
-               
-                
-                console.log(credentials)
+                return getDoc(docRef).then(async(doc) => setData(doc.data()))
             } catch{
-                return setCredentials(null);
+                return setData(null);
             }
            
         }        
 
-        console.log(credentials)
+        console.log(data)
         return getRole()
     }, [c, id])
 
     useEffect(() => {
-      console.log(credentials)
-    }, [credentials])
+      console.log(data)
+    }, [data])
     
     
 
     
     
-    return ({credentials, setCredentials})
+    return ({data})
 }

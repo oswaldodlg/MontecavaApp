@@ -27,8 +27,8 @@ export const AccountProfileDetails = (props) => {
   const formik = useFormik({
     initialValues: {
       displayName: props.user.displayName,
-      phoneNumber: props.details[0].phoneNumber,
-      location: props.details[0].location,
+      phoneNumber: props.details.phoneNumber,
+      location: props.details.location,
     },
     enableReinitialize:true, 
     validationSchema: Yup.object({

@@ -11,11 +11,11 @@ export const AuthContext = createContext()
 export const authReducer = (state, action) => {
     switch (action.type){
         case 'LOGIN':
-            return { ...state, user: action.payload, credentials: action.credentials }
+            return { ...state, user: action.payload, data: action.data }
         case 'LOGOUT': 
-            return {...state, user: null, credentials: null}
+            return {...state, user: null, data: null}
         case 'AUTH_IS_READY':
-            return {...state, user: action.payload, authIsReady: true, credentials: action.credentials}
+            return {...state, user: action.payload, authIsReady: true, data: action.data}
         default:
             return state
     }
@@ -25,7 +25,7 @@ export const AuthContextProvider = ({ children } ) => {
     const [state, dispatch] = useReducer(authReducer, {
         user: null,
         authIsReady: false,
-        credentials: null,
+        data: null,
     })
 
     const [userId, setUserId] = useState()
@@ -40,10 +40,10 @@ export const AuthContextProvider = ({ children } ) => {
 
                 try{
                     setUserId(user.uid)
-                    dispatch( { type: 'AUTH_IS_READY', payload: user, credentials: credentials})
+                    dispatch( { type: 'AUTH_IS_READY', payload: user, data: credentials})
                 } catch{
                     setUserId(null)
-                    dispatch( { type: 'AUTH_IS_READY', payload: user, credentials: null})
+                    dispatch( { type: 'AUTH_IS_READY', payload: user, data: null})
                     unsub()  
                 }   
                
