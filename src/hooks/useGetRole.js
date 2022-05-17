@@ -5,7 +5,6 @@ import { auth } from "../firebase/config";
 //firebase Imports
 import {collection, doc, getDoc, onSnapshot} from 'firebase/firestore'
 import { useRouter } from 'next/router';
-import { CollectionsOutlined } from '@mui/icons-material';
 
 export const useGetRole = (c, id) => {
 
@@ -23,9 +22,6 @@ export const useGetRole = (c, id) => {
                 let ref = collection(db, c)
                 let docRef = doc(ref, id) 
                 return getDoc(docRef).then(async(doc) => setCredentials(doc.data()))
-               
-                
-                console.log(credentials)
             } catch{
                 return setCredentials(null);
             }

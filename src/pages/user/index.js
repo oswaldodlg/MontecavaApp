@@ -9,50 +9,41 @@ import { AccountProfileUserDetails } from 'src/components/customer/accountProfil
 import UserDocumentDrawer from 'src/components/customer/userDocumentDrawer';
 import UserDocumentDisplay from 'src/components/customer/userDocumentDisplay';
 import { useRouter } from 'next/router';
+import useGetStripeCustomer from 'src/hooks/useGetStripeCustomer';
 
 
 
 function Details() {
 
   const[currentDocView, setCurrentDocView] = useState(0)
-  const [docs, setDocs] = useState()
-
+  // const [customer, setCustomer] = useState()
+  // const [loading, setIsLoading] = useState(false)
  
  
   const {user, data} = useAuthContext()
 
-  console.log(user)
 
+  // useEffect(() => {
+  //   setIsLoading(true)
+  //   fetch("api/retrieve-stripe-customer", {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify({ 
+  //         items: { 
+  //             id: data.stripeCustomerId
+  //         }
+  //     }),
+  //   })
+  //     .then((res) => res.json())
+  //     .then(async(data) => {
+  //       await setCustomer(data.retrievedCustomer)
+  //     });
+  // }, [])
 
-  // const {details} = useCollectionUserDetail('users', user.uid)
-
+  // useEffect(() => {
+  //   console.log(customer)
+  // }, [customer, loading])
   
-//   useEffect(() => {
-//     {details && details.map((detail) => {
-//        setDocs(
-//          {
-//            docs: {
-//             'Declaraciones Mensuales': detail['Declaraciones Mensuales'],
-//             'Declaraciones Anuales': detail['Declaraciones Anuales'],
-//             'Comprobantes IMSS': detail['Comprobantes IMSS'],
-//             'Comprobantes AFORE': detail['Comprobantes AFORE'],
-//             'Comprobantes INFONAVIT': detail['Comprobantes INFONAVIT'],
-//             'Comprobantes Tesoreria': detail['Comprobantes Tesoreria'],
-//             'Estados Financieros': detail['Estados Financieros'],
-//             'Constancia Situación Fiscal': detail['Constancia Situación Fiscal'],
-//             'Opinion': detail['Opinion']
-//            },
-//            displayName: `${detail.firstName} ${detail.lastName}`,
-//            email: detail.email,
-//            phoneNumber: detail.phoneNumber,
-//            location: detail.location
-//          }
-//        )
-//     })}
-
-// }, [details])
-
-console.log(data)
 
 
   return (

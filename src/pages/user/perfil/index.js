@@ -20,7 +20,6 @@ function Account() {
   }
 
   const {user, data} = useAuthContext()
-  // const {details} = useCollectionUserDetail('users', user.uid)
 
 
   console.log(user)

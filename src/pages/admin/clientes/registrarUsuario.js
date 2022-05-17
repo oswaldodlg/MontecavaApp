@@ -64,7 +64,7 @@ const Register = () => {
     }),
     onSubmit: () => {
      
-        registerUser(formik.values.email, formik.values.password, formik.values.firstName, formik.values.lastName).then(router.push('/admin/clientes'))
+        registerUser(formik.values.email, formik.values.password, formik.values.firstName, formik.values.lastName).then(!error && router.push('/admin/clientes'))
       }
   });
 
