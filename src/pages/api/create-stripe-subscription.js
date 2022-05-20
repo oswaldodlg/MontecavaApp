@@ -14,7 +14,9 @@ const stripe = require("stripe")(process.env.NEXT_PUBLIC_STRIPE_SECRET);
         });
         console.log(subscription)
         res.send({
-            subscription
+            id: subscription.id,
+            amount: subscription.plan.amount,
+            active: subscription.plan.active
         });
     } catch (err) {
         res.status(err.statusCode || 500).json(err.message);
