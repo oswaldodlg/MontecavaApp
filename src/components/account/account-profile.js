@@ -82,7 +82,7 @@ export const AccountProfile = (props) => (
     </CardContent>
     <Divider />
     <CardActions style={{flexDirection: 'column', py: '3vh'}}>
-      <Grid fullWidth>
+      {/* <Grid fullWidth>
       <Button
         color="primary"
         fullWidth
@@ -90,7 +90,7 @@ export const AccountProfile = (props) => (
       >
         Subir Imagen
       </Button>
-      </Grid>
+      </Grid> */}
       <Grid fullWidth>
       <Button onClick={() => props.handleLogout()} variant='contained' color="primary">
         Cerrar Sesión

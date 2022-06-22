@@ -19,15 +19,20 @@ const Login = () => {
   const {login, error, isPending} = useLogin()
   const {authIsReady, user, data} = useAuthContext()
 
+  const router = useRouter();
+
   useEffect(() => {
     if (user && data && data.credentials==='admin')
     {router.push("/admin")} 
+    // else if (user && data && !data.subscriptionId){
+    //   router.push("/user/suscripcion")
+    // }
     else if (user && data && data.credentials==='user') {
-      router.push("/user")
-    }
+      data.subscriptionId ?  router.push("/user") : router.push("/user/suscripcion")
+    } 
   }, [user, data, router])
 
-  const router = useRouter();
+  
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -105,48 +110,8 @@ const Login = () => {
                   xs={12}
                   md={6}
                 >
-                  {/* <Button
-                    color="info"
-                    fullWidth
-                    startIcon={<FacebookIcon />}
-                    onClick={formik.handleSubmit}
-                    size="large"
-                    variant="contained"
-                  >
-                    Login with Facebook
-                  </Button>
-                </Grid>
-                <Grid
-                  item
-                  xs={12}
-                  md={6}
-                >
-                  <Button
-                    fullWidth
-                    color="error"
-                    startIcon={<GoogleIcon />}
-                    onClick={formik.handleSubmit}
-                    size="large"
-                    variant="contained"
-                  >
-                    Login with Google
-                  </Button> */}
                 </Grid>
               </Grid>
-              {/* <Box
-                sx={{
-                  pb: 1,
-                  pt: 3
-                }}
-              >
-                <Typography
-                  align="center"
-                  color="textSecondary"
-                  variant="body1"
-                >
-                  or login with email address
-                </Typography>
-              </Box> */}
               <TextField
                 error={Boolean(formik.touched.email && formik.errors.email)}
                 fullWidth
@@ -188,27 +153,6 @@ const Login = () => {
                   Iniciar Sesión
                 </Button>
               </Box>
-              {/* <Typography
-                color="textSecondary"
-                variant="body2"
-              >
-                Don&apos;t have an account?
-                {' '}
-                <NextLink
-                  href="/register"
-                >
-                  <Link
-                    to="/register"
-                    variant="subtitle2"
-                    underline="hover"
-                    sx={{
-                      cursor: 'pointer'
-                    }}
-                  >
-                    Sign Up
-                  </Link>
-                </NextLink>
-              </Typography> */}
             </form>
           </Container>
         </Box>

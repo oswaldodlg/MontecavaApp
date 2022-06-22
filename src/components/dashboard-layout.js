@@ -41,12 +41,12 @@ export const DashboardLayout = (props) => {
           </Box>
         </DashboardLayoutRoot>
         <DashboardNavbar onSidebarOpen={() => setSidebarOpen(true)} />
-        {data.credentials === 'admin' &&
+        {data && data.credentials === 'admin' && user &&
           <AdminDashboardSidebar
           onClose={() => setSidebarOpen(false)}
           open={isSidebarOpen}
         />}
-        {data.credentials === 'user' &&
+        {data && data.credentials === 'user' && user &&
           <UserDashboardSidebar
           onClose={() => setSidebarOpen(false)}
           open={isSidebarOpen}

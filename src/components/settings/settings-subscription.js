@@ -1,5 +1,5 @@
-import { useState, useEffect, useEffectLayout } from 'react';
-import { Box, Button, Card, CardContent, CardHeader, Divider, TextField, Typography, Grid, Alert} from '@mui/material';
+import { useState, useEffect } from 'react';
+import { Box, Button, Card, CardContent, CardHeader, Divider, TextField, Typography, Grid, Alert, List, ListItem, ListSubheader} from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import CurrencyFormat from 'react-currency-format';
 import {
@@ -42,18 +42,53 @@ const useStyles = makeStyles((theme) => ({
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC);
 
+const monthlyPlans = [
+  {
+    number: 1,
+    name: 'Principiante',
+    cost: 1450,
+    subscription_id: 'price_1LCvoRLONI3gdtL5Zxhjzm5b',
+    privileges: ['Contabilidad Fiscal', 'Declaraciones de Impuestos Mensuales', 'Envio de Comprobantes de Impuestos', 'Envio de Opinión de Cumplimiento de Obligaciones', '5 Folios para facturar']
+  },
+  {
+    number: 2,
+    name: 'Básico',
+    cost: 4060,
+    subscription_id: 'price_1LCvpPLONI3gdtL5mNPLbpP3',
+    privileges: ['Contabilidad Fiscal', 'Declaraciones de Impuestos Mensuales', 'Envio de Comprobantes de Impuestos', 'Envio de Opinión de Cumplimiento de Obligaciones', 'IMSS, Afore, INFONAVIT', 'Tesoreria de NL', 'Estados Financieros','10 Folios para facturar']
+  },
+  {
+    number: 3,
+    name: 'Intermedio',
+    cost: 6500,
+    subscription_id: 'price_1LCvs1LONI3gdtL5KZ0D8HQG',
+    privileges: ['Contabilidad Fiscal', 'Declaraciones de Impuestos Mensuales', 'Envio de Comprobantes de Impuestos', 'Envio de Opinión de Cumplimiento de Obligaciones', 'IMSS, Afore, INFONAVIT', 'Tesoreria de NL', 'Estados Financieros','Tableros de Control','25 Folios para facturar']
+  },
+  {
+    number: 4,
+    name: 'Avanzado',
+    cost: 8700,
+    subscription_id: 'price_1KwrmrLONI3gdtL5hCc4yDHb',
+    privileges: ['Contabilidad Fiscal', 'Declaraciones de Impuestos Mensuales', 'Envio de Comprobantes de Impuestos', 'Envio de Opinión de Cumplimiento de Obligaciones', 'IMSS, Afore, INFONAVIT', 'Tesoreria de NL', 'Estados Financieros','Tableros de Control','Presentación y explicación de los números en sala de juntas','35 Folios para facturar']
+  },
+  {
+    number: 5,
+    name: 'Premium',
+    cost: 19140,
+    subscription_id: 'price_1LCvueLONI3gdtL5MfF42ZH8',
+    privileges: ['Contabilidad Fiscal', 'Declaraciones de Impuestos Mensuales', 'Envio de Comprobantes de Impuestos', 'Envio de Opinión de Cumplimiento de Obligaciones', 'IMSS, Afore, INFONAVIT', 'Tesoreria de NL', 'Estados Financieros','Tableros de Control','Presentación y explicación de los números en sala de juntas', 'Consultoría','35 Folios para facturar',  ]
+  },
+]
+
+
+
 export const CheckoutForm = () => {
 
   const [clientSecret, setClientSecret] = useState()
   const [message, setMessage] = useState()
   const [isLoading, setIsLoading] = useState(false)
   const [paymentId, setPaymentId] = useState()
-  const [plan, setPlan] = useState({
-    number: 1,
-    name: 'Principiante',
-    cost: 250,
-    subscription_id: 'price_1KwrlRLONI3gdtL5ezfFVbC3'
-  })
+  const [plan, setPlan] = useState({})
 
   const {data} = useAuthContext()
 
@@ -106,9 +141,9 @@ export const CheckoutForm = () => {
           setIsLoading(false)
         });
     
-  }, [plan.cost])
+  }, [plan])
 
-  const classes= useStyles()
+
 
   const options = {
     // passing the client secret obtained from the server
@@ -124,75 +159,54 @@ export const CheckoutForm = () => {
         />
         <Divider />
         <CardContent>
-          <Grid container>
-          <Grid item md={6} rowSpacing={10}>
+          <Grid container sx={{justifyContent: 'center'}}>
+          <Grid item xs={10} md={6} rowSpacing={10}>
           <Typography sx={{textAlign: 'center',  fontWeight: 'bold'}}>Elige un plan</Typography>
-              <Grid container sx={{placeContent: 'center', py: 2}}>
-              <Grid item xs={12} md={5} className={plan.number === 1 ? classes.selected : classes.containerPlan } onClick={() => setPlan({
-                number: 1,
-                name: 'Principiante',
-                cost: 250,
-                subscription_id: 'price_1KwrlRLONI3gdtL5ezfFVbC3'
-              })}>
-                <Typography>Principante</Typography>
-                <Typography>$250.00 MXN</Typography>
-              </Grid>
-              <Grid item xs={12} md={5} className={plan.number === 2 ? classes.selected : classes.containerPlan } onClick={() => setPlan({
-                number: 2,
-                name: 'Básico',
-                cost: 350,
-                subscription_id: 'price_1KwrlwLONI3gdtL5JoDdfW35'
-              })}>
-                <Typography>Básico</Typography>
-                <Typography>$350.00 MXN</Typography>
-              </Grid>
-              <Grid item xs={12} md={5} className={plan.number === 3 ? classes.selected : classes.containerPlan } onClick={() => setPlan({
-                number: 3,
-                name: 'Intermedio',
-                cost: 450,
-                subscription_id: 'price_1KwrmNLONI3gdtL5bI0IUIqE'
-              })}>
-                <Typography>Intermedio</Typography>
-                <Typography>$450.00 MXN</Typography>
-              </Grid>
-              <Grid item xs={12} md={5} className={plan.number === 4 ? classes.selected : classes.containerPlan } onClick={() => setPlan({
-                number: 4,
-                name: 'Avanzado',
-                cost: 550,
-                subscription_id: 'price_1KwrmrLONI3gdtL5hCc4yDHb'
-              })}>
-                <Typography>Avanzado</Typography>
-                <Typography>$550.00 MXN</Typography>
-              </Grid>
-              <Grid item xs={12} md={5} className={plan.number === 5 ? classes.selected : classes.containerPlan }onClick={() => setPlan({
-                number: 5,
-                name: 'Premium',
-                cost: 650,
-                subscription_id: 'price_1KwrnDLONI3gdtL5nvGt5BT6'
-              })}>
-                <Typography>Premium</Typography>
-                <Typography>$650.00 MXN</Typography>
-              </Grid>
-              </Grid>
+            <Grid container sx={{placeContent: 'center', py: 2}}>
+              {monthlyPlans.map((monthlyPlan, index) => {
+                return(
+                  <PlanButton plan={monthlyPlan} key={index} setPlan={setPlan} />
+                )
+              })}
+            </Grid>
           </Grid>
+          {plan && plan.cost &&
           <Grid item md={6} >
-          <Typography sx={{textAlign: 'center', fontWeight: 'bold'}}>Elige tu forma de pago</Typography>
-          <Typography>Elegiste el plan: {plan.name}</Typography>
+          <Typography sx={{textAlign: 'center', fontWeight: 'bold'}}>Detalles</Typography>
+          <Typography >Elegiste el plan: <span style={{fontWeight: 'bold'}}>{plan.name} </span></Typography>
+          <List sx={{py: 2}}>
+          <ListSubheader >
+            <Typography sx={{fontWeight: 'bold', color: 'black'}}>Privilegios:</Typography>
+          </ListSubheader>
+          {plan && plan.privileges && plan.privileges.map((item, index) => {
+              return(
+                <ListItem key={index}>
+                  -{item}
+                </ListItem>
+              )
+            })}
+          </List>
+          </Grid>}
+          {plan && plan.cost &&
+          <Grid item xs={11} margin={'0 auto'}>
           <Typography>El importe a pagar es de:</Typography>
           <CurrencyFormat value={plan.cost} displayType={'text'} thousandSeparator={true} prefix={'$'} suffix={' MXN'} renderText={value => <Typography id="modal-modal-title" variant="h6" component="h2">{value}</Typography>} />
           <Grid item sx={{py: 2}}> 
-                    {clientSecret && 
+                    {clientSecret &&
                     <Elements stripe={stripePromise} options={options}>
                       <PaymentElement />
                       <ContinueButton isLoading={isLoading} setIsLoading={setIsLoading} setMessage={setMessage} />
                     </Elements>
                     }
           </Grid>
-             
           <Grid item>
               {message && <Alert severity="error">{message}</Alert>} 
           </Grid>
           </Grid>
+          }
+             
+          
+          
           </Grid>
           
         </CardContent>
@@ -204,13 +218,6 @@ export const CheckoutForm = () => {
             p: 2
           }}
         >
-          {/* <Button
-            color="primary"
-            variant="contained"
-            type='submit'
-          >
-            Enviar
-          </Button> */}
         </Box>
       </Card>
       
@@ -264,6 +271,23 @@ const ContinueButton = ({setIsLoading, isLoading, setMessage}) => {
       : <Button variant='contained' disabled>Procesando...</Button>
       }
     </Grid>
+    </Grid>
+  )
+}
+
+
+const PlanButton = ({plan, setPlan}) => {
+  const classes= useStyles()
+  return (
+    <Grid item xs={12} md={5} className={classes.containerPlan}  onClick={() => setPlan({
+      number: plan.number,
+      name: plan.name,
+      cost: plan.cost,
+      subscription_id: plan.subscription_id,
+      privileges: plan.privileges
+    })}>
+      <Typography>{plan.name}</Typography>
+      <CurrencyFormat value={plan.cost} displayType={'text'} thousandSeparator={true} prefix={'$'} suffix={' MXN'} renderText={value => <Typography id="modal-modal-title" variant="h6" component="h2">{value}</Typography>} />
     </Grid>
   )
 }

@@ -16,33 +16,16 @@ import useGetStripeCustomer from 'src/hooks/useGetStripeCustomer';
 function Details() {
 
   const[currentDocView, setCurrentDocView] = useState(0)
-  // const [customer, setCustomer] = useState()
-  // const [loading, setIsLoading] = useState(false)
  
- 
-  const {user, data} = useAuthContext()
+  const {user, data, authIsReady} = useAuthContext()
 
+  const router = useRouter()
 
   // useEffect(() => {
-  //   setIsLoading(true)
-  //   fetch("api/retrieve-stripe-customer", {
-  //       method: "POST",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify({ 
-  //         items: { 
-  //             id: data.stripeCustomerId
-  //         }
-  //     }),
-  //   })
-  //     .then((res) => res.json())
-  //     .then(async(data) => {
-  //       await setCustomer(data.retrievedCustomer)
-  //     });
+  //   if (router.pathname.startsWith("/user") && authIsReady && data && !data.subscriptionId){
+  //     router.push("/user/suscripcion")
+  //   }
   // }, [])
-
-  // useEffect(() => {
-  //   console.log(customer)
-  // }, [customer, loading])
   
 
 
@@ -53,6 +36,7 @@ function Details() {
         Home 
       </title>
     </Head>
+    
     <Box
       component="main"
       sx={{
@@ -108,6 +92,7 @@ function Details() {
       </Container>
       
     </Box>
+    
   </>
   )
 }

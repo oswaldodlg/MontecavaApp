@@ -3,8 +3,6 @@ import { auth } from "../firebase/config";
 import { onAuthStateChanged } from "firebase/auth";
 import { useGetRole } from "../hooks/useGetRole";
 import { useRouter } from "next/router"
-import { db } from '../firebase/config';
-import { collection, doc, setDoc, updateDoc} from 'firebase/firestore';
 
 export const AuthContext = createContext()
 
@@ -33,7 +31,7 @@ export const AuthContextProvider = ({ children } ) => {
 
     const {credentials} = useGetRole('users', userId)  
     
-    const route = useRouter()
+    const router = useRouter()
 
     useEffect(() => {
         const unsub= onAuthStateChanged(auth, (user) => {
@@ -49,7 +47,24 @@ export const AuthContextProvider = ({ children } ) => {
                
                 return unsub()
         })
-    }, [userId, credentials, state.user, route])
+    }, [userId, credentials, state.user, router])
+
+
+    // useEffect(() => {
+    //     if (state.user && state.data && state.data.credentials==='admin')
+    //     {router.push("/admin")} 
+    //     else if (state.user && state.data && state.data.credentials==='user') {
+    //         router.push("/user")
+    //     } 
+    //     else if (state.user && state.data && !state.data.subscriptionId){
+    //       router.push("/user/suscripcion")
+    //     }
+        
+    //     // else if (router.pathname.startsWith("/user") && data && !data.subscriptionId){
+    //     //     router.push("/user/suscripcion")
+    //     // } 
+    // }, [router])
+    
 
    
     useEffect(() => {
@@ -59,7 +74,8 @@ export const AuthContextProvider = ({ children } ) => {
    
     return (
         <AuthContext.Provider value={{ ...state, dispatch}}>
-            {children}
+        
+            {state.authIsReady && children}
         </AuthContext.Provider>
     )
 }

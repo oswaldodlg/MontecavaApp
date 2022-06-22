@@ -85,12 +85,12 @@ export const DashboardNavbar = (props) => {
             </IconButton>
           </Tooltip> */}
           <Box sx={{ flexGrow: 1 }} />
-          <Tooltip title="Clientes">
+          {/* <Tooltip title="Clientes">
             <IconButton sx={{ ml: 1 }}>
               <UsersIcon fontSize="small" />
             </IconButton>
-          </Tooltip>
-          <Tooltip title="Notificaciones">
+          </Tooltip> */}
+          {/* <Tooltip title="Notificaciones">
             <IconButton sx={{ ml: 1 }}>
               <Badge
                 badgeContent={4}
@@ -100,7 +100,7 @@ export const DashboardNavbar = (props) => {
                 <BellIcon fontSize="small" />
               </Badge>
             </IconButton>
-          </Tooltip>
+          </Tooltip> */}
           <Avatar
             {...stringAvatar(user.displayName)}
             sx={{
