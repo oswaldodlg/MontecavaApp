@@ -1,75 +1,78 @@
 import React, { useEffect, useState } from "react"
 import { useRouter } from "next/router"
 import { useAuthContext } from "src/hooks/useAuthContext"
-import Home from "src/pages"
+import { CircularProgress, Box, Grid } from "@mui/material"
 import Login from "src/pages/login"
-import { route } from "next/dist/server/router"
 
 const AuthRoute = ({ children }) => {
     const {authIsReady, user, data} = useAuthContext()
     const router = useRouter()
 
-    const [allowed, setAllowed] = useState(true)
+    const [allowed, setAllowed] = useState(false)
 
+    useEffect(() => {  
+     const routeProtection = async() => {
 
-    useEffect(() => {
-      if (!user && authIsReady)
-      {router.push("/login")}
-      
-      
-      const permission = async() => {
-      
-        if (user && authIsReady && router.pathname.startsWith("/admin") && data && data.credentials === "user"){
-          setAllowed(null)
-          await setAllowed(false)
-          return <></>
-          }
-          if (user && authIsReady && router.pathname.startsWith("/user") && data && data.credentials === "admin"){
-          await setAllowed(false)
-          return <></>
-          }
-       
+      if (!user && authIsReady){
+        await router.push("/login")
+        setAllowed(true)
       }
-    console.log(allowed)
-    return permission()
+
+      else if (user && authIsReady && data){
+        if (router.pathname.startsWith("/user") && data.credentials === "user" || router.pathname.startsWith("/admin") && data.credentials === "admin" ){
+          if (router.pathname.startsWith("/user/confirmacionPago")){
+            setAllowed(true)
+          } else {
+            data.credentials === "user" &&   data.subscriptionId ?  await router.push("/user") : await router.push("/user/suscripcion")
+            data.credentials === "admin" && await router.push("/admin")
+            setAllowed(true)
+          }
+        } 
+        else if(router.pathname.startsWith("/admin") && data.credentials === "user"){
+          !data.subscriptionId ? await router.push("/user/suscripcion") : await router.push("/user")
+          setAllowed(true)
+        } else if(router.pathname.startsWith("/user") && data.credentials === "admin"){
+          await router.push("/admin")
+          setAllowed(true)
+        } 
+        else if (router.pathname.startsWith("/user") && data.credentials === "user" && !data.subscriptionId){
+          await router.push("/user/suscripcion")
+          setAllowed(true)
+        } 
+        else if (router.pathname.startsWith("/login")){
+          data.credentials === "user" &&   data.subscriptionId ?  await router.push("/user") : await router.push("/user/suscripcion")
+          data.credentials === "admin" && await router.push("/admin")
+          setAllowed(true)
+        }
+      }
+    }
      
-    }, [user, authIsReady, data])
+    return routeProtection()
+
+      
+  }, [user, authIsReady, data])
 
 
-    // useEffect(() => {
-
-    //   const setCredentials = async() => {
-    //     if (router.pathname.startsWith("/admin") && credentials !== "admin"){
-    //       await router.replace("/user");
-    //       return;
-    //     }
-    //     if (router.pathname.startsWith("/user") && credentials !== "user"){
-    //         await router.replace("/admin");
-    //         return;
-    //     }
-    // }  
-    
+  useEffect(() => {
+    console.log(allowed)
+  }, [allowed])
   
-    // }, [credentials])
-    
-    
   
-  if (user && authIsReady && data && data.credentials ==='admin') {
-    return <>{!allowed ? <Home allowed= {allowed} setAllowed={setAllowed}/>  : children}</>
-  } else if (user && authIsReady && data && data.credentials ==='user'){
-      return <>{!allowed ? <Home allowed= {allowed} setAllowed={setAllowed}/>  : children}</> 
-  }
-  else if(!authIsReady && data && data.credentials === null){
-    return <></>
+
+  if (user && authIsReady && data && allowed) {
+    return children
   } 
-  else if(allowed === null || allowed === false){
-    return <></>
-  }
-  else if(!user && authIsReady && (router.pathname.startsWith("/login") || router.pathname.startsWith("/"))) {
+  else if (!user && authIsReady && allowed){
     return <Login />
   }
-  else{
-    return <></>
+  else {
+    return (
+    <Box sx={{minHeight: '100vh', alignItems: 'center', justifyContent: 'center', alignItems: 'center'}} >
+    <Grid container sx={{minHeight: '100vh', paddingY: '15vh', alignItems: 'center', justifyContent: 'center', backgroundColor: 'neutral.900', color: 'white', textAlign: 'center'}}>
+    <CircularProgress size={50} color='inherit'/> 
+    </Grid>
+    </Box>
+    )
   }
 
 }

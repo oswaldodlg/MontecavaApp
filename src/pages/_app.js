@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { CacheProvider } from '@emotion/react';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import React, { useEffect } from 'react'
+import React from 'react'
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import { CssBaseline } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
@@ -10,6 +10,7 @@ import { theme } from '../theme';
 
 import { AuthContextProvider } from '../context/AuthContext';
 import AuthRoute from 'src/HOC/authRoute';
+
 
 
 
@@ -40,6 +41,7 @@ function App (props)  {
         <ThemeProvider theme={theme}>
           <CssBaseline />
           
+          {/* <RouteProtection props={props} /> */}
           <AuthRoute>
           {getLayout(<Component {...pageProps} />)}
           </AuthRoute>

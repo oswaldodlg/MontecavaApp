@@ -154,7 +154,7 @@ export const CheckoutForm = () => {
     <form>
          <Card>
         <CardHeader
-          subheader="Actualiza tu plan de suscripción"
+          subheader="¡Bienvenido! Para empezar a utilizar la aplicación debes elegir un plan"
           title="Suscripción"
         />
         <Divider />

@@ -92,14 +92,14 @@ export default function ConfirmacionPago() {
 
   return (
     <Box>
-      <Grid container sx={{minHeight: '100vh', paddingY: '15vh', alignItems: 'center', justifyContent: 'center', backgroundColor: theme.palette.secondary.main, color: 'white', textAlign: 'center'}}>
+      <Grid container sx={{minHeight: '100vh', paddingY: '15vh', alignItems: 'center', justifyContent: 'center', backgroundColor: 'neutral.900', color: 'white', textAlign: 'center'}}>
       <Typography variant="h3">
       {message ? 
       <>
         <Typography variant="h3">{message}</Typography>
-        <Link href={'/user'}><Button variant='contained'>Volver</Button></Link>
+        <Link href={'/user'}><Button variant='contained'>Ir a Dashboard</Button></Link>
       </>
-      : <CircularProgress color='primary' />}
+      : <CircularProgress color='inherit' />}
       {data && data.status === 'succeeded' && <Typography>Tu Plan: {data.metadata.plan} </Typography>}
       {data && data.amount && <Typography>Monto: {data.amount/100} </Typography>}
       </Typography>

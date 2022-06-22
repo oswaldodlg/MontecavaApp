@@ -37,9 +37,9 @@ function Settings() {
         {/* <SettingsNotifications /> */}
         <Box sx={{ pt: 3 }}>
           <Grid container>
-          <Grid item xs={12} md={12} padding={2}>
+            {/* <Grid item xs={12} md={12} padding={2}>
               <CheckoutForm />
-            </Grid>
+            </Grid> */}
             <Grid item xs={12} md={12} padding={2}>
               <SettingsPassword />
             </Grid>

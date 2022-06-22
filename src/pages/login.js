@@ -1,6 +1,5 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import Head from 'next/head';
-import NextLink from 'next/link';
 import NextImage from 'next/image'
 import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
@@ -10,27 +9,23 @@ import { useLogin } from '../hooks/useLogin';
 
 import Logo from '../../assets/img/MontecavaLogo.png';
 
-import { withPublic } from '../hooks/useRoutes';
 import { useAuthContext } from 'src/hooks/useAuthContext';
 
 const Login = () => {
 
-  const [isVisible, setIsVisible] = useState(false)
   const {login, error, isPending} = useLogin()
   const {authIsReady, user, data} = useAuthContext()
 
   const router = useRouter();
 
   useEffect(() => {
-    if (user && data && data.credentials==='admin')
-    {router.push("/admin")} 
-    // else if (user && data && !data.subscriptionId){
-    //   router.push("/user/suscripcion")
-    // }
-    else if (user && data && data.credentials==='user') {
+    if (user && authIsReady && data && data.credentials==='admin'){
+      router.push("/admin")
+    } 
+    else if (user && authIsReady && data && data.credentials==='user') {
       data.subscriptionId ?  router.push("/user") : router.push("/user/suscripcion")
     } 
-  }, [user, data, router])
+  }, [user, data])
 
   
   const formik = useFormik({

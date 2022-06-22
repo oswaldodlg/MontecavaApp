@@ -29,7 +29,7 @@ export const useGetData = (c, id) => {
         }        
 
         console.log(data)
-        return getRole()
+        return getData()
     }, [c, id])
 
     useEffect(() => {

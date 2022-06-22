@@ -47,25 +47,7 @@ export const AuthContextProvider = ({ children } ) => {
                
                 return unsub()
         })
-    }, [userId, credentials, state.user, router])
-
-
-    // useEffect(() => {
-    //     if (state.user && state.data && state.data.credentials==='admin')
-    //     {router.push("/admin")} 
-    //     else if (state.user && state.data && state.data.credentials==='user') {
-    //         router.push("/user")
-    //     } 
-    //     else if (state.user && state.data && !state.data.subscriptionId){
-    //       router.push("/user/suscripcion")
-    //     }
-        
-    //     // else if (router.pathname.startsWith("/user") && data && !data.subscriptionId){
-    //     //     router.push("/user/suscripcion")
-    //     // } 
-    // }, [router])
-    
-
+    }, [userId, credentials, state.user])
    
     useEffect(() => {
         console.log('AuthContext state:', state)

@@ -2,7 +2,6 @@ import { signOut } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { auth } from "../firebase/config";
 import { useAuthContext } from "./useAuthContext";
-import { useGetRole } from "./useGetRole";
 
 export const useLogout = () => {
     const [isCancelled, setIsCancelled] = useState(false)
@@ -10,7 +9,6 @@ export const useLogout = () => {
     const [isPending, setIsPending] = useState(false)
     const { dispatch } = useAuthContext()
 
-    const {credentials, setCredentials} = useGetRole()
 
     const logout = async () => {
         setError(null)

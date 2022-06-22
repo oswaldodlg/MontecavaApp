@@ -21,7 +21,10 @@ export const useGetRole = (c, id) => {
                 console.log(c, id)
                 let ref = collection(db, c)
                 let docRef = doc(ref, id) 
-                return getDoc(docRef).then(async(doc) => setCredentials(doc.data()))
+                onSnapshot(docRef, (doc) => {
+                    setCredentials(doc.data()) 
+                })
+               
             } catch{
                 return setCredentials(null);
             }
