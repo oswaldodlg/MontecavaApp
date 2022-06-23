@@ -10,6 +10,8 @@ import UserDocumentDrawer from 'src/components/customer/userDocumentDrawer';
 import UserDocumentDisplay from 'src/components/customer/userDocumentDisplay';
 import { useRouter } from 'next/router';
 import useGetStripeCustomer from 'src/hooks/useGetStripeCustomer';
+import useGetSubscriptionData from 'src/hooks/useGetSubscriptionData';
+import { SubscriptionDetails } from 'src/components/customer/subscriptionDetails';
 
 
 
@@ -17,15 +19,18 @@ function Details() {
 
   const[currentDocView, setCurrentDocView] = useState(0)
  
-  const {user, data, authIsReady} = useAuthContext()
+  const {user, data} = useAuthContext()
 
-  const router = useRouter()
+  const {retrieveSubscriptionData, subscriptionData} = useGetSubscriptionData()
 
-  // useEffect(() => {
-  //   if (router.pathname.startsWith("/user") && authIsReady && data && !data.subscriptionId){
-  //     router.push("/user/suscripcion")
-  //   }
-  // }, [])
+
+  useEffect(() => {
+    data && retrieveSubscriptionData(data.subscriptionId)
+  }, [data])
+
+  useEffect(() => {
+    console.log(subscriptionData)
+  }, [subscriptionData])
   
 
 
@@ -36,7 +41,7 @@ function Details() {
         Home 
       </title>
     </Head>
-    
+    {data && user && subscriptionData &&
     <Box
       component="main"
       sx={{
@@ -62,7 +67,7 @@ function Details() {
             md={6}
             xs={12}
           >
-            {data && <AccountProfileUser data={user}/>}
+          <AccountProfileUser data={user}/>
           </Grid>
           <Grid
             item
@@ -70,7 +75,8 @@ function Details() {
             md={6}
             xs={12}
           >
-           { data && <AccountProfileUserDetails data={data} credentials={data.credentials} />}
+           <SubscriptionDetails data={subscriptionData}/>
+           {/* <AccountProfileUserDetails data={data} credentials={data.credentials} /> */}
           </Grid>
           <Grid
             item
@@ -86,13 +92,13 @@ function Details() {
             md={6}
             xs={12}
           >
-           { user.uid && <UserDocumentDisplay currentDocView={currentDocView} id={user.uid} data={data.Documentos} credentials={data.credentials}/>}
+          {subscriptionData.isActive && <UserDocumentDisplay currentDocView={currentDocView} id={user.uid} data={data.Documentos} credentials={data.credentials}/>}
           </Grid>
         </Grid>
       </Container>
       
     </Box>
-    
+    }
   </>
   )
 }

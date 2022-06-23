@@ -1,9 +1,8 @@
 import {useState, useEffect} from 'react';
 import { db } from '../firebase/config';
-import { auth } from "../firebase/config";
 
 //firebase Imports
-import {collection, doc, getDoc, onSnapshot} from 'firebase/firestore'
+import {collection, doc, onSnapshot} from 'firebase/firestore'
 import { useRouter } from 'next/router';
 
 export const useGetRole = (c, id) => {
