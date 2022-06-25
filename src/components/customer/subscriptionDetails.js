@@ -27,7 +27,7 @@ export const SubscriptionDetails = ({data}) => {
     <>
       <Card sx={{minHeight: '33vh'}}>
         <CardHeader
-         subheader={data.subscriptionData.name}
+         subheader={data.subscriptionData.term ? data.subscriptionData.name + ' ' + data.subscriptionData.term : data.subscriptionData.name  }
          title="Suscripción"
          avatar =  {data.isActive ? <Chip label="Activa" color="success"/> : <Chip label="Inactiva" color="error" /> } 
        />

@@ -3,13 +3,9 @@ import Head from 'next/head';
 import { Box, Container, Grid, Typography, Button, CircularProgress} from '@mui/material';
 import { DashboardLayout } from '../../components/dashboard-layout';
 import { useAuthContext } from 'src/hooks/useAuthContext';
-import { useCollectionUserDetail } from 'src/hooks/useCollectionUserDetail';
 import { AccountProfileUser } from 'src/components/customer/accountProfileUser';
-import { AccountProfileUserDetails } from 'src/components/customer/accountProfileUserDetails';
 import UserDocumentDrawer from 'src/components/customer/userDocumentDrawer';
 import UserDocumentDisplay from 'src/components/customer/userDocumentDisplay';
-import { useRouter } from 'next/router';
-import useGetStripeCustomer from 'src/hooks/useGetStripeCustomer';
 import useGetSubscriptionData from 'src/hooks/useGetSubscriptionData';
 import { SubscriptionDetails } from 'src/components/customer/subscriptionDetails';
 

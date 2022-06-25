@@ -49,12 +49,14 @@ const monthlyPlans = [
     number: 1,
     name: 'Principiante',
     cost: 1450,
+    term: 'Mensual',
     subscription_id: 'price_1LCvoRLONI3gdtL5Zxhjzm5b',
     privileges: ['Contabilidad Fiscal', 'Declaraciones de Impuestos Mensuales', 'Envio de Comprobantes de Impuestos', 'Envio de Opinión de Cumplimiento de Obligaciones', '5 Folios para facturar']
   },
   {
     number: 2,
     name: 'Básico',
+    term: 'Mensual',
     cost: 4060,
     subscription_id: 'price_1LCvpPLONI3gdtL5mNPLbpP3',
     privileges: ['Contabilidad Fiscal', 'Declaraciones de Impuestos Mensuales', 'Envio de Comprobantes de Impuestos', 'Envio de Opinión de Cumplimiento de Obligaciones', 'IMSS, Afore, INFONAVIT', 'Tesoreria de NL', 'Estados Financieros','10 Folios para facturar']
@@ -62,6 +64,7 @@ const monthlyPlans = [
   {
     number: 3,
     name: 'Intermedio',
+    term: 'Mensual',
     cost: 6500,
     subscription_id: 'price_1LCvs1LONI3gdtL5KZ0D8HQG',
     privileges: ['Contabilidad Fiscal', 'Declaraciones de Impuestos Mensuales', 'Envio de Comprobantes de Impuestos', 'Envio de Opinión de Cumplimiento de Obligaciones', 'IMSS, Afore, INFONAVIT', 'Tesoreria de NL', 'Estados Financieros','Tableros de Control','25 Folios para facturar']
@@ -69,6 +72,7 @@ const monthlyPlans = [
   {
     number: 4,
     name: 'Avanzado',
+    term: 'Mensual',
     cost: 8700,
     subscription_id: 'price_1KwrmrLONI3gdtL5hCc4yDHb',
     privileges: ['Contabilidad Fiscal', 'Declaraciones de Impuestos Mensuales', 'Envio de Comprobantes de Impuestos', 'Envio de Opinión de Cumplimiento de Obligaciones', 'IMSS, Afore, INFONAVIT', 'Tesoreria de NL', 'Estados Financieros','Tableros de Control','Presentación y explicación de los números en sala de juntas','35 Folios para facturar']
@@ -76,9 +80,32 @@ const monthlyPlans = [
   {
     number: 5,
     name: 'Premium',
+    term: 'Mensual',
     cost: 19140,
     subscription_id: 'price_1LCvueLONI3gdtL5MfF42ZH8',
     privileges: ['Contabilidad Fiscal', 'Declaraciones de Impuestos Mensuales', 'Envio de Comprobantes de Impuestos', 'Envio de Opinión de Cumplimiento de Obligaciones', 'IMSS, Afore, INFONAVIT', 'Tesoreria de NL', 'Estados Financieros','Tableros de Control','Presentación y explicación de los números en sala de juntas', 'Consultoría','35 Folios para facturar',  ]
+  },
+]
+
+const bimestralPlans = [
+  {
+    number: 1,
+    name: 'Básico',
+    term: 'Bimestral',
+    cost: 1740,
+    subscription_id: 'price_1LEbyPLONI3gdtL5q23WwwNi',
+    privileges: ['Contabilidad Fiscal', 'Declaraciones de Impuestos Bimestral', 'Envio de Comprobantes de Impuestos', 'Envio de Opinión de Cumplimiento de Obligaciones', 'IMSS, Afore, INFONAVIT', 'Tesoreria de NL', 'Estados Financieros','10 Folios para facturar']
+  },
+]
+
+const anualPlans = [
+  {
+    number: 1,
+    name: 'Anual',
+    term: 'Anual',
+    cost: 812,
+    subscription_id: 'price_1LEbzILONI3gdtL5AfnCnyyK',
+    privileges: ['Declaración Anual']
   },
 ]
 
@@ -89,6 +116,7 @@ export const CheckoutForm = () => {
   const [clientSecret, setClientSecret] = useState()
   const [message, setMessage] = useState()
   const [isLoading, setIsLoading] = useState(false)
+  const [term, setTerm] = useState('monthly')
   const [paymentId, setPaymentId] = useState()
   const [plan, setPlan] = useState({})
 
@@ -164,10 +192,26 @@ export const CheckoutForm = () => {
           <Grid container sx={{justifyContent: 'center'}}>
           <Grid item xs={10} md={6} rowSpacing={10}>
           <Typography sx={{textAlign: 'center',  fontWeight: 'bold'}}>Elige un plan</Typography>
+            <Grid item py={2}>
+                <Button onClick={() => setTerm('monthly')} color='info'>Mensual</Button>
+                <Button onClick={() => setTerm('bimestral')}  color='info'>Bimestral</Button>
+                <Button onClick={() => setTerm('anual')}  color='info'>Anual</Button>
+              </Grid>
             <Grid container sx={{placeContent: 'center', py: 2}}>
-              {monthlyPlans.map((monthlyPlan, index) => {
+              
+              {term === 'monthly' && monthlyPlans.map((monthlyPlan, index) => {
                 return(
                   <PlanButton plan={monthlyPlan} key={index} setPlan={setPlan} />
+                )
+              })}
+              {term === 'bimestral' && bimestralPlans.map((bimestralPlan, index) => {
+                return(
+                  <PlanButton plan={bimestralPlan} key={index} setPlan={setPlan} />
+                )
+              })}
+              {term === 'anual' && anualPlans.map((anualPlan, index) => {
+                return(
+                  <PlanButton plan={anualPlan} key={index} setPlan={setPlan} />
                 )
               })}
             </Grid>
@@ -176,6 +220,7 @@ export const CheckoutForm = () => {
           <Grid item md={6} >
           <Typography sx={{textAlign: 'center', fontWeight: 'bold'}}>Detalles</Typography>
           <Typography >Elegiste el plan: <span style={{fontWeight: 'bold'}}>{plan.name} </span></Typography>
+          <Typography >Facturación: <span style={{fontWeight: 'bold'}}>{plan.term} </span></Typography>
           <List sx={{py: 2}}>
           <ListSubheader >
             <Typography sx={{fontWeight: 'bold', color: 'black'}}>Privilegios:</Typography>
@@ -285,6 +330,7 @@ const PlanButton = ({plan, setPlan}) => {
       number: plan.number,
       name: plan.name,
       cost: plan.cost,
+      term: plan.term,
       subscription_id: plan.subscription_id,
       privileges: plan.privileges
     })}>
