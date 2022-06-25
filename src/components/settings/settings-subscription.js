@@ -12,6 +12,8 @@ import {
 import { loadStripe } from '@stripe/stripe-js';
 import { useAuthContext } from 'src/hooks/useAuthContext';
 
+const env = process.env.NODE_ENV
+
 
 const useStyles = makeStyles((theme) => ({
   containerPlan: {
@@ -244,7 +246,7 @@ const ContinueButton = ({setIsLoading, isLoading, setMessage}) => {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: 'http://localhost:3000/user/confirmacionPago'
+        return_url: env === 'development' ? 'http://localhost:3000/user/confirmacionPago' : 'https://montecavaapp.netlify.app/user/confirmacionPago',
       },
     });
 

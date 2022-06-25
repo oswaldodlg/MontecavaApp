@@ -45,7 +45,7 @@ export const SubscriptionDetails = ({data}) => {
                     id="panel1a-header"
                     
                     >
-                    <Typography>Privilegios</Typography>
+                    <Typography>Beneficios</Typography>
                     </AccordionSummary>
                     <AccordionDetails >
                     {privileges.map((privilege, index) => {

@@ -72,10 +72,10 @@ export default function ConfirmacionPago() {
         .then((res) => res.json())
         .then(async(data) => {
         await setSubscription(data)
-        setMessage("Tu forma de pago es válida")  
+        setMessage("Tu membresia ha sido activada")  
       });
       } else {
-        setMessage("Tu membresia ha sido activada")
+        setMessage("Tu membresia no ha podido ser activada")
       }
       
    

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Head from 'next/head';
-import { Box, Container, Grid, Typography, Button} from '@mui/material';
+import { Box, Container, Grid, Typography, Button, CircularProgress} from '@mui/material';
 import { DashboardLayout } from '../../components/dashboard-layout';
 import { useAuthContext } from 'src/hooks/useAuthContext';
 import { useCollectionUserDetail } from 'src/hooks/useCollectionUserDetail';
@@ -41,7 +41,7 @@ function Details() {
         Home 
       </title>
     </Head>
-    {data && user && subscriptionData &&
+    
     <Box
       component="main"
       sx={{
@@ -50,6 +50,9 @@ function Details() {
         
       }}
     >
+
+
+      {data && user && subscriptionData ?
       <Container maxWidth="lg">
         <Typography
           sx={{ mb: 3 }}
@@ -76,7 +79,6 @@ function Details() {
             xs={12}
           >
            <SubscriptionDetails data={subscriptionData}/>
-           {/* <AccountProfileUserDetails data={data} credentials={data.credentials} /> */}
           </Grid>
           <Grid
             item
@@ -96,9 +98,13 @@ function Details() {
           </Grid>
         </Grid>
       </Container>
-      
+     : 
+     <Grid container  sx={{justifyContent: 'center', alignItems: 'center', height: '70vh'}}>
+     <CircularProgress sx={{margin: '0 auto'}}/>
+    </Grid>
+     } 
     </Box>
-    }
+    
   </>
   )
 }
