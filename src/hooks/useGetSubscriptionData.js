@@ -2,10 +2,11 @@ import React, {useState, useEffect} from 'react';
 import { useAuthContext } from './useAuthContext';
 
 export default function useGetSubscriptionData() {
-    const [subscriptionData, setSubscriptionData] = useState()
+    const [subscriptionData, setSubscriptionData] = useState(null)
     const [loading, setIsLoading] = useState(false)
 
-    const retrieveSubscriptionData = async(subscriptionId) => {
+    const retrieveSubscriptionData = (subscriptionId) => {
+        console.log(subscriptionId)
         setIsLoading(true)
         fetch("api/retrieve-subscription", {
             method: "POST",
@@ -16,12 +17,8 @@ export default function useGetSubscriptionData() {
               }
           }),
         })
-          .then((res) => res.json())
-          .then((data) => {
-          setSubscriptionData(data)
-          console.log(data)
-          setIsLoading(false)
-        });
+          .then((res) =>  res.json())
+          .then((data) => setSubscriptionData(data));
     }
 
     return {retrieveSubscriptionData, subscriptionData, loading}

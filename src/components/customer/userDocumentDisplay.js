@@ -140,66 +140,85 @@ export default function UserDocumentDisplay({currentDocView, id, data, credentia
                 minHeight: '40vh'
               }}
             >
-              {currentDocView === 0 && 
+              {currentDocView === 'mensuales' && 
               <DocViewComponent 
               name='Mensuales'
               carpet = 'Declaraciones' 
               id={id} 
               data={data.Declaraciones && data.Declaraciones.Mensuales}
               credentials={credentials} />}
-              {currentDocView === 1 && 
+              {currentDocView === 'anuales' && 
               <DocViewComponent
               carpet = 'Declaraciones'  
               name='Anuales' 
               id={id} 
               data={data.Declaraciones && data.Declaraciones.Anuales}
               credentials={credentials}/>}
-              {currentDocView === 2 && 
+               {currentDocView === 'bimestrales' && 
+              <DocViewComponent
+              carpet = 'Declaraciones'  
+              name='Bimestrales' 
+              id={id} 
+              data={data.Declaraciones && data.Declaraciones.Anuales}
+              credentials={credentials}/>}
+              {currentDocView === 'imss' && 
               <DocViewComponent
               carpet = 'Comprobantes'  
               name='IMSS' 
               id={id} 
               data={data.Comprobantes && data.Comprobantes.IMSS}
               credentials={credentials}/>}
-              {currentDocView === 3 && 
+              {currentDocView === 'afore' && 
               <DocViewComponent 
               carpet = 'Comprobantes' 
               name='AFORE' 
               id={id} 
               data={data.Comprobantes && data.Comprobantes.AFORE}
               credentials={credentials}/>}
-              {currentDocView === 4 && 
+              {currentDocView === 'infonavit' && 
               <DocViewComponent 
               carpet = 'Comprobantes' 
               name='INFONAVIT' 
               id={id} 
               data={data.Comprobantes && data.Comprobantes.INFONAVIT}
               credentials={credentials}/>}
-              {currentDocView === 5 && 
+              {currentDocView === 'tesoreria' && 
               <DocViewComponent 
               carpet = 'Comprobantes' 
               name='Tesoreria' 
               id={id} 
               data={data.Comprobantes && data.Comprobantes.Tesoreria}
               credentials={credentials}/>}
-              {currentDocView === 6 && 
+              {currentDocView === 'estadosFinancieros' && 
               <DocViewComponent 
               name='Estados Financieros' 
               id={id} 
               data={data['Estados Financieros'] && data['Estados Financieros']}
               credentials={credentials}/>}
-              {currentDocView === 7 && 
+              {currentDocView === 'constanciaSitFiscal' && 
               <DocViewComponent 
               name='Constancia' 
               id={id} 
               data={data.Constancia && data.Constancia}
               credentials={credentials}/>}
-              {currentDocView === 8 && 
+              {currentDocView === 'opinion' && 
               <DocViewComponent 
               name='Opinión' 
               id={id} 
               data={data.Opinion}
-              credentials={credentials}/>}                
+              credentials={credentials}/>} 
+               {currentDocView === 'tablerosControl' && 
+              <DocViewComponent 
+              name='Tableros de Control' 
+              id={id} 
+              data={data.Opinion}
+              credentials={credentials}/>}
+               {currentDocView === 'videoRetro' && 
+              <DocViewComponent 
+              name='Video de Retroalimentación' 
+              id={id} 
+              data={data.Opinion}
+              credentials={credentials}/>}                         
             </Box>
         </CardContent>
     </Card>

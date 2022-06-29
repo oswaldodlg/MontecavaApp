@@ -21,7 +21,9 @@ function Details() {
 
 
   useEffect(() => {
+    
     data && retrieveSubscriptionData(data.subscriptionId)
+
   }, [data])
 
   useEffect(() => {
@@ -82,7 +84,7 @@ function Details() {
             md={6}
             xs={12}
           >
-           <UserDocumentDrawer setCurrentDocView={setCurrentDocView}/>
+           <UserDocumentDrawer setCurrentDocView={setCurrentDocView} subscription={subscriptionData}/>
           </Grid>
           <Grid
             item
@@ -90,7 +92,7 @@ function Details() {
             md={6}
             xs={12}
           >
-          {subscriptionData.isActive && <UserDocumentDisplay currentDocView={currentDocView} id={user.uid} data={data.Documentos} credentials={data.credentials}/>}
+          {subscriptionData.isActive ? <UserDocumentDisplay currentDocView={currentDocView} id={user.uid} data={data.Documentos} credentials={data.credentials}/> : <Typography>Tu membresia no está activa</Typography>}
           </Grid>
         </Grid>
       </Container>

@@ -2,7 +2,7 @@ import { Box, Card, CardContent } from '@mui/material';
 import IconExpansionTreeView from './treeItemsDrawer';
 import React from 'react';
 
-export default function UserDocumentDrawer({setCurrentDocView}) {
+export default function UserDocumentDrawer({setCurrentDocView, subscription}) {
   return (
       
     <Card>
@@ -15,7 +15,7 @@ export default function UserDocumentDrawer({setCurrentDocView}) {
                 minHeight: '40vh'
               }}
             >
-                <IconExpansionTreeView setCurrentDocView={setCurrentDocView}/>
+                <IconExpansionTreeView setCurrentDocView={setCurrentDocView} subscription={subscription}/>
             </Box>
         </CardContent>
     </Card>

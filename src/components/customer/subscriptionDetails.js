@@ -21,13 +21,11 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 export const SubscriptionDetails = ({data}) => {
 
   let privileges = data.subscriptionData.privileges.split(',')
-  
-
   return (
     <>
       <Card sx={{minHeight: '33vh'}}>
         <CardHeader
-         subheader={data.subscriptionData.term ? data.subscriptionData.name + ' ' + data.subscriptionData.term : data.subscriptionData.name  }
+         subheader={data.subscriptionData.term ? 'Plan ' + data.subscriptionData.name + ' ' + data.subscriptionData.term : 'Plan ' + data.subscriptionData.name  }
          title="Suscripción"
          avatar =  {data.isActive ? <Chip label="Activa" color="success"/> : <Chip label="Inactiva" color="error" /> } 
        />

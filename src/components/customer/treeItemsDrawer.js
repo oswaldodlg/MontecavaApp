@@ -1,167 +1,96 @@
-import * as React from 'react';
-import PropTypes from 'prop-types';
+import React, {useState, useEffect} from 'react';
 import TreeView from '@mui/lab/TreeView';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import TreeItem, { useTreeItem } from '@mui/lab/TreeItem';
-import clsx from 'clsx';
-import Typography from '@mui/material/Typography';
 
-const CustomContent = React.forwardRef(function CustomContent(props, ref) {
-  const {
-    classes,
-    className,
-    label,
-    nodeId,
-    icon: iconProp,
-    expansionIcon,
-    displayIcon,
-  } = props;
 
-  const {
-    disabled,
-    expanded,
-    selected,
-    focused,
-    handleExpansion,
-    handleSelection,
-    preventSelection,
-  } = useTreeItem(nodeId);
 
-  const icon = iconProp || expansionIcon || displayIcon;
+export default function IconExpansionTreeView({setCurrentDocView, subscription}) {
 
-  const handleMouseDown = (event) => {
-    preventSelection(event);
-  };
+  const [sub, setSub] = useState(null)
 
-  const handleExpansionClick = (event) => {
-    handleExpansion(event);
-  };
-
-  const handleSelectionClick = (event) => {
-    handleSelection(event);
-    
-  };
-  
-
-  
+  useEffect(() => {
+    setSub(subscription.subscriptionData)
+  }, [subscription])
 
   return (
-    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-    <div
-      className={clsx(className, classes.root, {
-        [classes.expanded]: expanded,
-        [classes.selected]: selected,
-        [classes.focused]: focused,
-        [classes.disabled]: disabled,
-      })}
-      onMouseDown={handleMouseDown}
-      ref={ref}
-    >
-      {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-      <div onClick={handleExpansionClick} className={classes.iconContainer}>
-        {icon}
-      </div>
-      <Typography
-        onClick={handleSelectionClick}
-        component="div"
-        className={classes.label}
-      >
-        {label}
-      </Typography>
-    </div>
-  );
-});
-
-CustomContent.propTypes = {
-  /**
-   * Override or extend the styles applied to the component.
-   */
-  classes: PropTypes.object.isRequired,
-  /**
-   * className applied to the root element.
-   */
-  className: PropTypes.string,
-  /**
-   * The icon to display next to the tree node's label. Either a parent or end icon.
-   */
-  displayIcon: PropTypes.node,
-  /**
-   * The icon to display next to the tree node's label. Either an expansion or collapse icon.
-   */
-  expansionIcon: PropTypes.node,
-  /**
-   * The icon to display next to the tree node's label.
-   */
-  icon: PropTypes.node,
-  /**
-   * The tree node label.
-   */
-  label: PropTypes.node,
-  /**
-   * The id of the node.
-   */
-  nodeId: PropTypes.string.isRequired,
-};
-
-const CustomTreeItem = (props) => (
-  <TreeItem ContentComponent={CustomContent} {...props} />
-);
-
-export default function IconExpansionTreeView({setCurrentDocView}) {
-
-  
-  return (
+    <>
+    {sub &&
     <TreeView
       aria-label="icon expansion"
       defaultCollapseIcon={<ExpandMoreIcon />}
       defaultExpandIcon={<ChevronRightIcon />}
-      sx={{ height: 240, flexGrow: 1, maxWidth: 400, 
+      sx={{ minHeight: 240, flexGrow: 1, maxWidth: 400, 
         //overflowY: 'auto' 
         }}
+      onNodeSelect={(e, node) => {
+        setCurrentDocView(node)
+      }}
     >
+   
       <TreeItem 
       nodeId="1" 
       label="Declaraciones">
         <TreeItem 
-        nodeId="2" 
-        label="Mensuales" 
-        onClick={() => setCurrentDocView(0)}/>
+        nodeId="mensuales" 
+        label="Mensuales"
+        disabled= {sub.term === 'Bimestral'} 
+        />
         <TreeItem 
-        nodeId="3" 
-        label="Anuales" 
-        onClick={() => setCurrentDocView(1)} />
+        nodeId="bimestrales" 
+        label="Bimestrales" 
+        disabled={sub.term !== 'Bimestral'}
+        />
+        <TreeItem 
+        nodeId="anuales" 
+        label="Anuales"
+        disabled={sub.term !== 'Anual'} 
+        />
       </TreeItem>
       <TreeItem 
-      nodeId="5" 
-      label="Comprobantes" >
+      nodeId="Comprobantes" 
+      label="Comprobantes"
+      disabled={sub.term === 'Mensual' && sub.name === 'Principiante' } 
+      >
         <TreeItem 
-        nodeId="6" 
+        nodeId="imss" 
         label="IMSS" 
-        onClick={() => setCurrentDocView(2)}/>
+        />
         <TreeItem 
-        nodeId="7" 
+        nodeId="afore" 
         label="AFORE"  
-        onClick={() => setCurrentDocView(3)}/>
+        />
         <TreeItem 
-        nodeId="8" 
+        nodeId="infonavit" 
         label="INFONAVIT" 
-        onClick={() => setCurrentDocView(4)} />
+        />
         <TreeItem 
-        nodeId="9" 
+        nodeId="tesoreria" 
         label="TESORERIA" 
-        onClick={() => setCurrentDocView(5)}/>
+        />
       </TreeItem>
       <TreeItem 
-      nodeId="10" 
+      nodeId="estadosFinancieros" 
       label="Estados Financieros" 
-      onClick={() => setCurrentDocView(6)}/>
-      <TreeItem nodeId="11" 
+      />
+      <TreeItem nodeId="constanciaSitFiscal" 
       label="Constancia Situacion Fiscal" 
-      onClick={() => setCurrentDocView(7)}/>
-      <TreeItem nodeId="12" 
+      disabled={sub.term === 'Bimestral'}
+      />
+      <TreeItem nodeId="opinion" 
       label="Opinión" 
-      onClick={() => setCurrentDocView(8)} />
+      />
+       <TreeItem nodeId="tablerosControl" 
+      label="Tableros de Control"
+      disabled= {sub.name !== ('Intermedio' || 'Avanzado' || 'Premium')}
+      />
+      <TreeItem nodeId="videoRetro" 
+      label="Video de Retroalimentación"
+      disabled={sub.name === ("Básico" || 'Principiante')} 
+      />
     </TreeView>
+    }
+    </>
   );
 }
