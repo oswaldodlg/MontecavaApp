@@ -28,6 +28,11 @@ const userItems = [
     title: 'Home'
   },
   {
+    href: '/user/servicios',
+    icon: (<ShoppingBagIcon fontSize="small" />),
+    title: 'Servicios'
+  },
+  {
     href: '/user/perfil',
     icon: (<UserIcon fontSize="small" />),
     title: 'Mi Perfil'
@@ -37,11 +42,7 @@ const userItems = [
     icon: (<CogIcon fontSize="small" />),
     title: 'Ajustes'
   },
-  // {
-  //   href: '/user/subscripción',
-  //   icon: (<CogIcon fontSize="small" />),
-  //   title: 'Subscripción'
-  // },
+ 
 ];
 
 export const UserDashboardSidebar = (props) => {
