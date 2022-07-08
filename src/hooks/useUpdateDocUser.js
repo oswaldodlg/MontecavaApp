@@ -11,17 +11,17 @@ export default function useUpdateUserDoc() {
         return () => setIsCancelled(true)
     }, [])
 
-    const updateUserDoc = async (user, subscription) => {
+    const updateUserDoc = async (user, field, value) => {
         setError(null) 
         setIsPending(true)
-
-       
 
         try {
        
             //add info to collection
             const userRef= await doc(db, 'users', user.uid);
-            await updateDoc(userRef, {subscriptionId: subscription})
+            await updateDoc(userRef, {
+                [`${field}`]: value
+            })
 
             if (!isCancelled){
                 setIsPending(false)

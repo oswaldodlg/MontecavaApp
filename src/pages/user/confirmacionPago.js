@@ -51,7 +51,7 @@ export default function ConfirmacionPago() {
   useEffect(() => {
     subscription && console.log(subscription.id)
     console.log(data.subscriptionId)
-    subscription && updateUserDoc(user, subscription.id).then(setIsLoading(false))
+    subscription && updateUserDoc(user, 'subscriptionId', subscription.id).then(setIsLoading(false))
   }, [subscription])
   
 

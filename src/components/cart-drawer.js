@@ -1,20 +1,31 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import Box from '@mui/material/Box';
 import { Badge, Typography, Tooltip } from '@mui/material';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import IconButton from '@mui/material/IconButton';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import useCartActions from 'src/hooks/useCartActions';
+import { useAuthContext } from 'src/hooks/useAuthContext';
 
 
 
 export default function CartDrawer() {
+
+  const {retrieveCart, cart, cartId} = useCartActions()
+  const {data} = useAuthContext()
  
-  const [state, setState] = React.useState({
+  const [state, setState] = useState({
     top: false,
     left: false,
     bottom: false,
     right: false,
   });
+
+  useEffect(() => {
+    cartId && retrieveCart(cartId)
+    console.log(cart)
+  }, [cartId])
+  
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (

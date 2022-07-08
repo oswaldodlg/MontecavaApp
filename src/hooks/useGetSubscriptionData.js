@@ -6,7 +6,6 @@ export default function useGetSubscriptionData() {
     const [loading, setIsLoading] = useState(false)
 
     const retrieveSubscriptionData = (subscriptionId) => {
-        console.log(subscriptionId)
         setIsLoading(true)
         fetch("api/retrieve-subscription", {
             method: "POST",

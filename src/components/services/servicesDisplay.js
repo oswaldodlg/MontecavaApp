@@ -2,6 +2,8 @@ import { Box, Card, CardContent, Typography, Grid, IconButton, Tooltip} from '@m
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import React from 'react';
 import CurrencyFormat from 'react-currency-format';
+import useCartActions from 'src/hooks/useCartActions';
+import { useAuthContext } from 'src/hooks/useAuthContext';
 
 
 
@@ -120,8 +122,15 @@ const services = {
 
 export default function ServicesDisplay({currentServiceView}) {
 
+  const {data} = useAuthContext()
+  const {createCart, addToCart} = useCartActions()
+
   const handleAddToCart = (service) => {
-    
+    if (data && !data.cartId){
+      createCart(service.id)
+    } else {
+      addToCart(service.id)
+    }
   }
   return (
       
@@ -158,7 +167,7 @@ export default function ServicesDisplay({currentServiceView}) {
                 </Typography>
                 <CurrencyFormat value={service.price} displayType={'text'} thousandSeparator={true} prefix={'$'} suffix={' MXN'} renderText={value => <Typography id="modal-modal-title" variant="p">{value}</Typography>} />
                 <Tooltip title='Agregar al carrito' arrow>
-                <IconButton color="info" aria-label="add to shopping cart" onClick={handleAddToCart}>
+                <IconButton color="info" aria-label="add to shopping cart" onClick={() => handleAddToCart(service)}>
                   <AddShoppingCartIcon />
                 </IconButton>
                 </Tooltip>
