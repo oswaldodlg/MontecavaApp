@@ -12,7 +12,15 @@ function useCartActions() {
 
   useEffect(() => {
     data && setCartId(data.cartId)
+    
   }, [cartId])
+
+  useEffect(() => {
+    return () => {retrieveCart(cartId)}
+  }, [cartId])
+  
+
+
 
 
 
@@ -51,7 +59,7 @@ function useCartActions() {
       .then((res) =>  res.json())
       .then((data) => {
         console.log(data)
-        setCart(data)
+        return setCart(data)
       })
       .then(() => setIsLoading(false))
   }

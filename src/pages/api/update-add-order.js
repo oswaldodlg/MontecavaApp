@@ -12,7 +12,7 @@ const stripe = require("stripe")(process.env.NEXT_PUBLIC_STRIPE_SECRET, {
     const order = await stripe.orders.update(
       items.id,
       {
-        line_items: [ ...line_items,
+        line_items: [ 
           {product: items.product, quantity: 1},
         ],
         expand: ['line_items'],

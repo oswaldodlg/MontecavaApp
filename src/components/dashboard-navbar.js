@@ -18,7 +18,7 @@ const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
 export const DashboardNavbar = (props) => {
   const { onSidebarOpen, ...other } = props;
 
-  const {authIsReady, user, credentials} = useAuthContext()
+  const {authIsReady, user, data} = useAuthContext()
 
   function stringToColor(string) {
     let hash = 0;
@@ -102,8 +102,15 @@ export const DashboardNavbar = (props) => {
               </Badge>
             </IconButton>
           </Tooltip> */}
-          
-          <CartDrawer />
+          {data && data.credentials === 'admin' && 
+          <>
+          <Tooltip title="Clientes">
+            <IconButton sx={{ ml: 1 }}>
+              <UsersIcon fontSize="small" />
+            </IconButton>
+          </Tooltip>
+          </>}
+          {data && data.credentials === 'user' && <CartDrawer />}
           
          
           <Avatar

@@ -1,18 +1,24 @@
 import React, {useState, useEffect} from 'react';
 import Box from '@mui/material/Box';
-import { Badge, Typography, Tooltip } from '@mui/material';
+import { Badge, Typography, Tooltip, Grid, Button} from '@mui/material';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import IconButton from '@mui/material/IconButton';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import useCartActions from 'src/hooks/useCartActions';
 import { useAuthContext } from 'src/hooks/useAuthContext';
-
+import { useCartContext } from 'src/hooks/useCartContext';
+import CurrencyFormat from 'react-currency-format';
+import { useCart } from "react-use-cart";
 
 
 export default function CartDrawer() {
 
-  const {retrieveCart, cart, cartId} = useCartActions()
+  const {retrieveCart, cartId} = useCartActions()
+  // const {cart, setCart} = useCartContext()
   const {data} = useAuthContext()
+  const { items, isEmpty, removeItem, updateItemQuantity, emptyCart, cartTotal} = useCart();
+
+  const [total, setTotal] = useState(0)
  
   const [state, setState] = useState({
     top: false,
@@ -23,8 +29,17 @@ export default function CartDrawer() {
 
   useEffect(() => {
     cartId && retrieveCart(cartId)
-    console.log(cart)
+   
   }, [cartId])
+
+  useEffect(() => {
+    return retrieveCart(cartId)
+  }, [])
+  
+  const removeFromCart = (index) => {
+    // cart.splice(index, 1)
+    // console.log(cart)
+  }
   
 
   const toggleDrawer = (anchor, open) => (event) => {
@@ -41,17 +56,16 @@ export default function CartDrawer() {
 
   
 
-  const list = (anchor) => (
-    <Box
-      sx={{ width: 300, height: '100vh', backgroundColor:'neutral.900', color: 'white', p: 5, alignContent:'space-evenly'}}
-      role="presentation"
-      onClick={toggleDrawer(anchor, false)}
-      onKeyDown={toggleDrawer(anchor, false)} 
-    >  
+  const list = (anchor, cart, index) => (
+  
       
-      <Typography>Mi orden</Typography>
+      <Grid container>
+        <Grid item>
+          <Typography>{cart[index].name}</Typography>
+        </Grid>
+      </Grid>
     
-    </Box>
+ 
   );
 
   return (
@@ -60,7 +74,7 @@ export default function CartDrawer() {
         <React.Fragment key={anchor}>
           <Tooltip title="Carrito">
           <IconButton sx={{ ml: 1 }} onClick={toggleDrawer(anchor, true)}>
-            <Badge badgeContent={4} color="primary">
+            <Badge badgeContent={items.length} color="primary">
             <ShoppingCartIcon  color="action" />
             </Badge>
           </IconButton>
@@ -72,7 +86,40 @@ export default function CartDrawer() {
             onOpen={toggleDrawer(anchor, true)}
            
           >
-            {list(anchor)}
+              <Box
+                sx={{ width: 300, height: '100vh', overflowY: 'scroll', backgroundColor:'neutral.900', color: 'white', p: 5, alignContent:'space-evenly'}}
+                role="presentation"
+                // onClick={toggleDrawer(anchor, false)}
+                // onKeyDown={toggleDrawer(anchor, false)} 
+              >  
+            <Typography variant='h4'>Mi orden</Typography>
+            {/* {cart && list(anchor, cart, index)} */}
+            {items && items.map((item, index) => {
+              return(
+              <Grid container key={index}>
+              <Grid item>
+                <Typography>{item.name}</Typography>
+                <CurrencyFormat value={item.price} displayType={'text'} thousandSeparator={true} prefix={'$'} suffix={' MXN'} renderText={value => <Typography id="modal-modal-title" variant="p">{value}</Typography>} />
+                
+              <Grid item sx={{display: 'flex', flexDirection: 'row'}}>
+                <Button onClick={() => updateItemQuantity(item.id, item.quantity - 1 )}>-</Button>
+                <Typography sx={{alignSelf: 'center'}}>{item.quantity}</Typography>
+              <Button onClick={() => updateItemQuantity(item.id, item.quantity + 1)}>+</Button>
+              </Grid>
+                <Button color='error' onClick={() => removeItem(item.id)}>Eliminar del carrito</Button>
+              </Grid>
+            </Grid>
+              )
+            })}
+             <CurrencyFormat value={cartTotal} displayType={'text'} thousandSeparator={true} prefix={'$'} suffix={' MXN'} renderText={value => <Typography id="modal-modal-title" variant="h6">Total: {value}</Typography>} />
+            
+            {!isEmpty && 
+            <>
+            <Button>Comprar</Button>
+            <Button color="error" onClick={() => emptyCart() }>Vaciar Carrito</Button>
+            </>
+            }
+            </Box>
           </SwipeableDrawer>
         </React.Fragment>
       ))}

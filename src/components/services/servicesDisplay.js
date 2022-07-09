@@ -4,7 +4,8 @@ import React from 'react';
 import CurrencyFormat from 'react-currency-format';
 import useCartActions from 'src/hooks/useCartActions';
 import { useAuthContext } from 'src/hooks/useAuthContext';
-
+// import { useCartContext } from 'src/hooks/useCartContext';
+import { useCart } from "react-use-cart";
 
 
 const style = {
@@ -19,6 +20,86 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
+
+
+const products = [
+{
+    name: 'Declaración Mensual',
+    id: 'prod_M0HJt5YMpuxW2E',
+    price: 700
+},
+{
+    name: 'Declaración Bimestral',
+    id: 'prod_M0HK8u0E1ti4zs',
+    price: 1740
+},
+{
+    name: 'Declaración Anual',
+    id: 'prod_M0HKwxOz8sW3L0',
+    price: 812
+},
+{
+  name: '5 Folios',
+  id: 'prod_M0HL82uk0tObls',
+  price: 250
+},
+{
+  name: '10 Folios',
+  id: 'prod_M0HLzDGex5nylG',
+  price: 450
+},
+{
+  name: '25 Folios',
+  id: 'prod_M0HMAd12vldr4i',
+  price: 750
+},
+{
+  name: '35 Folios',
+  id: 'prod_M0HMj5fQs0pkhV',
+  price: 1100
+},
+{
+  name: 'Contabilidad Fiscal',
+  id: 'prod_M0HMOtfieq6Mun',
+  price: 700
+},
+{
+  name: 'IMSS, AFORE, INFONAVIT',
+  id: 'prod_M0HND6QMCPr2wF',
+  price: 700
+},
+{
+  name: 'Tesoreria NL',
+  id: 'prod_M0HNQPkHNVVQ3Y',
+  price: 700
+},
+{
+  name: 'Estados Financieros',
+  id: 'prod_M0HNIGJkMVLGyW',
+  price: 1500
+},
+{
+  name: 'Tableros de Control',
+  id: 'prod_M0HOV9G6zJhig3',
+  price: 2500
+},
+{
+  name: 'Consultoria',
+  id: 'prod_M0HOvnr21Ve8JS',
+  price: 10000
+},
+{
+  name: 'Seguro Anual',
+  id: 'prod_M0HPh5YwqxUvMI',
+  price: 15000
+},
+{
+  name: 'Presentación de Resultados',
+  id: 'prod_M0HPObLD8nmrl6',
+  price: 3000
+}
+]
+
 
 const services = {
     'Declaraciones': [
@@ -123,14 +204,25 @@ const services = {
 export default function ServicesDisplay({currentServiceView}) {
 
   const {data} = useAuthContext()
-  const {createCart, addToCart} = useCartActions()
+  // const {cart, setCart} = useCartContext()
+  const { setItems, addItem } = useCart();
+
+  // setItems(products)
+  
+  const {createCart, retrieveCart, cartId} = useCartActions()
 
   const handleAddToCart = (service) => {
     if (data && !data.cartId){
       createCart(service.id)
     } else {
       addToCart(service.id)
+     
     }
+  }
+
+  const addToCart = (product) => {
+    // setCart([...cart, service])
+    addItem(product, 1);
   }
   return (
       
@@ -167,7 +259,7 @@ export default function ServicesDisplay({currentServiceView}) {
                 </Typography>
                 <CurrencyFormat value={service.price} displayType={'text'} thousandSeparator={true} prefix={'$'} suffix={' MXN'} renderText={value => <Typography id="modal-modal-title" variant="p">{value}</Typography>} />
                 <Tooltip title='Agregar al carrito' arrow>
-                <IconButton color="info" aria-label="add to shopping cart" onClick={() => handleAddToCart(service)}>
+                <IconButton color="secondary" aria-label="add to shopping cart" onClick={() => addToCart(service)}>
                   <AddShoppingCartIcon />
                 </IconButton>
                 </Tooltip>

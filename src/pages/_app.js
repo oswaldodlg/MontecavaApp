@@ -7,9 +7,10 @@ import { CssBaseline } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import { createEmotionCache } from '../utils/create-emotion-cache';
 import { theme } from '../theme';
-
+import { CartProvider } from "react-use-cart";
 import { AuthContextProvider } from '../context/AuthContext';
 import AuthRoute from 'src/HOC/authRoute';
+import { CartContextProvider } from 'src/context/CartContext';
 
 
 
@@ -27,6 +28,7 @@ function App (props)  {
   return (
 
     <AuthContextProvider>
+    <CartProvider>
     <CacheProvider value={emotionCache}>
       <Head>
         <title>
@@ -49,6 +51,7 @@ function App (props)  {
         </ThemeProvider>
       </LocalizationProvider>
     </CacheProvider>
+    </CartProvider>
     </AuthContextProvider>
 
   );
