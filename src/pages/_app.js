@@ -10,7 +10,6 @@ import { theme } from '../theme';
 import { CartProvider } from "react-use-cart";
 import { AuthContextProvider } from '../context/AuthContext';
 import AuthRoute from 'src/HOC/authRoute';
-import { CartContextProvider } from 'src/context/CartContext';
 
 
 

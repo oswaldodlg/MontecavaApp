@@ -11,9 +11,8 @@ const stripe = require("stripe")(process.env.NEXT_PUBLIC_STRIPE_SECRET, {
     // Create a PaymentIntent with the order amount and currency
     const order = await stripe.orders.create({
         currency: 'mxn',
-        line_items: [
-          {product: items.product, quantity: 1},
-        ],
+        line_items: items.products,
+        customer: items.customer,
         expand: ['line_items'],
       });
 

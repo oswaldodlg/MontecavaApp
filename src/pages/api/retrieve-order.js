@@ -16,6 +16,8 @@ const stripe = require("stripe")(process.env.NEXT_PUBLIC_STRIPE_SECRET, {
     );
     console.log(order)
     res.send({
+      clientSecret: order.client_secret,
+      total: order.amount_total,
       items: order.line_items
     });
     }  catch (err) {

@@ -4,22 +4,21 @@ import { Badge, Typography, Tooltip, Grid, Button} from '@mui/material';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import IconButton from '@mui/material/IconButton';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import useCartActions from 'src/hooks/useCartActions';
-import { useAuthContext } from 'src/hooks/useAuthContext';
-import { useCartContext } from 'src/hooks/useCartContext';
+import ClearIcon from '@mui/icons-material/Clear';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import CurrencyFormat from 'react-currency-format';
 import { useCart } from "react-use-cart";
+import Link from 'next/link';
+import useCartActions from 'src/hooks/useCartActions';
+import { useAuthContext } from 'src/hooks/useAuthContext';
 
 
 export default function CartDrawer() {
 
-  const {retrieveCart, cartId} = useCartActions()
-  // const {cart, setCart} = useCartContext()
-  const {data} = useAuthContext()
   const { items, isEmpty, removeItem, updateItemQuantity, emptyCart, cartTotal} = useCart();
+  const {isLoading, createOrder} = useCartActions()
+  const {data} = useAuthContext()
 
-  const [total, setTotal] = useState(0)
- 
   const [state, setState] = useState({
     top: false,
     left: false,
@@ -27,19 +26,8 @@ export default function CartDrawer() {
     right: false,
   });
 
-  useEffect(() => {
-    cartId && retrieveCart(cartId)
-   
-  }, [cartId])
 
-  useEffect(() => {
-    return retrieveCart(cartId)
-  }, [])
   
-  const removeFromCart = (index) => {
-    // cart.splice(index, 1)
-    // console.log(cart)
-  }
   
 
   const toggleDrawer = (anchor, open) => (event) => {
@@ -54,19 +42,9 @@ export default function CartDrawer() {
     setState({ ...state, [anchor]: open });
   };
 
-  
-
-  const list = (anchor, cart, index) => (
-  
-      
-      <Grid container>
-        <Grid item>
-          <Typography>{cart[index].name}</Typography>
-        </Grid>
-      </Grid>
-    
- 
-  );
+  const createCartOrder = () => {
+    createOrder(items, data.stripeCustomerId)
+  }
 
   return (
     <div>
@@ -82,42 +60,45 @@ export default function CartDrawer() {
           <SwipeableDrawer
             anchor={anchor}
             open={state[anchor]}
-            onClose={toggleDrawer(anchor, false)}
+            onClose={!isLoading && toggleDrawer(anchor, false)}
             onOpen={toggleDrawer(anchor, true)}
-           
+            
           >
               <Box
-                sx={{ width: 300, height: '100vh', overflowY: 'scroll', backgroundColor:'neutral.900', color: 'white', p: 5, alignContent:'space-evenly'}}
-                role="presentation"
+                fullWidth
+                sx={{ height: '100vh', overflowY: 'scroll', backgroundColor:'neutral.900', color: 'white', p: 5, alignContent:'space-evenly'}}
+                width={300}
                 // onClick={toggleDrawer(anchor, false)}
                 // onKeyDown={toggleDrawer(anchor, false)} 
-              >  
+              >
+            <Tooltip title="Regresar">     
+            <IconButton onClick={toggleDrawer(anchor, false)}>
+              <ArrowBackIcon  color="primary" />
+            </IconButton>
+            </Tooltip>
             <Typography variant='h4'>Mi orden</Typography>
+            {isEmpty && 
+              <Grid item py={4}>
+                <Typography paddingBottom={2}>Aún no tienes algun producto agregado en tu orden...</Typography>
+                <Link href={'../user/servicios'} passHref><Button variant='contained' onClick={toggleDrawer(anchor, false)}>Ir a Servicios</Button></Link>
+              </Grid>
+            }
+            <Grid container paddingTop={4}>
             {/* {cart && list(anchor, cart, index)} */}
             {items && items.map((item, index) => {
               return(
-              <Grid container key={index}>
-              <Grid item>
-                <Typography>{item.name}</Typography>
-                <CurrencyFormat value={item.price} displayType={'text'} thousandSeparator={true} prefix={'$'} suffix={' MXN'} renderText={value => <Typography id="modal-modal-title" variant="p">{value}</Typography>} />
-                
-              <Grid item sx={{display: 'flex', flexDirection: 'row'}}>
-                <Button onClick={() => updateItemQuantity(item.id, item.quantity - 1 )}>-</Button>
-                <Typography sx={{alignSelf: 'center'}}>{item.quantity}</Typography>
-              <Button onClick={() => updateItemQuantity(item.id, item.quantity + 1)}>+</Button>
-              </Grid>
-                <Button color='error' onClick={() => removeItem(item.id)}>Eliminar del carrito</Button>
-              </Grid>
-            </Grid>
+                <ItemInCart item={item} key={index} updateItemQuantity={updateItemQuantity} removeItem={removeItem}/>
               )
             })}
-             <CurrencyFormat value={cartTotal} displayType={'text'} thousandSeparator={true} prefix={'$'} suffix={' MXN'} renderText={value => <Typography id="modal-modal-title" variant="h6">Total: {value}</Typography>} />
+            </Grid>
+             
             
             {!isEmpty && 
-            <>
-            <Button>Comprar</Button>
+            <Grid item py={4}>
+              <CurrencyFormat value={cartTotal} displayType={'text'} thousandSeparator={true} prefix={'$'} suffix={' MXN'} renderText={value => <Typography id="modal-modal-title" variant="h6">Total: {value}</Typography>} />
+            {!isLoading ? <Button variant='contained' sx={{my: 2}} onClick={() => createCartOrder()} >Comprar</Button> : <Button variant='contained' sx={{my: 2}} disabled >Cargando...</Button> }
             <Button color="error" onClick={() => emptyCart() }>Vaciar Carrito</Button>
-            </>
+            </Grid>
             }
             </Box>
           </SwipeableDrawer>
@@ -129,4 +110,37 @@ export default function CartDrawer() {
 
     </div>
   );
+}
+
+const ItemInCart = ({item, updateItemQuantity, removeItem}) => {
+  const [isHovered, setIsHovered] = useState(false)
+
+  return(
+    <Grid  onMouseOver={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} py={1}>
+    <Grid container>
+    <Grid item xs={8}>
+    <Typography sx={{fontWeight: 'bold'}}>{item.name}</Typography>
+    <CurrencyFormat value={item.price} displayType={'text'} thousandSeparator={true} prefix={'$'} suffix={' MXN'} renderText={value => <Typography id="modal-modal-title" variant="p">{value}</Typography>} />
+    </Grid>
+    <Grid item xs={4}>
+    {isHovered && 
+      <Tooltip title="Remover de Carrito" arrow>
+        <IconButton sx={{ ml: 1 }} onClick={() => removeItem(item.id)}>
+          <ClearIcon  color="error" />
+        </IconButton>
+      </Tooltip>
+    }
+    </Grid>
+    <Grid item sx={{display: 'flex', flexDirection: 'row', textAlign: 'center'}}>
+    <Button onClick={() => updateItemQuantity(item.id, item.quantity - 1 )}>-</Button>
+    <Typography sx={{alignSelf: 'center'}}>{item.quantity}</Typography>
+    <Button onClick={() => updateItemQuantity(item.id, item.quantity + 1)}>+</Button>
+    </Grid>
+    </Grid>
+    
+ 
+    
+    
+  </Grid>
+  )
 }

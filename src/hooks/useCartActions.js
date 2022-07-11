@@ -1,3 +1,5 @@
+import { arrayUnion } from 'firebase/firestore'
+import { useRouter } from 'next/router'
 import {useState, useEffect} from 'react'
 import { useAuthContext } from './useAuthContext'
 import useUpdateUserDoc from './useUpdateDocUser'
@@ -9,62 +11,49 @@ function useCartActions() {
 
   const {user, data} = useAuthContext()
   const {updateUserDoc} = useUpdateUserDoc()
+  
+  const router = useRouter() 
 
-  useEffect(() => {
-    data && setCartId(data.cartId)
+  // useEffect(() => {
+  //   data && setCartId(data.cartId)
     
-  }, [cartId])
+  // }, [cartId])
 
-  useEffect(() => {
-    return () => {retrieveCart(cartId)}
-  }, [cartId])
+  // useEffect(() => {
+  //   return () => {retrieveCart(cartId)}
+  // }, [cartId])
   
 
 
 
 
 
-  const createCart = (product) => {
-        console.log(product)
+  const createOrder = async(items, customerId) => {
+
+        let line_items = []
+        items.map((item) => line_items.push({product: item.id, quantity: item.quantity}))
+        
+
         setIsLoading(true)
         fetch("../api/create-order", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ 
               items: { 
-                product: product
+                products: line_items,
+                customer: customerId
               }
           }),
         })
           .then((res) =>  res.json())
-          .then((data) => {
-            setCartId(data.order.id)
-            updateUserDoc(user, 'cartId', cartId)
+          .then(async(data) => {
             setIsLoading(false)
+            router.push(`/user/checkout?cartId=${data.order.id}`)
           })
+      
   }
 
-  const addToCart = (product) => {
-    setIsLoading(true)
-    fetch("../api/update-add-order", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ 
-          items: { 
-            id: cartId,
-            product: product
-          }
-      }),
-    })
-      .then((res) =>  res.json())
-      .then((data) => {
-        console.log(data)
-        return setCart(data)
-      })
-      .then(() => setIsLoading(false))
-  }
-
-  const retrieveCart = (cartId) => {
+  const retrieveOrder = (cartId) => {
     setIsLoading(true)
     fetch("../api/retrieve-order", {
         method: "POST",
@@ -80,7 +69,7 @@ function useCartActions() {
       .then(() => setIsLoading(false))
   }
 
-  return {createCart, addToCart, retrieveCart, cart, isLoading, cartId}
+  return {createOrder, retrieveOrder, cart, isLoading}
 }
 
 export default useCartActions
