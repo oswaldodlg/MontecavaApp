@@ -7,6 +7,7 @@ import useUpdateUserDoc from './useUpdateDocUser'
 function useCartActions() {
   const [cartId, setCartId] = useState()
   const [cart, setCart] = useState()
+  const [clientSecret, setClientSecret] = useState()
   const [isLoading, setIsLoading] = useState(false)
 
   const {user, data} = useAuthContext()
@@ -47,8 +48,9 @@ function useCartActions() {
         })
           .then((res) =>  res.json())
           .then(async(data) => {
+            console.log(data)
             setIsLoading(false)
-            router.push(`/user/checkout?cartId=${data.order.id}`)
+            router.push(`/user/checkout?cartId=${data.order.id}&paymentId=${data.order.payment.payment_intent}`)
           })
       
   }
@@ -69,7 +71,26 @@ function useCartActions() {
       .then(() => setIsLoading(false))
   }
 
-  return {createOrder, retrieveOrder, cart, isLoading}
+  const retrievePaymentIntent = (paymentId) => {
+    setIsLoading(true)
+    fetch("../api/retrieve-payment-info", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ 
+          items: { 
+            paymentId: paymentId
+          }
+      }),
+    })
+      .then((res) =>  res.json())
+      .then((data) => {
+        console.log(data)
+        setClientSecret(data.clientSecret)}
+        )
+      .then(() => setIsLoading(false))
+  }
+
+  return {createOrder, retrieveOrder, retrievePaymentIntent, clientSecret, cart, isLoading}
 }
 
 export default useCartActions

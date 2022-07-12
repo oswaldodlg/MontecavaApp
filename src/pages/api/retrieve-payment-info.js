@@ -10,6 +10,7 @@ const stripe = require("stripe")(process.env.NEXT_PUBLIC_STRIPE_SECRET);
         const retrievedPayment = await stripe.paymentIntents.retrieve(items.paymentId)
         console.log(retrievedPayment)
         res.send({
+        clientSecret: retrievedPayment.client_secret,
         customer: retrievedPayment.customer,
         status: retrievedPayment.status,
         amount: retrievedPayment.amount,

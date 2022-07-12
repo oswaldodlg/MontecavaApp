@@ -7,14 +7,15 @@ const stripe = require("stripe")(process.env.NEXT_PUBLIC_STRIPE_SECRET, {
     if (req.method === 'POST') {
     try {
       const  items  = req.body.items;
-    console.log(items)
     // Create a PaymentIntent with the order amount and currency
     const order = await stripe.orders.retrieve(
       items.id, {
         expand: ['line_items'],
       }
     );
-    console.log(order)
+    const paymentIntent = await stripe.paymentIntents.retrieve(
+      'pi_3KnuClLONI3gdtL5099lpfm1'
+    );
     res.send({
       clientSecret: order.client_secret,
       total: order.amount_total,
