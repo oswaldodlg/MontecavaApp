@@ -1,9 +1,9 @@
 import React from 'react'
 import Head from 'next/head';
 import { Box, Container, Grid, Typography, Button} from '@mui/material';
-import { AccountProfile } from '../../../components/account/account-profile';
-import { AccountProfileDetails } from '../../../components/account/account-profile-details';
-import { DashboardLayout } from '../../../components/dashboard-layout';
+import { AccountProfile } from 'src/components/account/account-profile';
+import { AccountProfileDetails } from 'src/components/account/account-profile-details';
+import { DashboardLayout } from 'src/components/dashboard-layout';
 import { useLogout } from 'src/hooks/useLogout';
 import { useAuthContext } from 'src/hooks/useAuthContext';
 

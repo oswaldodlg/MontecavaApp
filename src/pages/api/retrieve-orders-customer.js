@@ -8,16 +8,17 @@ const stripe = require("stripe")(process.env.NEXT_PUBLIC_STRIPE_SECRET, {
     try {
       const  items  = req.body.items;
     // Create a PaymentIntent with the order amount and currency
-    const order = await stripe.orders.retrieve(
-      items.id, {
-        expand: ['line_items'],
-      }
-    );
 
+    const orders = await stripe.orders.list({
+        customer: items.customer,
+        limit: 20,
+            expand: ['data.line_items'],
+        
+      });
+
+      
     res.send({
-      clientSecret: order.client_secret,
-      total: order.amount_total,
-      items: order.line_items
+    orders
     });
     }  catch (err) {
       res.status(err.statusCode || 500).json(err.message);

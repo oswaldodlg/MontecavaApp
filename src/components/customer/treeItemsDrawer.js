@@ -76,7 +76,7 @@ export default function IconExpansionTreeView({setCurrentDocView, subscription})
       />
       <TreeItem nodeId="constanciaSitFiscal" 
       label="Constancia Situacion Fiscal" 
-      disabled={sub.term === 'Bimestral'}
+      
       />
       <TreeItem nodeId="opinion" 
       label="Opinión" 

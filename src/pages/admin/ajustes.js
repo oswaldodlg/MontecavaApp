@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react'
 import Head from 'next/head';
 import { Box, Container, Typography } from '@mui/material';
-import { DashboardLayout } from '../../../components/dashboard-layout';
-import { SettingsNotifications } from '../../../components/settings/settings-notifications';
-import { SettingsPassword } from '../../../components/settings/settings-password';
+import { DashboardLayout } from 'src/components/dashboard-layout';
 import { useAuthContext } from 'src/hooks/useAuthContext';
+import { SettingsPassword } from 'src/components/settings/settings-password';
 
 function Settings() {
 

@@ -1,24 +1,26 @@
 import React, {useState, useEffect} from 'react';
 import { useAuthContext } from './useAuthContext';
 
-export default function useGetSubscriptionData() {
-    const [subscriptionData, setSubscriptionData] = useState(null)
+export default function useGetOrderData() {
+    const [orderData, setOrderData] = useState(null)
     const [loading, setIsLoading] = useState(false)
 
-    const retrieveSubscriptionData = (subscriptionId) => {
+    
+
+    const retrieveOrderData = (customerId) => {
         setIsLoading(true)
-        fetch("/api/retrieve-subscription", {
+        fetch("/api/retrieve-orders-customer", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ 
               items: { 
-                subscriptionId: subscriptionId
+                customer: customerId
               }
           }),
         })
           .then((res) =>  res.json())
-          .then((data) => setSubscriptionData(data));
+          .then((data) => setOrderData(data));
     }
 
-    return {retrieveSubscriptionData, subscriptionData, loading}
+    return {retrieveOrderData, orderData, loading}
 }

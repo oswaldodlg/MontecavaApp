@@ -128,6 +128,7 @@ const DocViewComponent = ({name, id, data, credentials, carpet}) => {
 }
 
 export default function UserDocumentDisplay({currentDocView, id, data, credentials}) {
+  console.log(data)
   return (
       
     <Card>

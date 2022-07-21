@@ -26,7 +26,7 @@ export default function Checkout() {
     const [isLoading, setIsLoading] = useState(false)
     const router = useRouter()
     const q = router.query
-    const {cart, retrieveOrder, retrievePaymentIntent, clientSecret} = useCartActions()
+    const {cart, retrieveOrder} = useCartActions()
 
     useEffect(() => {
         retrieveOrder(q.cartId)

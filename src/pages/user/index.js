@@ -8,27 +8,30 @@ import UserDocumentDrawer from 'src/components/customer/userDocumentDrawer';
 import UserDocumentDisplay from 'src/components/customer/userDocumentDisplay';
 import useGetSubscriptionData from 'src/hooks/useGetSubscriptionData';
 import { SubscriptionDetails } from 'src/components/customer/subscriptionDetails';
+import { UserOrders } from 'src/components/customer/userOrders'
+import useGetOrderData from 'src/hooks/useGetOrders';
 
 
 
 function Details() {
 
   const[currentDocView, setCurrentDocView] = useState(0)
+  const [currentView, setCurrentView] = useState(0)
  
   const {user, data} = useAuthContext()
 
   const {retrieveSubscriptionData, subscriptionData} = useGetSubscriptionData()
+  const {retrieveOrderData, orderData} = useGetOrderData()
 
 
   useEffect(() => {
     
-    data && retrieveSubscriptionData(data.subscriptionId)
+    data && retrieveSubscriptionData(data.subscriptionId) 
+    data && retrieveOrderData(data.stripeCustomerId)
 
   }, [data])
 
-  useEffect(() => {
-    console.log(subscriptionData)
-  }, [subscriptionData])
+
   
 
 
@@ -50,7 +53,7 @@ function Details() {
     >
 
 
-      {data && user && subscriptionData ?
+      {data && user && subscriptionData && orderData ?
       <Container maxWidth="lg">
         <Typography
           sx={{ mb: 3 }}
@@ -58,6 +61,11 @@ function Details() {
         >
             Mis Documentos
         </Typography>
+        <Grid item rowSpacing={2} py={2}>
+          <Button variant='outlined' sx={{marginX: 1}} onClick={() => setCurrentView(0)} >Mi Suscripción</Button>
+          <Button variant='outlined' onClick={() => setCurrentView(1)} >Mis Compras</Button>
+        </Grid>
+        {currentView === 0 ? 
         <Grid
           container
           spacing={3}
@@ -92,9 +100,15 @@ function Details() {
             md={6}
             xs={12}
           >
-          {subscriptionData.isActive ? <UserDocumentDisplay currentDocView={currentDocView} id={user.uid} data={data.Documentos} credentials={data.credentials}/> : <Typography>Tu membresia no está activa</Typography>}
+          {subscriptionData.isActive ? <UserDocumentDisplay currentDocView={currentDocView} id={user.uid} data={data} credentials={data.credentials} /> : <Typography>Tu membresia no está activa</Typography>}
           </Grid>
         </Grid>
+        : 
+      
+        <Grid container spacing={3}>
+        <UserOrders orderData={orderData.orders} credentials={data.credentials} />
+        </Grid>
+        }
       </Container>
      : 
      <Grid container  sx={{justifyContent: 'center', alignItems: 'center', height: '70vh'}}>
