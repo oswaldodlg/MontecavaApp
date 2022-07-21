@@ -34,13 +34,11 @@ export default function useUploadDoc() {
                 updateDoc(userRef, ({
                     ['Documentos' +'.Comprobantes' + `.${carpet}`]: arrayUnion(...docArray) 
                 }))
-            } else if (carpet === 'Estados Financieros' || carpet === 'Constancia'){
+            } else if (carpet){
                 updateDoc(userRef, ({
                     ['Documentos' + `.${carpet}`]: arrayUnion(...docArray)
                 }))
-            }  else if (carpet === 'Opinión'){
-                return; 
-            }
+            } 
             setCounter(counter + 1)   
         }
 

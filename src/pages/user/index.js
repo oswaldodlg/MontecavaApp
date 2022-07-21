@@ -100,7 +100,7 @@ function Details() {
             md={6}
             xs={12}
           >
-          {subscriptionData.isActive ? <UserDocumentDisplay currentDocView={currentDocView} id={user.uid} data={data} credentials={data.credentials} /> : <Typography>Tu membresia no está activa</Typography>}
+          {subscriptionData.isActive ? <UserDocumentDisplay currentDocView={currentDocView} id={user.uid} data={data.Documentos} credentials={data.credentials} /> : <Typography>Tu membresia no está activa</Typography>}
           </Grid>
         </Grid>
         : 

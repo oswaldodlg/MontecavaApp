@@ -16,6 +16,7 @@ import {
   Typography
 } from '@mui/material';
 import { getInitials } from '../../utils/get-initials';
+import { DashboardLayout } from 'src/components/dashboard-layout';
 import NextLink from 'next/link'
 
 export const CustomerListResults = ({ customers, uid, ...rest }) => {
@@ -175,3 +176,11 @@ export const CustomerListResults = ({ customers, uid, ...rest }) => {
 CustomerListResults.propTypes = {
   customers: PropTypes.array.isRequired
 };
+
+CustomerListResults.getLayout = (page) => (
+  <DashboardLayout>
+    {page}
+  </DashboardLayout>
+);
+
+

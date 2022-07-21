@@ -5,13 +5,18 @@ import { CustomerListToolbar } from '../../../components/customer/customer-list-
 import { DashboardLayout } from '../../../components/dashboard-layout';
 import { customers } from '../../../__mocks__/customers';
 
-import React from 'react'
+import React, {useEffect} from 'react'
 import { useCollection } from 'src/hooks/useCollection';
 import { useAuthContext } from 'src/hooks/useAuthContext';
 
 export default function Customers() {
   const { documents } = useCollection('users')
   const {user} = useAuthContext()
+
+  useEffect(() => {
+    console.log(user)
+  }, [user])
+  
 
   return (
     <>

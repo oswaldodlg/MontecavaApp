@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Head from 'next/head';
-import { Box, Container, Grid, Typography, Button, CircularProgress} from '@mui/material';
+import { Box, Container, Grid, Typography, Button, CircularProgress, Tooltip, IconButton} from '@mui/material';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { DashboardLayout } from '../../../components/dashboard-layout';
 import { useCollectionUserDetail } from 'src/hooks/useCollectionUserDetail';
 import { AccountProfileUser } from 'src/components/customer/accountProfileUser';
@@ -79,12 +80,20 @@ data && retrieveOrderData(data.customer)
     >
     {data && subscriptionData && orderData ?
       <Container maxWidth="lg">
+        <Tooltip title="Regresar">     
+            <IconButton onClick={() => router.back()}>
+              <ArrowBackIcon  color="primary" />
+            </IconButton>
+        </Tooltip>
         <Typography
           sx={{ mb: 3 }}
           variant="h4"
         >
             Documentos del cliente
         </Typography>
+        <Grid item>
+          
+        </Grid>
         <Grid item rowSpacing={2} py={2}>
           <Button variant='outlined' sx={{marginX: 1}} onClick={() => setCurrentView(0)} >Suscripción</Button>
           <Button variant='outlined' onClick={() => setCurrentView(1)} >Compras</Button>

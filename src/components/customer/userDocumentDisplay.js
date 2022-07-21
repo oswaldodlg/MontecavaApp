@@ -25,7 +25,7 @@ const DocAdminModal = ({doc, name, id}) => {
 
   const [open, setOpen] = useState(false);
 
-  const {deleteDoc, isPending, error} = useDeleteDoc()
+  const {deleteDoc} = useDeleteDoc()
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -80,6 +80,8 @@ const DocViewComponent = ({name, id, data, credentials, carpet}) => {
     
     data && setCurrentDocs(data)
 
+    
+
   }, [data])
   
 
@@ -88,7 +90,7 @@ const DocViewComponent = ({name, id, data, credentials, carpet}) => {
     <>
     <Grid container flexDirection='row' sx={{minHeight: '5vh', justifyContent: 'center', alignItems: 'center'}}>
       <Grid item xs={12} md={6} lg={8} sx={{textAlign: {xs: 'center', md: 'start'}}}>
-        <Typography>{name}</Typography>
+        <Typography fontWeight={'bold'}>{name}</Typography>
       </Grid>
       <Grid item xs={12} md={6} lg={4} sx={{textAlign: {xs: 'center', md: 'end'}}}>
         {credentials != 'user' && <UploadFileModal name={name} id={id}/>}
@@ -98,8 +100,6 @@ const DocViewComponent = ({name, id, data, credentials, carpet}) => {
           return  (
           <Grid key={index} item xs={6} md={3} sx={{textAlign: 'center', p: 3}}>
           <DocAdminModal doc={doc} name={name} id={id} />
-          {/* <NextLink href={doc.url} key={index}>
-          </NextLink>  */}
           </Grid>
           )
         })}
@@ -206,20 +206,20 @@ export default function UserDocumentDisplay({currentDocView, id, data, credentia
               <DocViewComponent 
               name='Opinión' 
               id={id} 
-              data={data.Opinion}
+              data={data['Opinión']}
               credentials={credentials}/>} 
                {currentDocView === 'tablerosControl' && 
               <DocViewComponent 
               name='Tableros de Control' 
               id={id} 
-              data={data.Opinion}
+              data={data['Tableros de Control']}
               credentials={credentials}/>}
-               {currentDocView === 'videoRetro' && 
+               {/* {currentDocView === 'videoRetro' && 
               <DocViewComponent 
               name='Video de Retroalimentación' 
               id={id} 
               data={data.Opinion}
-              credentials={credentials}/>}                         
+              credentials={credentials}/>}                          */}
             </Box>
         </CardContent>
     </Card>

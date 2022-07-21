@@ -9,7 +9,6 @@ export default function useDeleteDoc() {
 
     const [isCancelled, setIsCancelled] = useState(false)
     const [error, setError] = useState()
-    const [success, setSuccess] = useState(false)
     const [isPending, setIsPending] = useState(false)
     
 
@@ -30,53 +29,12 @@ export default function useDeleteDoc() {
             updateDoc(userRef, ({
                 ['Documentos' +'.Comprobantes' + `.${carpet}`]: arrayRemove(currentDocData) 
             }))
-        } else if (carpet === 'Estados Financieros' || carpet === 'Constancia'){
+        } else if (carpet){
             updateDoc(userRef, ({
                 ['Documentos' + `.${carpet}`]: arrayRemove(currentDocData)
             }))
-        }  else if (carpet === 'Opinión'){
-            return; 
-        }
+        } 
     
-        
-
-        // if (carpet === 'Declaraciones Mensuales'){
-        //     updateDoc(userRef, ({
-        //         'Declaraciones Mensuales': arrayRemove(currentDocData) 
-        //     }))
-        // } else if (carpet === 'Declaraciones Anuales'){
-        //     updateDoc(userRef, ({
-        //         'Declaraciones Anuales': arrayRemove(currentDocData) 
-        //     }))
-        // } else if (carpet === 'Comprobantes IMSS'){
-        //     updateDoc(userRef, ({
-        //         'Comprobantes IMSS': arrayRemove(currentDocData) 
-        //     }))
-        // } else if (carpet === 'Comprobantes AFORE'){
-        //     updateDoc(userRef, ({
-        //         'Comprobantes AFORE': arrayRemove(currentDocData) 
-        //     }))
-        // } else if (carpet === 'Comprobantes INFONAVIT'){
-        //     updateDoc(userRef, ({
-        //         'Comprobantes INFONAVIT': arrayRemove(currentDocData) 
-        //     }))
-        // } else if (carpet === 'Comprobantes Tesoreria'){
-        //     updateDoc(userRef, ({
-        //         'Comprobantes Tesoreria': arrayRemove(currentDocData) 
-        //     }))
-        // } else if (carpet === 'Estados Financieros'){
-        //     updateDoc(userRef, ({
-        //         'Estados Financieros': arrayRemove(currentDocData) 
-        //     }))
-        // } else if (carpet === 'Constancia Situación Fiscal'){
-        //     updateDoc(userRef, ({
-        //         'Constancia Situación Fiscal': arrayRemove(currentDocData) 
-        //     }))
-        // } else if (carpet === 'Opinión'){
-        //     updateDoc(userRef, ({
-        //         'Opinión': arrayRemove(currentDocData) 
-        //     }))
-        // } 
 
         if (docRef) {
             await deleteObject(docRef)
@@ -101,5 +59,5 @@ export default function useDeleteDoc() {
     }, [])
     
 
-    return {deleteDoc , isPending, success}
+    return {deleteDoc , isPending}
 }
