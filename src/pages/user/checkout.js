@@ -47,9 +47,9 @@ export default function Checkout() {
             <Grid item xs={10} md={4}>
                 <Card sx={{padding: 4}}>
                 <Typography variant="h5" sx={{color: 'black', py: 2}}>Finaliza tu Orden</Typography>
-                    {cart.items.data.map((item) => {
+                    {cart.items.data.map((item, index) => {
                         return(
-                        <Typography>{item.quantity} x {item.description}</Typography>
+                        <Typography key={item}>{item.quantity} x {item.description}</Typography>
                         )
                     })}
                      <CurrencyFormat value={cart.total/100} displayType={'text'} thousandSeparator={true} prefix={'$'} suffix={' MXN'} renderText={value => <Typography sx={{py:2}} variant="h6">Total: {value}</Typography>} />
