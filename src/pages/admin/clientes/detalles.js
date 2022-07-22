@@ -137,7 +137,7 @@ data && retrieveOrderData(data.customer)
             md={6}
             xs={12}
           >
-          {subscriptionData.isActive ? <UserDocumentDisplay currentDocView={currentDocView} id={id} data={data.docs} credentials={data.credentials}/> : <Typography>Tu membresia no está activa</Typography>}
+          {subscriptionData.isActive ? <UserDocumentDisplay currentDocView={currentDocView} id={id} docs={data.docs}/> : <Typography>Tu membresia no está activa</Typography>}
           </Grid>
         </Grid>
         : 

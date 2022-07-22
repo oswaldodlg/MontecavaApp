@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { DashboardNavbar } from './dashboard-navbar';
@@ -21,6 +21,9 @@ export const DashboardLayout = (props) => {
   const {authIsReady, user, data} = useAuthContext()
   const [isSidebarOpen, setSidebarOpen] = useState(true);
 
+  useEffect(() => {
+  data && console.log(data.credentials)
+  }, [data])
   
 
   if (!user && data && data.credentials===null){

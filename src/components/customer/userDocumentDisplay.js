@@ -6,6 +6,7 @@ import NextImage from 'next/image';
 
 import ImgArchivo from '../../../assets/img/archivo-pdf.png';
 import useDeleteDoc from 'src/hooks/useDeleteDoc';
+import { useAuthContext } from 'src/hooks/useAuthContext';
 
 
 const style = {
@@ -93,10 +94,10 @@ const DocViewComponent = ({name, id, data, credentials, carpet}) => {
         <Typography fontWeight={'bold'}>{name}</Typography>
       </Grid>
       <Grid item xs={12} md={6} lg={4} sx={{textAlign: {xs: 'center', md: 'end'}}}>
-        {credentials != 'user' && <UploadFileModal name={name} id={id}/>}
+        {credentials === 'admin' && <UploadFileModal name={name} id={id}/>}
       </Grid>
       <Grid container sx={{p: 5}}>
-        {credentials != 'user' && currentDocs && currentDocs.map((doc, index) => {
+        {credentials === 'admin' && currentDocs && currentDocs.map((doc, index) => {
           return  (
           <Grid key={index} item xs={6} md={3} sx={{textAlign: 'center', p: 3}}>
           <DocAdminModal doc={doc} name={name} id={id} />
@@ -127,8 +128,8 @@ const DocViewComponent = ({name, id, data, credentials, carpet}) => {
   )
 }
 
-export default function UserDocumentDisplay({currentDocView, id, data, credentials}) {
-  console.log(data)
+export default function UserDocumentDisplay({currentDocView, id, docs}) {
+  const {data} = useAuthContext()
   return (
       
     <Card>
@@ -146,74 +147,74 @@ export default function UserDocumentDisplay({currentDocView, id, data, credentia
               name='Mensuales'
               carpet = 'Declaraciones' 
               id={id} 
-              data={data.Declaraciones && data.Declaraciones.Mensuales}
-              credentials={credentials} />}
+              data={docs.Declaraciones && docs.Declaraciones.Mensuales}
+              credentials={data.credentials} />}
               {currentDocView === 'anuales' && 
               <DocViewComponent
               carpet = 'Declaraciones'  
               name='Anuales' 
               id={id} 
-              data={data.Declaraciones && data.Declaraciones.Anuales}
-              credentials={credentials}/>}
+              data={docs.Declaraciones && docs.Declaraciones.Anuales}
+              credentials={data.credentials}/>}
                {currentDocView === 'bimestrales' && 
               <DocViewComponent
               carpet = 'Declaraciones'  
               name='Bimestrales' 
               id={id} 
-              data={data.Declaraciones && data.Declaraciones.Anuales}
-              credentials={credentials}/>}
+              data={docs.Declaraciones && docs.Declaraciones.Anuales}
+              credentials={data.credentials}/>}
               {currentDocView === 'imss' && 
               <DocViewComponent
               carpet = 'Comprobantes'  
               name='IMSS' 
               id={id} 
-              data={data.Comprobantes && data.Comprobantes.IMSS}
-              credentials={credentials}/>}
+              data={docs.Comprobantes && docs.Comprobantes.IMSS}
+              credentials={data.credentials}/>}
               {currentDocView === 'afore' && 
               <DocViewComponent 
               carpet = 'Comprobantes' 
               name='AFORE' 
               id={id} 
-              data={data.Comprobantes && data.Comprobantes.AFORE}
-              credentials={credentials}/>}
+              data={docs.Comprobantes && docs.Comprobantes.AFORE}
+              credentials={data.credentials}/>}
               {currentDocView === 'infonavit' && 
               <DocViewComponent 
               carpet = 'Comprobantes' 
               name='INFONAVIT' 
               id={id} 
-              data={data.Comprobantes && data.Comprobantes.INFONAVIT}
-              credentials={credentials}/>}
+              data={docs.Comprobantes && docs.Comprobantes.INFONAVIT}
+              credentials={data.credentials}/>}
               {currentDocView === 'tesoreria' && 
               <DocViewComponent 
               carpet = 'Comprobantes' 
               name='Tesoreria' 
               id={id} 
-              data={data.Comprobantes && data.Comprobantes.Tesoreria}
-              credentials={credentials}/>}
+              data={docs.Comprobantes && docs.Comprobantes.Tesoreria}
+              credentials={data.credentials}/>}
               {currentDocView === 'estadosFinancieros' && 
               <DocViewComponent 
               name='Estados Financieros' 
               id={id} 
-              data={data['Estados Financieros'] && data['Estados Financieros']}
-              credentials={credentials}/>}
+              data={docs['Estados Financieros'] && docs['Estados Financieros']}
+              credentials={data.credentials}/>}
               {currentDocView === 'constanciaSitFiscal' && 
               <DocViewComponent 
               name='Constancia' 
               id={id} 
-              data={data.Constancia && data.Constancia}
-              credentials={credentials}/>}
+              data={docs.Constancia && docs.Constancia}
+              credentials={data.credentials}/>}
               {currentDocView === 'opinion' && 
               <DocViewComponent 
               name='Opinión' 
               id={id} 
-              data={data['Opinión']}
-              credentials={credentials}/>} 
+              data={docs['Opinión']}
+              credentials={data.credentials}/>} 
                {currentDocView === 'tablerosControl' && 
               <DocViewComponent 
               name='Tableros de Control' 
               id={id} 
               data={data['Tableros de Control']}
-              credentials={credentials}/>}
+              credentials={data.credentials}/>}
                {/* {currentDocView === 'videoRetro' && 
               <DocViewComponent 
               name='Video de Retroalimentación' 
