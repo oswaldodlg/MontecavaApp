@@ -160,10 +160,10 @@ data && retrieveOrderData(data.customer)
 
 
 
-Details.getLayout = (page) => (
-  <DashboardLayout>
-    {page}
-  </DashboardLayout>
-);
+// Details.getLayout = (page) => (
+//   <DashboardLayout>
+//     {page}
+//   </DashboardLayout>
+// );
 
 export default Details;
