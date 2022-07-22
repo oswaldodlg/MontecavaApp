@@ -8,7 +8,7 @@ import Dropzone from 'react-dropzone-uploader'
 import useUploadDoc from 'src/hooks/useUploadDoc';
 import { CircularProgress, Grid } from '@mui/material';
 
-const MyUploader = ({name, id, handleClose, filesArray, setFilesArray, setShowDateContainer}) => {
+const MyUploader = ({name, id, order, handleClose, filesArray, setFilesArray, setShowDateContainer}) => {
 
     const {addDocuments , error, isPending, success } = useUploadDoc()
     
@@ -42,7 +42,7 @@ const MyUploader = ({name, id, handleClose, filesArray, setFilesArray, setShowDa
       //files.map((file) => filesArray.push(file))
       // files.map((file) => {return setFilesArray([...filesArray, file])})
       console.log(filesArray)
-      addDocuments(id, name, filesArray)
+      addDocuments(id, name, order, filesArray)
       allFiles.forEach(f => f.remove())
     }
 
@@ -95,7 +95,7 @@ const style = {
   
 };
 
-export default function BasicModal({name, id}) {
+export default function UploadFileModal({name, id, order}) {
   const [open, setOpen] = useState(false);
   const [filesArray, setFilesArray] = useState([])
   const handleOpen = () => setOpen(true);
@@ -109,7 +109,7 @@ export default function BasicModal({name, id}) {
 
   return (
     <>
-      <Button variant='contained' onClick={handleOpen}>Agregar Documento</Button>
+      <Button variant='contained' onClick={handleOpen}>Agregar Documentos</Button>
       <Modal
         open={open}
         onClose={() => !isPending && handleClose()}
@@ -117,7 +117,7 @@ export default function BasicModal({name, id}) {
       >
         <Box sx={style}>
             <Grid item xs={12} md={12}>
-            <MyUploader name={name} id={id} handleClose={handleClose} filesArray={filesArray} setFilesArray={setFilesArray} setShowDateContainer={setShowDateContainer}/>
+            <MyUploader name={name} id={id} order={order} handleClose={handleClose} filesArray={filesArray} setFilesArray={setFilesArray} setShowDateContainer={setShowDateContainer}/>
             </Grid>
             {dateContainer && 
             <Grid xs={12} md={2} sx={{textAlign: 'center'}}>

@@ -13,6 +13,7 @@ import useGetSubscriptionData from 'src/hooks/useGetSubscriptionData';
 import useGetOrderData from 'src/hooks/useGetOrders';
 import { SubscriptionDetails } from 'src/components/customer/subscriptionDetails';
 import { UserOrders } from 'src/components/customer/userOrders';
+import { useAuthContext } from 'src/hooks/useAuthContext';
 
 
 
@@ -35,6 +36,8 @@ function Details() {
 
   const [currentView, setCurrentView] = useState(0)
 
+  const {user} = useAuthContext()
+
   
   useEffect(() => {
     {details && details.map((detail) => {
@@ -42,6 +45,7 @@ function Details() {
       setData(
          {
            docs: detail.Documentos,
+           orders: detail.Ordenes,
            displayName: `${detail.firstName} ${detail.lastName}`,
            email: detail.email,
            phoneNumber: detail.phoneNumber,
@@ -78,7 +82,7 @@ data && retrieveOrderData(data.customer)
         
       }}
     >
-    {data && subscriptionData && orderData ?
+    {data && subscriptionData && orderData && user ?
       <Container maxWidth="lg">
         <Tooltip title="Regresar">     
             <IconButton onClick={() => router.back()}>
@@ -139,7 +143,7 @@ data && retrieveOrderData(data.customer)
         : 
       
         <Grid container spacing={3}>
-        <UserOrders orderData={orderData.orders} />
+        <UserOrders orderData={orderData.orders} id={id}   orders={data.orders} />
         </Grid>
         }
       </Container>

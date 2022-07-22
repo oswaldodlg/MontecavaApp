@@ -12,7 +12,7 @@ export default function useDeleteDoc() {
     const [isPending, setIsPending] = useState(false)
     
 
-    const deleteDoc = async(id, currentDocData, carpet) => {
+    const deleteDoc = async(id, currentDocData, carpet, order) => {
        
         try {
         const userRef= await doc(db, 'users', id);
@@ -28,6 +28,10 @@ export default function useDeleteDoc() {
         } else if (carpet === 'IMSS' || carpet === 'AFORE' || carpet === 'INFONAVIT' || carpet === 'Tesoreria' ){
             updateDoc(userRef, ({
                 ['Documentos' +'.Comprobantes' + `.${carpet}`]: arrayRemove(currentDocData) 
+            }))
+        } else if (carpet === 'Orders' && order ){
+            updateDoc(userRef, ({
+                ['Ordenes' + `.${order}`]: arrayRemove(currentDocData) 
             }))
         } else if (carpet){
             updateDoc(userRef, ({

@@ -106,7 +106,7 @@ function Details() {
         : 
       
         <Grid container spacing={3}>
-        <UserOrders orderData={orderData.orders} credentials={data.credentials} />
+        <UserOrders orderData={orderData.orders} id={user.uid} orders={data.Ordenes} />
         </Grid>
         }
       </Container>

@@ -16,6 +16,7 @@ export default function useUploadDoc() {
     const [documents, setDocuments] = useState([])
     const [userRef, setUserRef] = useState([])
     const [carpet, setCarpet] = useState()
+    const [order, setOrder] = useState()
 
     const [counter, setCounter] = useState(0)
 
@@ -34,6 +35,10 @@ export default function useUploadDoc() {
                 updateDoc(userRef, ({
                     ['Documentos' +'.Comprobantes' + `.${carpet}`]: arrayUnion(...docArray) 
                 }))
+            } else if (carpet === 'Orders' && order ){
+                updateDoc(userRef, ({
+                    ['Ordenes' + `.${order}`]: arrayUnion(...docArray) 
+                }))
             } else if (carpet){
                 updateDoc(userRef, ({
                     ['Documentos' + `.${carpet}`]: arrayUnion(...docArray)
@@ -51,12 +56,13 @@ export default function useUploadDoc() {
 
     
 
-    const addDocuments= async(id, carpet, documents) => {
+    const addDocuments= async(id, carpet, order, documents) => {
         setSuccess(false)
         setError(null)
         setIsPending(true)
         setDocuments(documents)
         setCarpet(carpet)
+        setOrder(order)
 
         console.log(id, carpet, documents)
 
@@ -68,14 +74,18 @@ export default function useUploadDoc() {
        
         
         //add and store contract
-        const docRef = await ref(storageRef, `${id}/${carpet}/`)
 
-        
-        
-
-        
+       
 
         try {
+
+        let docRef;
+
+        if (!order){
+            docRef = await ref(storageRef, `${id}/${carpet}/`)
+        } else {
+            docRef = await ref(storageRef, `${id}/Ordenes/${order}`)
+        }
         
           
         

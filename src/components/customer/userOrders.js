@@ -10,17 +10,28 @@ import {
     Grid
   } from '@mui/material';
 import moment from 'moment';
+import UploadFileModal from './uploadFileModal';
 import React, {useState, useEffect} from 'react';
+import OrderDocViewComponent from './orderDocumentDisplay';
+import { useAuthContext } from 'src/hooks/useAuthContext';
 
   
-  export const UserOrders  = ({orderData, credentials}) => {
+  export const UserOrders  = ({orderData, id, orders}) => {
+  
    const [currentOrder, setCurrentOrder] = useState()
    const [orderView, setOrderView] = useState()
+
+
+   const {data} = useAuthContext()
 
    useEffect(() => {
     currentOrder && setOrderView(orderData.data.find( item => item.id === currentOrder ))
     orderView && console.log(orderView.line_items)
+    console.log(currentOrder)
+    console.log(orders)
    }, [currentOrder, orderView])
+   
+   
    
     return(
     <>
@@ -40,7 +51,7 @@ import React, {useState, useEffect} from 'react';
             minHeight: '31vh'
           }}
         >
-          {credentials === 'user' ? 
+          {data.credentials === 'user' ? 
           <Typography
             color="textPrimary"
             gutterBottom
@@ -94,6 +105,8 @@ import React, {useState, useEffect} from 'react';
             minHeight: '31vh'
           }}
         >
+          <Grid container>
+          <Grid item>
           <Typography
             color="textPrimary"
             gutterBottom
@@ -102,6 +115,11 @@ import React, {useState, useEffect} from 'react';
            Servicios Adquiridos
             
           </Typography>
+          </Grid>
+          <Grid item>
+          {data.credentials === 'admin' && <UploadFileModal name={'Orders'} id={id} order={currentOrder}/>}
+          </Grid>
+          </Grid>
           <Grid item>
           {orderView && orderView.line_items && orderView.line_items.data.map((item, index) => {
             return(
@@ -111,6 +129,10 @@ import React, {useState, useEffect} from 'react';
             )
           })}
           </Grid>
+        {orders && orders[currentOrder] &&  (
+         <OrderDocViewComponent id={id} data={orders[currentOrder]} credentials={data.credentials} orderId={currentOrder}/>
+        )}
+          
         </Box>
       </CardContent>
       <Divider />
