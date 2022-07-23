@@ -82,9 +82,9 @@ export default function useUploadDoc() {
         let docRef;
 
         if (!order){
-            docRef = await ref(storageRef, `${id}/${carpet}/`)
+            docRef = ref(storageRef, `${id}/${carpet}/`)
         } else {
-            docRef = await ref(storageRef, `${id}/Ordenes/${order}`)
+            docRef = ref(storageRef, `${id}/Ordenes/${order}`)
         }
         
           
