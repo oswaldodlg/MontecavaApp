@@ -1,11 +1,7 @@
 import React, {useState} from 'react'
 import Head from 'next/head';
 import { Box, Container, Grid, Typography, Button} from '@mui/material';
-import { AccountProfile } from 'src/components/account/account-profile';
-import { AccountProfileDetails } from 'src/components/account/account-profile-details';
 import { DashboardLayout } from 'src/components/dashboard-layout';
-import { useLogout } from 'src/hooks/useLogout';
-import { useAuthContext } from 'src/hooks/useAuthContext';
 import ServicesDrawer from 'src/components/services/servicesDrawer';
 import ServicesDisplay from 'src/components/services/servicesDisplay';
 
@@ -14,9 +10,6 @@ import ServicesDisplay from 'src/components/services/servicesDisplay';
 function Services() {
 
   const [currentServiceView, setCurrentServiceView] = useState('Declaraciones')
-
-  const {user, data} = useAuthContext()
-
 
 
   return (

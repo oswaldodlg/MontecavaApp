@@ -15,23 +15,48 @@ export const useLogout = () => {
         setIsPending(true)
 
 
-        signOut(auth).then(() => {
+    //     signOut(auth).then(() => {
            
-            dispatch({type: 'LOGOUT'})
-            if (!isCancelled){
-                setIsPending(false)
-                setError(null)
+    //         dispatch({type: 'LOGOUT'})
+    //         if (!isCancelled){
+    //             setIsPending(false)
+    //             setError(null)
                 
-            }
-        }).catch((err) => {
-            if (!isCancelled){
-                console.log(err.message)
-                setError(err.message)
-                setIsPending(false)
+    //         }
+    //     }).catch((err) => {
+    //         if (!isCancelled){
+    //             console.log(err.message)
+    //             setError(err.message)
+    //             setIsPending(false)
                 
-            }
+    //         }
+    //     })
+    // }
+
+    try{
+        await signOut(auth)
+
+        //dispatch logout action
+        dispatch( {
+            type: 'LOGOUT'
         })
+
+        //update state
+
+        if (!isCancelled){
+            setIsPending(false)
+            setError(null)
+        }
+
+       
+    } catch(err){
+        if (!isCancelled){
+        console.log(err.message)
+        setError(err.message)
+        setIsPending(false)
+        }
     }
+}
 
     useEffect(() => {
         return () => setIsCancelled(true)

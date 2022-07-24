@@ -5,7 +5,7 @@ export default function useGetStripeCustomer() {
     const [customer, setCustomer] = useState()
     const [loading, setIsLoading] = useState(false)
 
-    const {user, data} = useAuthContext()
+    const {data} = useAuthContext()
 
     const retrieveStripeCustomer = async(user) => {
         setIsLoading(true)

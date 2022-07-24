@@ -7,6 +7,7 @@ import NextImage from 'next/image';
 import ImgArchivo from '../../../assets/img/archivo-pdf.png';
 import useDeleteDoc from 'src/hooks/useDeleteDoc';
 import { useAuthContext } from 'src/hooks/useAuthContext';
+import { SettingsCellRounded } from '@mui/icons-material';
 
 
 const style = {
@@ -72,7 +73,7 @@ const DocAdminModal = ({doc, name, id}) => {
   )
 }
 
-const DocViewComponent = ({name, id, data, credentials, carpet}) => {
+const DocViewComponent = ({name, id, data, credentials}) => {
 
   const [currentDocs, setCurrentDocs] = useState()
   
@@ -104,7 +105,7 @@ const DocViewComponent = ({name, id, data, credentials, carpet}) => {
           </Grid>
           )
         })}
-        {credentials && credentials === 'user' && currentDocs && currentDocs.map((doc, index) => {
+        {credentials === 'user' && currentDocs && currentDocs.map((doc, index) => {
           return  (
           <Grid key={index} item xs={6} md={3} sx={{textAlign: 'center', p: 3}}>
           <NextLink href={doc.url}>
@@ -129,7 +130,13 @@ const DocViewComponent = ({name, id, data, credentials, carpet}) => {
 }
 
 export default function UserDocumentDisplay({currentDocView, id, docs}) {
+  const [credentials, setCredentials]= useState()
   const {data} = useAuthContext()
+
+  useEffect(() => {
+    data && setCredentials(data.credentials)
+  }, [data])
+  
   return (
       
     <Card>
@@ -148,73 +155,73 @@ export default function UserDocumentDisplay({currentDocView, id, docs}) {
               carpet = 'Declaraciones' 
               id={id} 
               data={docs.Declaraciones && docs.Declaraciones.Mensuales}
-              credentials={data.credentials} />}
+              credentials={credentials} />}
               {currentDocView === 'anuales' && 
               <DocViewComponent
               carpet = 'Declaraciones'  
               name='Anuales' 
               id={id} 
               data={docs.Declaraciones && docs.Declaraciones.Anuales}
-              credentials={data.credentials}/>}
+              credentials={credentials}/>}
                {currentDocView === 'bimestrales' && 
               <DocViewComponent
               carpet = 'Declaraciones'  
               name='Bimestrales' 
               id={id} 
               data={docs.Declaraciones && docs.Declaraciones.Anuales}
-              credentials={data.credentials}/>}
+              credentials={credentials}/>}
               {currentDocView === 'imss' && 
               <DocViewComponent
               carpet = 'Comprobantes'  
               name='IMSS' 
               id={id} 
               data={docs.Comprobantes && docs.Comprobantes.IMSS}
-              credentials={data.credentials}/>}
+              credentials={credentials}/>}
               {currentDocView === 'afore' && 
               <DocViewComponent 
               carpet = 'Comprobantes' 
               name='AFORE' 
               id={id} 
               data={docs.Comprobantes && docs.Comprobantes.AFORE}
-              credentials={data.credentials}/>}
+              credentials={credentials}/>}
               {currentDocView === 'infonavit' && 
               <DocViewComponent 
               carpet = 'Comprobantes' 
               name='INFONAVIT' 
               id={id} 
               data={docs.Comprobantes && docs.Comprobantes.INFONAVIT}
-              credentials={data.credentials}/>}
+              credentials={credentials}/>}
               {currentDocView === 'tesoreria' && 
               <DocViewComponent 
               carpet = 'Comprobantes' 
               name='Tesoreria' 
               id={id} 
               data={docs.Comprobantes && docs.Comprobantes.Tesoreria}
-              credentials={data.credentials}/>}
+              credentials={credentials}/>}
               {currentDocView === 'estadosFinancieros' && 
               <DocViewComponent 
               name='Estados Financieros' 
               id={id} 
               data={docs['Estados Financieros'] && docs['Estados Financieros']}
-              credentials={data.credentials}/>}
+              credentials={credentials}/>}
               {currentDocView === 'constanciaSitFiscal' && 
               <DocViewComponent 
               name='Constancia' 
               id={id} 
               data={docs.Constancia && docs.Constancia}
-              credentials={data.credentials}/>}
+              credentials={credentials}/>}
               {currentDocView === 'opinion' && 
               <DocViewComponent 
               name='Opinión' 
               id={id} 
               data={docs['Opinión']}
-              credentials={data.credentials}/>} 
+              credentials={credentials}/>} 
                {currentDocView === 'tablerosControl' && 
               <DocViewComponent 
               name='Tableros de Control' 
               id={id} 
               data={data['Tableros de Control']}
-              credentials={data.credentials}/>}
+              credentials={credentials}/>}
                {/* {currentDocView === 'videoRetro' && 
               <DocViewComponent 
               name='Video de Retroalimentación' 

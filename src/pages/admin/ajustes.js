@@ -2,12 +2,9 @@ import React, { useEffect } from 'react'
 import Head from 'next/head';
 import { Box, Container, Typography } from '@mui/material';
 import { DashboardLayout } from 'src/components/dashboard-layout';
-import { useAuthContext } from 'src/hooks/useAuthContext';
 import { SettingsPassword } from 'src/components/settings/settings-password';
 
 function Settings() {
-
-  const {user} = useAuthContext()
 
 
   return(

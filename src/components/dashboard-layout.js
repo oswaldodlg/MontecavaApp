@@ -26,7 +26,7 @@ export const DashboardLayout = (props) => {
   }, [data])
   
 
-  if (!user && data && data.credentials===null){
+  if (!user && authIsReady ){
     return <></>
   } else {
     return (

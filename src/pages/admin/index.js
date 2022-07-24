@@ -5,18 +5,10 @@ import { Box, Container, Grid, Typography} from '@mui/material';
 import { DashboardLayout } from '../../components/dashboard-layout';
 
 import { useAuthContext } from '../../hooks/useAuthContext'
-import AuthRoute from 'src/HOC/authRoute';
-import { useCollectionUserDetail } from 'src/hooks/useCollectionUserDetail';
-
 
 
 
 function Dashboard () {
-
-  const {user, credentials} = useAuthContext()
-  //const {details} = useCollectionUserDetail()
-
-  console.log(user)
 
   return (
     <>

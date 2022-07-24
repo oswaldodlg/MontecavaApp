@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import { useAuthContext } from './useAuthContext';
 
 export default function useGetOrderData() {
     const [orderData, setOrderData] = useState(null)

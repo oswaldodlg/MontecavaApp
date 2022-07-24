@@ -119,7 +119,7 @@ export default function UploadFileModal({name, id, order}) {
             <Grid item xs={12} md={12}>
             <MyUploader name={name} id={id} order={order} handleClose={handleClose} filesArray={filesArray} setFilesArray={setFilesArray} setShowDateContainer={setShowDateContainer}/>
             </Grid>
-            {dateContainer && 
+            {/* {dateContainer && 
             <Grid xs={12} md={2} sx={{textAlign: 'center'}}>
               <Typography>
                 Fechas
@@ -131,7 +131,7 @@ export default function UploadFileModal({name, id, order}) {
                   </>
                 )
               })}
-            </Grid>}
+            </Grid>} */}
             
         </Box>
       </Modal>

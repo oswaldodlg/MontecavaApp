@@ -9,7 +9,6 @@ import {
   Typography,
   Grid
 } from '@mui/material';
-import { useAuthContext } from 'src/hooks/useAuthContext';
 
 
 function stringToColor(string) {

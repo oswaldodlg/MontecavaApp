@@ -4,15 +4,9 @@ import { Box, Container, Typography, Grid } from '@mui/material';
 import { DashboardLayout } from 'src/components/dashboard-layout';
 import { SettingsNotifications } from 'src/components/settings/settings-notifications';
 import { SettingsPassword } from 'src/components/settings/settings-password';
-import { useAuthContext } from 'src/hooks/useAuthContext';
 import { CheckoutForm } from 'src/components/settings/settings-subscription';
 
 function Settings() {
-
-  const {user, credentials} = useAuthContext()
-  
-
-
   return(
   <>
     <Head>

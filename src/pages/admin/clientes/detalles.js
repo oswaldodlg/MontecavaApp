@@ -3,7 +3,6 @@ import Head from 'next/head';
 import { Box, Container, Grid, Typography, Button, CircularProgress, Tooltip, IconButton} from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { DashboardLayout } from '../../../components/dashboard-layout';
-import { useCollectionUserDetail } from 'src/hooks/useCollectionUserDetail';
 import { AccountProfileUser } from 'src/components/customer/accountProfileUser';
 import { AccountProfileUserDetails } from 'src/components/customer/accountProfileUserDetails';
 import UserDocumentDrawer from 'src/components/customer/userDocumentDrawer';
@@ -14,6 +13,7 @@ import useGetOrderData from 'src/hooks/useGetOrders';
 import { SubscriptionDetails } from 'src/components/customer/subscriptionDetails';
 import { UserOrders } from 'src/components/customer/userOrders';
 import { useAuthContext } from 'src/hooks/useAuthContext';
+import { useGetUserData } from 'src/hooks/useGetUserData';
 
 
 
@@ -30,7 +30,14 @@ function Details() {
 
   const { id } = router.query
 
-  const {details} = useCollectionUserDetail('users', id)
+  const {userData, getUserData} = useGetUserData()
+
+  useEffect(() => {
+
+   getUserData('users', id)
+    
+ }, [id])
+
   const {retrieveSubscriptionData, subscriptionData} = useGetSubscriptionData()
   const {retrieveOrderData, orderData} = useGetOrderData()
 
@@ -40,24 +47,24 @@ function Details() {
 
   
   useEffect(() => {
-    {details && details.map((detail) => {
-      {
-      setData(
+ 
+      userData && setData(
          {
-           docs: detail.Documentos,
-           orders: detail.Ordenes,
-           displayName: `${detail.firstName} ${detail.lastName}`,
-           email: detail.email,
-           phoneNumber: detail.phoneNumber,
-           location: detail.location,
-           subscriptionId: detail.subscriptionId,
-           customer: detail.stripeCustomerId
+           docs: userData.Documentos,
+           orders: userData.Ordenes,
+           displayName: `${userData.firstName} ${userData.lastName}`,
+           email: userData.email,
+           phoneNumber: userData.phoneNumber,
+           location: userData.location,
+           subscriptionId: userData.subscriptionId,
+           customer: userData.stripeCustomerId
          }
        )
-      }
-    })}
+      
 
-}, [details])
+    console.log(userData)
+
+}, [userData])
 
 useEffect(() => {
   
@@ -82,7 +89,7 @@ data && retrieveOrderData(data.customer)
         
       }}
     >
-    {data && subscriptionData && orderData && user ?
+    {data && subscriptionData && orderData ?
       <Container maxWidth="lg">
         <Tooltip title="Regresar">     
             <IconButton onClick={() => router.back()}>
@@ -160,10 +167,10 @@ data && retrieveOrderData(data.customer)
 
 
 
-// Details.getLayout = (page) => (
-//   <DashboardLayout>
-//     {page}
-//   </DashboardLayout>
-// );
+Details.getLayout = (page) => (
+  <DashboardLayout>
+    {page}
+  </DashboardLayout>
+);
 
 export default Details;

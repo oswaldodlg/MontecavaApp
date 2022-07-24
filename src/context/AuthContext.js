@@ -1,15 +1,15 @@
 import React, { createContext, useEffect, useReducer, useState } from "react";
 import { auth } from "../firebase/config";
 import { onAuthStateChanged } from "firebase/auth";
-import { useGetRole } from "../hooks/useGetRole";
 import { useRouter } from "next/router"
+import { useGetLogedUserData } from "src/hooks/useGetLogedUserData";
 
 export const AuthContext = createContext()
 
 export const authReducer = (state, action) => {
     switch (action.type){
         case 'LOGIN':
-            return { ...state, user: action.payload, data: action.data }
+            return { ...state, user: action.payload, data: action.data}
         case 'LOGOUT': 
             return {...state, user: null, data: null}
         case 'AUTH_IS_READY':
@@ -26,38 +26,68 @@ export const AuthContextProvider = ({ children } ) => {
         data: null,
     })
 
-    const [userId, setUserId] = useState()
+    const [userId, setUserId] = useState() 
+    const {logedUserData, getLogedUserData} = useGetLogedUserData()
+
+    // useEffect(() => {
+
+    //     const unsub = () => {
+    //         if(userId) return getLogedUserData('users', userId.uid)
+    //       }
+        
+    //       return unsub()
+    //    }, [userId])
     
 
-    const {credentials} = useGetRole('users', userId)  
-    
-    const router = useRouter()
+     useEffect(() => {
+       userId && getLogedUserData('users', userId.uid)
+    }, [userId])
 
     useEffect(() => {
-        const unsub= onAuthStateChanged(auth, (user) => {
+        console.log('AuthContext state:', state, 'UserId', userId)
+    }, [state])
 
-                try{
-                    setUserId(user.uid)
-                    dispatch( { type: 'AUTH_IS_READY', payload: user, data: credentials})
-                } catch{
-                    setUserId(null)
-                    dispatch( { type: 'AUTH_IS_READY', payload: user, data: null})
-                    unsub()  
-                }   
-               
-                return unsub()
-        })
-    }, [userId, credentials, state.user])
+    useEffect(() => {
+        onAuthStateChanged(auth, (user) => {
+
+            try{
+                setUserId(user)
+                dispatch( { type: 'AUTH_IS_READY', payload: user, data: logedUserData})
+            } catch (err){
+                setUserId(null)
+                console.log(err)
+            }   
+            
+        }) 
+            
+        
+    }, [userId, logedUserData])
+    
+    
+
+    
+
+    // useEffect(() => {
+    //     const unsub = () => onAuthStateChanged(auth, async(user) => {
+    //         try{
+                
+    //             setUserId
+    //             dispatch({ type: 'AUTH_IS_READY', payload: user, data: logedUserData})
+    //         } catch (err){
+    //             console.log(err)
+    //         }
+    //     })
+
+    //     return unsub()
+     
+    // }, [state.data])
    
-    useEffect(() => {
-        console.log('AuthContext state:', state)
 
-    }, [credentials])
    
     return (
         <AuthContext.Provider value={{ ...state, dispatch}}>
         
-            {state.authIsReady && children}
+            { children}
         </AuthContext.Provider>
     )
 }

@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import { useAuthContext } from './useAuthContext';
 
 export default function useGetSubscriptionData() {
     const [subscriptionData, setSubscriptionData] = useState(null)

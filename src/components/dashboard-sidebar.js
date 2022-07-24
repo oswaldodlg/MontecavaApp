@@ -16,7 +16,6 @@ import { Users as UsersIcon } from '../icons/users';
 import { XCircle as XCircleIcon } from '../icons/x-circle';
 import Logo from '../../assets/img/MontecavaLogo.png';
 import { NavItem } from './nav-item';
-import { useAuthContext } from 'src/hooks/useAuthContext';
 
 
 
@@ -69,7 +68,6 @@ export const AdminDashboardSidebar = (props) => {
     noSsr: false
   });
 
-  const {authIsReady, user, credentials} = useAuthContext()
 
   useEffect(
     () => {

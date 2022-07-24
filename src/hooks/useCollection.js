@@ -4,21 +4,33 @@ import { db } from '../firebase/config';
 //firebase Imports
 import {collection, onSnapshot} from 'firebase/firestore'
 
-export const useCollection = (c) => {
+export const useCollection = () => {
     const [documents, setDocuments] = useState(null)
 
-    useEffect(() => {
+    const getAllDocuments = (c) => {
         let ref = collection(db, c) 
 
-        const unsub = onSnapshot(ref, (snapshot) => {
+        onSnapshot(ref, (snapshot) => {
             let results = []
             snapshot.docs.forEach(doc => {
                 results.push({...doc.data(), id: doc.id})
             })
             setDocuments(results)
         })
-        return () => unsub()
-    }, [c])
+    } 
+
+    // useEffect(() => {
+    //     let ref = collection(db, c) 
+
+    //     const unsub = onSnapshot(ref, (snapshot) => {
+    //         let results = []
+    //         snapshot.docs.forEach(doc => {
+    //             results.push({...doc.data(), id: doc.id})
+    //         })
+    //         setDocuments(results)
+    //     })
+    //     return () => unsub()
+    // }, [c])
    
-    return ({documents})
+    return ({documents, getAllDocuments})
 }
