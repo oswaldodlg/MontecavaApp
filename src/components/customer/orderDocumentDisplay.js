@@ -84,7 +84,7 @@ const OrderDocViewComponent = ({id, data, credentials, orderId}) => {
   useEffect(() => {
     console.log(currentDocs)
     console.log(credentials)
-  }, [currentDocs])
+  }, [currentDocs, credentials])
   
   
 

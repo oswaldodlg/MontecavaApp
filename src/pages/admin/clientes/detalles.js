@@ -46,31 +46,31 @@ function Details() {
   const {user} = useAuthContext()
 
   
-  useEffect(() => {
+//   useEffect(() => {
  
-      userData && setData(
-         {
-           docs: userData.Documentos,
-           orders: userData.Ordenes,
-           displayName: `${userData.firstName} ${userData.lastName}`,
-           email: userData.email,
-           phoneNumber: userData.phoneNumber,
-           location: userData.location,
-           subscriptionId: userData.subscriptionId,
-           customer: userData.stripeCustomerId
-         }
-       )
+//       userData && setData(
+//          {
+//            docs: userData.Documentos,
+//            orders: userData.Ordenes,
+//            displayName: `${userData.firstName} ${userData.lastName}`,
+//            email: userData.email,
+//            phoneNumber: userData.phoneNumber,
+//            location: userData.location,
+//            subscriptionId: userData.subscriptionId,
+//            customer: userData.stripeCustomerId
+//          }
+//        )
       
 
-    console.log(userData)
+//     console.log(userData)
 
-}, [userData])
+// }, [userData])
 
 useEffect(() => {
   
-data && retrieveSubscriptionData(data.subscriptionId) 
-data && retrieveOrderData(data.customer)
-}, [data])
+userData && retrieveSubscriptionData(userData.subscriptionId) 
+userData && retrieveOrderData(userData.customer)
+}, [userData])
 
 
 
@@ -89,7 +89,7 @@ data && retrieveOrderData(data.customer)
         
       }}
     >
-    {data && subscriptionData && orderData ?
+    {userData && subscriptionData && orderData ?
       <Container maxWidth="lg">
         <Tooltip title="Regresar">     
             <IconButton onClick={() => router.back()}>
@@ -120,7 +120,7 @@ data && retrieveOrderData(data.customer)
             md={6}
             xs={12}
           >
-          <AccountProfileUser data={data}/>
+          {/* <AccountProfileUser data={data}/> */}
           </Grid>
           <Grid
             item
@@ -144,7 +144,7 @@ data && retrieveOrderData(data.customer)
             md={6}
             xs={12}
           >
-          {subscriptionData.isActive ? <UserDocumentDisplay currentDocView={currentDocView} id={id} docs={data.docs}/> : <Typography>Tu membresia no está activa</Typography>}
+          {subscriptionData.isActive ? <UserDocumentDisplay currentDocView={currentDocView} id={id} docs={userData.Documentos}/> : <Typography>Tu membresia no está activa</Typography>}
           </Grid>
         </Grid>
         : 
