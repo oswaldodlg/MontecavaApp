@@ -73,12 +73,12 @@ export const useLogin = () => {
         try{
             const res = await signInWithEmailAndPassword(auth, email, password)
             
-            await getLogedUserData('users', res.user.uid)
+            // await getLogedUserData('users', res.user.uid)
             //dispatch login action
             dispatch( {
                 type: 'LOGIN',
                 payload: res.user,
-                data: logedUserData,
+                // data: logedUserData,
                 // id: res.user.uid
             })
 

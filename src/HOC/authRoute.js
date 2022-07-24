@@ -117,7 +117,7 @@ export default AuthRoute;
      
   
 //       data && console.log(data.credentials)
-//       console.log(router.pathname)
+
       
 //   }, [user, authIsReady, router.pathname])
 

@@ -150,7 +150,7 @@ userData && retrieveOrderData(userData.customer)
         : 
       
         <Grid container spacing={3}>
-        <UserOrders orderData={orderData.orders} id={id}   orders={data.orders} />
+        <UserOrders orderData={orderData.orders} id={id}   orders={userData.Ordenes} />
         </Grid>
         }
       </Container>

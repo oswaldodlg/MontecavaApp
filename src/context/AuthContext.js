@@ -9,11 +9,13 @@ export const AuthContext = createContext()
 export const authReducer = (state, action) => {
     switch (action.type){
         case 'LOGIN':
-            return { ...state, user: action.payload, data: action.data}
+            return { ...state, user: action.payload, data: null}
         case 'LOGOUT': 
             return {...state, user: null, data: null}
         case 'AUTH_IS_READY':
-            return {...state, user: action.payload, authIsReady: true, data: action.data}
+            return {...state, user: action.payload, authIsReady: true}
+        case 'DATA_IS_READY':
+            return {...state, data: action.data}
         default:
             return state
     }
@@ -40,28 +42,41 @@ export const AuthContextProvider = ({ children } ) => {
     
 
      useEffect(() => {
-       userId && getLogedUserData('users', userId.uid)
+     userId &&  getLogedUserData('users', userId.uid)
+       
     }, [userId])
+
+    useEffect(() => {
+      logedUserData &&  dispatch( { type: 'DATA_IS_READY', data: logedUserData})
+    }, [logedUserData])
+    
+
+    
+    
 
     useEffect(() => {
         console.log('AuthContext state:', state, 'UserId', userId)
     }, [state])
 
     useEffect(() => {
+        
         onAuthStateChanged(auth, (user) => {
 
             try{
                 setUserId(user)
-                dispatch( { type: 'AUTH_IS_READY', payload: user, data: logedUserData})
+                dispatch( { type: 'AUTH_IS_READY', payload: user})
             } catch (err){
                 setUserId(null)
                 console.log(err)
             }   
             
         }) 
-            
+
+      
         
-    }, [userId, logedUserData])
+    
+        
+    }, [state.authIsReady, auth])
     
     
 
@@ -87,7 +102,7 @@ export const AuthContextProvider = ({ children } ) => {
     return (
         <AuthContext.Provider value={{ ...state, dispatch}}>
         
-            { children}
+            {children}
         </AuthContext.Provider>
     )
 }

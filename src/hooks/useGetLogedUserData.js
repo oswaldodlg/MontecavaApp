@@ -2,7 +2,7 @@ import {useState, useEffect} from 'react';
 import { db } from '../firebase/config';
 
 //firebase Imports
-import {collection, doc, onSnapshot} from 'firebase/firestore'
+import {collection, doc, onSnapshot, getDoc} from 'firebase/firestore'
 
 
 export const useGetLogedUserData = () => {
@@ -10,18 +10,25 @@ export const useGetLogedUserData = () => {
     const [logedUserData, setLogedUserData] = useState(null)
 
 
-    // useEffect(() => {
-    //   getLogedUserData('users', user.uid)
-    // }, [user])
+
+
+    useEffect(() => {
+      console.log(logedUserData)
+    }, [logedUserData])
+    
     
 
-    const getLogedUserData = (c, id) => {
+    const getLogedUserData = async(c, id) => {
+       
         try{
-            let ref = collection(db, c)
-            let docRef = doc(ref, id) 
-            onSnapshot(docRef, (doc) => {
-                setLogedUserData(doc.data()) 
-            })
+            console.log(c, id)
+            const ref = collection(db, c)
+            const docRef = doc(ref, id) 
+            getDoc(docRef).then((doc) => setLogedUserData(doc.data()))
+            // const unsub= () => onSnapshot(docRef, (doc) => {
+            //     setLogedUserData(doc.data()) 
+            // })
+            // return unsub()
            
         } catch (err){
             console.log(err)
