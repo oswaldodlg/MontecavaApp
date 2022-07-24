@@ -46,31 +46,31 @@ function Details() {
   const {user} = useAuthContext()
 
   
-//   useEffect(() => {
+  useEffect(() => {
  
-//       userData && setData(
-//          {
-//            docs: userData.Documentos,
-//            orders: userData.Ordenes,
-//            displayName: `${userData.firstName} ${userData.lastName}`,
-//            email: userData.email,
-//            phoneNumber: userData.phoneNumber,
-//            location: userData.location,
-//            subscriptionId: userData.subscriptionId,
-//            customer: userData.stripeCustomerId
-//          }
-//        )
+      userData && setData(
+         {
+           docs: userData.Documentos,
+           orders: userData.Ordenes,
+           displayName: `${userData.firstName} ${userData.lastName}`,
+           email: userData.email,
+           phoneNumber: userData.phoneNumber,
+           location: userData.location,
+           subscriptionId: userData.subscriptionId,
+           customer: userData.stripeCustomerId
+         }
+       )
       
 
-//     console.log(userData)
+    console.log(userData)
 
-// }, [userData])
+}, [userData])
 
 useEffect(() => {
   
-userData && retrieveSubscriptionData(userData.subscriptionId) 
-userData && retrieveOrderData(userData.customer)
-}, [userData])
+data && retrieveSubscriptionData(data.subscriptionId) 
+data && retrieveOrderData(data.customer)
+}, [data])
 
 
 
@@ -89,7 +89,7 @@ userData && retrieveOrderData(userData.customer)
         
       }}
     >
-    {userData && subscriptionData && orderData ?
+    {data && subscriptionData && orderData ?
       <Container maxWidth="lg">
         <Tooltip title="Regresar">     
             <IconButton onClick={() => router.back()}>
@@ -120,7 +120,7 @@ userData && retrieveOrderData(userData.customer)
             md={6}
             xs={12}
           >
-          {/* <AccountProfileUser data={data}/> */}
+          <AccountProfileUser data={data}/>
           </Grid>
           <Grid
             item
@@ -144,13 +144,13 @@ userData && retrieveOrderData(userData.customer)
             md={6}
             xs={12}
           >
-          {subscriptionData.isActive ? <UserDocumentDisplay currentDocView={currentDocView} id={id} docs={userData.Documentos}/> : <Typography>Tu membresia no está activa</Typography>}
+          {subscriptionData.isActive ? <UserDocumentDisplay currentDocView={currentDocView} id={id} docs={data.docs}/> : <Typography>Tu membresia no está activa</Typography>}
           </Grid>
         </Grid>
         : 
       
         <Grid container spacing={3}>
-        <UserOrders orderData={orderData.orders} id={id}   orders={userData.Ordenes} />
+        <UserOrders orderData={orderData.orders} id={id}   orders={data.orders} />
         </Grid>
         }
       </Container>
