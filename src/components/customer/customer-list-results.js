@@ -6,62 +6,37 @@ import {
   Avatar,
   Box,
   Card,
-  Checkbox,
+  Button,
   Table,
   TableBody,
   TableCell,
   TableHead,
   TablePagination,
   TableRow,
+  Grid,
   Typography
 } from '@mui/material';
 import { getInitials } from '../../utils/get-initials';
 import { DashboardLayout } from 'src/components/dashboard-layout';
 import NextLink from 'next/link'
+import { useCollection } from 'src/hooks/useCollection';
 
 export const CustomerListResults = ({ customers, uid, ...rest }) => {
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(3);
   const [page, setPage] = useState(0);
 
-  const handleSelectAll = (event) => {
-    let newSelectedCustomerIds;
+  const {showNext, documents, allDocsRetrieved} = useCollection('users')
 
-    if (event.target.checked) {
-      newSelectedCustomerIds = customers.map((customer) => customer.id);
-    } else {
-      newSelectedCustomerIds = [];
-    }
-
-    setSelectedCustomerIds(newSelectedCustomerIds);
-  };
-
-  const handleSelectOne = (event, id) => {
-    const selectedIndex = selectedCustomerIds.indexOf(id);
-    let newSelectedCustomerIds = [];
-
-    if (selectedIndex === -1) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds, id);
-    } else if (selectedIndex === 0) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds.slice(1));
-    } else if (selectedIndex === selectedCustomerIds.length - 1) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(
-        selectedCustomerIds.slice(0, selectedIndex),
-        selectedCustomerIds.slice(selectedIndex + 1)
-      );
-    }
-
-    setSelectedCustomerIds(newSelectedCustomerIds);
-  };
 
   const handleLimitChange = (event) => {
     setLimit(event.target.value);
   };
 
   const handlePageChange = (event, newPage) => {
+
     setPage(newPage);
+    
   };
 
   return (
@@ -100,23 +75,16 @@ export const CustomerListResults = ({ customers, uid, ...rest }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {customers.slice(0, limit).map((customer) => {
+              {documents && documents.map((customer) => {
                 if(customer.id != uid && customer.credentials != 'admin') {
                 return (
-                <NextLink href={`clientes/detalles?id=${customer.id}`} key={customer.id}>
+                <NextLink href={`clientes/detalles?id=${customer.key}`} key={customer.key}>
                 <TableRow
                   hover
                   key={customer.id}
-                  selected={selectedCustomerIds.indexOf(customer.id) !== -1}
+                  selected={selectedCustomerIds.indexOf(customer.key) !== -1}
                   sx={{cursor: 'pointer'}}
                 >
-                  {/* <TableCell padding="checkbox">
-                    <Checkbox
-                      checked={selectedCustomerIds.indexOf(customer.id) !== -1}
-                      onChange={(event) => handleSelectOne(event, customer.id)}
-                      value="true"
-                    />
-                  </TableCell> */}
                   <TableCell>
                     <Box
                       sx={{
@@ -160,7 +128,7 @@ export const CustomerListResults = ({ customers, uid, ...rest }) => {
           </Table>
         </Box>
       </PerfectScrollbar>
-      <TablePagination
+      {/* <TablePagination
         component="div"
         count={customers.length}
         onPageChange={handlePageChange}
@@ -168,7 +136,11 @@ export const CustomerListResults = ({ customers, uid, ...rest }) => {
         page={page}
         rowsPerPage={limit}
         rowsPerPageOptions={[5, 10, 25]}
-      />
+      /> */}
+        <Grid item sx={{textAlign: 'center', py:1}}>
+        {!allDocsRetrieved && documents && <Button onClick={showNext}>Mostrar más</Button>}
+        {allDocsRetrieved && <Typography sx={{fontSize: '14px'}}>Se han desplegado todos los usuarios</Typography>}
+        </Grid>
     </Card>
   );
 };

@@ -10,12 +10,12 @@ import { useCollection } from 'src/hooks/useCollection';
 import { useAuthContext } from 'src/hooks/useAuthContext';
 
 export default function Customers() {
-  const { documents, getAllDocuments } = useCollection()
+  const { documents} = useCollection('users')
   const {user} = useAuthContext()
 
   useEffect(() => {
-    return getAllDocuments('users')
-  }, [])
+   console.log(documents)
+  }, [documents])
   
 
   return (
