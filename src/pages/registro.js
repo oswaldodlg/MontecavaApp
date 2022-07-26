@@ -19,7 +19,7 @@ import { useSignUp } from 'src/hooks/useSignUp';
 
 const Register = () => { 
 
-  const {signup} = useSignUp()
+  const {signup, isPending} = useSignUp()
 
   const router = useRouter();
   
@@ -215,6 +215,7 @@ const Register = () => {
               </FormHelperText>
             )}
             <Box sx={{ py: 2 }}>
+              {!isPending ? 
               <Button
                 color="primary"
                 disabled={formik.isSubmitting}
@@ -225,6 +226,18 @@ const Register = () => {
               >
                 Registrarme
               </Button>
+              :
+              <Button
+                color="primary"
+                disabled
+                fullWidth
+                size="large"
+                type="submit"
+                variant="contained"
+              >
+                Procesando...
+              </Button>
+              }
             </Box>
             {/* <Typography
               color="textSecondary"

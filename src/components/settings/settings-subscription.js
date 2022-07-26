@@ -109,6 +109,17 @@ const anualPlans = [
   },
 ]
 
+const prepay = [
+  {
+    number: 1,
+    name: 'Prepago',
+    term: 'prepay',
+    cost: 0,
+    subscription_id: 'price_1LPufULONI3gdtL5vheawuxl',
+    privileges: ['Tu pagas solo los servicios que requieras']
+  },
+]
+
 
 
 export const CheckoutForm = () => {
@@ -196,6 +207,7 @@ export const CheckoutForm = () => {
                 <Button onClick={() => setTerm('monthly')} color='info'>Mensual</Button>
                 <Button onClick={() => setTerm('bimestral')}  color='info'>Bimestral</Button>
                 <Button onClick={() => setTerm('anual')}  color='info'>Anual</Button>
+                <Button onClick={() => setTerm('prepay')} color='info'>Prepago</Button>
               </Grid>
             <Grid container sx={{placeContent: 'center', py: 2}}>
               
@@ -212,6 +224,11 @@ export const CheckoutForm = () => {
               {term === 'anual' && anualPlans.map((anualPlan, index) => {
                 return(
                   <PlanButton plan={anualPlan} key={index} setPlan={setPlan} />
+                )
+              })}
+               {term === 'prepay' && prepay.map((prepayPlan, index) => {
+                return(
+                  <PlanButton plan={prepayPlan} key={index} setPlan={setPlan} />
                 )
               })}
             </Grid>

@@ -5,6 +5,7 @@ import { DashboardLayout } from 'src/components/dashboard-layout';
 import { SettingsNotifications } from 'src/components/settings/settings-notifications';
 import { SettingsPassword } from 'src/components/settings/settings-password';
 import { CheckoutForm } from 'src/components/settings/settings-subscription';
+import { ClientPortal } from 'src/components/settings/portal-client';
 
 function Settings() {
   return(
@@ -36,6 +37,9 @@ function Settings() {
             </Grid> */}
             <Grid item xs={12} md={12} padding={2}>
               <SettingsPassword />
+            </Grid>
+            <Grid item xs={12} md={12} padding={2}>
+              <ClientPortal />
             </Grid>
             
           </Grid>
