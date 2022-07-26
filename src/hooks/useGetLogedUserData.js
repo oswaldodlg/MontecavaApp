@@ -13,29 +13,26 @@ export const useGetLogedUserData = () => {
 
 
     useEffect(() => {
-      console.log(logedUserData)
-    }, [logedUserData])
+        console.log(logedUserData)
+      return setLogedUserData(null)
+    }, [])
     
-    
-
     const getLogedUserData = async(c, id) => {
-       
-        try{
-            console.log(c, id)
+        console.log(c, id)
+        
             const ref = collection(db, c)
-            const docRef = doc(ref, id) 
-            getDoc(docRef).then((doc) => setLogedUserData(doc.data()))
-            // const unsub= () => onSnapshot(docRef, (doc) => {
-            //     setLogedUserData(doc.data()) 
-            // })
-            // return unsub()
-           
-        } catch (err){
-            console.log(err)
-        }
-       
-    }        
+            const docRef = doc(ref, id)
 
+            const unsubscribe = onSnapshot(docRef, (doc) => {
+                    console.log(docRef)
+                    setLogedUserData(doc.data()) 
+                    unsubscribe()
+            }, (error) => {
+                console.log(error)
+            })
+        
+      
+    }        
         
     
     return ({logedUserData, getLogedUserData})

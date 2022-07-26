@@ -8,23 +8,27 @@ export const useGetUserData = () => {
 
     const [userData, setUserData] = useState(null)
 
+
     const getUserData = (c, id) => {
         try{
             let ref = collection(db, c)
-            let docRef = doc(ref, id) 
-            onSnapshot(docRef, (doc) => {
+
+            // getDoc(docRef).then((doc) => setLogedUserData(doc.data()))
+            const unsubscribe = onSnapshot(doc(ref, id), (doc) => {
                 setUserData(doc.data()) 
+                
             })
-           
+            
+            
         } catch (err){
             console.log(err)
         }
-       
+        
     }        
 
     useEffect(() => {
-      console.log(userData)
-    }, [userData])
+     return setUserData(null)
+    }, [])
     
     
 

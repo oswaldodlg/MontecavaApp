@@ -21,11 +21,6 @@ export const DashboardLayout = (props) => {
   const {authIsReady, user, data} = useAuthContext()
   const [isSidebarOpen, setSidebarOpen] = useState(true);
 
-  useEffect(() => {
-  data && console.log(data.credentials)
-  }, [data])
-  
-
   if (!user && authIsReady ){
     return <></>
   } else {

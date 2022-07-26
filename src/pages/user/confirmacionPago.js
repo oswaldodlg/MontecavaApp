@@ -4,7 +4,7 @@ import { Box, Typography, Grid, CircularProgress, Button } from '@mui/material'
 import { useRouter } from 'next/router'
 import { useAuthContext } from 'src/hooks/useAuthContext';
 import useUpdateUserDoc from 'src/hooks/useUpdateDocUser';
-import Link from 'next/link';
+import { useGetLogedUserData } from 'src/hooks/useGetLogedUserData';
 
 const stripe = require("stripe")(process.env.NEXT_PUBLIC_STRIPE_SECRET);
 
@@ -19,7 +19,8 @@ export default function ConfirmacionPago() {
 
   const payment = router.query
 
-  const {user, data} = useAuthContext()
+  const {user, data, dispatch} = useAuthContext()
+  const {getLogedUserData, logedUserData} = useGetLogedUserData()
   const {updateUserDoc} = useUpdateUserDoc()
 
   const theme = useTheme()
@@ -88,6 +89,15 @@ export default function ConfirmacionPago() {
     }
   }, [resData])
   
+  const handleSubmit = async() => {
+    router.push('/user').then(() => router.reload())
+   
+  }
+
+  // useEffect(() => {
+  //   
+  //   router.push('/user')
+  // }, [logedUserData])
   
 
   return (
@@ -97,11 +107,9 @@ export default function ConfirmacionPago() {
       {message ? 
       <>
         <Typography variant="h3">{message}</Typography>
-        <Link href={'/user'}><Button variant='contained'>Ir a Dashboard</Button></Link>
+        <Button variant='contained' onClick={handleSubmit}>Ir a Dashboard</Button>
       </>
       : <CircularProgress color='inherit' />}
-      {data && data.status === 'succeeded' && <Typography>Tu Plan: {data.metadata.plan} </Typography>}
-      {data && data.amount && <Typography>Monto: {data.amount/100} </Typography>}
       </Typography>
       </Grid>
     </Box>

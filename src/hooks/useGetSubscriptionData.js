@@ -3,6 +3,12 @@ import React, {useState, useEffect} from 'react';
 export default function useGetSubscriptionData() {
     const [subscriptionData, setSubscriptionData] = useState(null)
     const [loading, setIsLoading] = useState(false)
+    const [error, setError] = useState()
+
+    useEffect(() => {
+      setError(null)
+    }, [])
+    
 
     const retrieveSubscriptionData = (subscriptionId) => {
         setIsLoading(true)
@@ -16,8 +22,23 @@ export default function useGetSubscriptionData() {
           }),
         })
           .then((res) =>  res.json())
-          .then((data) => setSubscriptionData(data));
+          // .then((data) => {
+          //   try{
+          //     setSubscriptionData(data)
+          //   } catch(err){
+          //     console.log(err)
+          //     setError(err)
+          //   }
+            
+          // })
+          .then((data) => {
+            setSubscriptionData(data)
+          })
+          .catch((error) => {
+            setError(error)
+          });
+        setIsLoading(false)
     }
 
-    return {retrieveSubscriptionData, subscriptionData, loading}
+    return {retrieveSubscriptionData, subscriptionData, error}
 }

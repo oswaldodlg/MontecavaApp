@@ -18,6 +18,8 @@ const AuthRoute = ({ children }) => {
         setAllowed(true)
       }
 
+    
+
       else if (user && authIsReady && data){
         if (router.pathname.startsWith("/user") && data.credentials === "user" || router.pathname.startsWith("/admin") && data.credentials === "admin" ){
           if (router.pathname.startsWith("/user/confirmacionPago")){
@@ -39,7 +41,7 @@ const AuthRoute = ({ children }) => {
           await router.push("/user/suscripcion")
           setAllowed(true)
         } 
-        else if (router.pathname.startsWith("/login")){
+        else if (router.pathname.startsWith("/login") || router.pathname.startsWith("/registro")){
           data.credentials === "user" &&   data.subscriptionId ?  await router.push("/user") : await router.push("/user/suscripcion")
           data.credentials === "admin" && await router.push("/admin")
           setAllowed(true)
@@ -59,12 +61,9 @@ const AuthRoute = ({ children }) => {
   
   
 
-  if (user && authIsReady && data && allowed) {
+  if (authIsReady && allowed) {
     return children
   } 
-  else if (!user && authIsReady && allowed){
-    return <Login />
-  }
   else {
     return (
     <Box sx={{minHeight: '100vh', alignItems: 'center', justifyContent: 'center', alignItems: 'center'}} >

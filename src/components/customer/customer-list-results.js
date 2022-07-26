@@ -71,7 +71,7 @@ export const CustomerListResults = ({ customers, uid, ...rest }) => {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell padding="checkbox">
+                {/* <TableCell padding="checkbox">
                   <Checkbox
                     checked={selectedCustomerIds.length === customers.length}
                     color="primary"
@@ -81,7 +81,7 @@ export const CustomerListResults = ({ customers, uid, ...rest }) => {
                     }
                     onChange={handleSelectAll}
                   />
-                </TableCell>
+                </TableCell> */}
                 <TableCell>
                   Nombre
                 </TableCell>
@@ -110,13 +110,13 @@ export const CustomerListResults = ({ customers, uid, ...rest }) => {
                   selected={selectedCustomerIds.indexOf(customer.id) !== -1}
                   sx={{cursor: 'pointer'}}
                 >
-                  <TableCell padding="checkbox">
+                  {/* <TableCell padding="checkbox">
                     <Checkbox
                       checked={selectedCustomerIds.indexOf(customer.id) !== -1}
                       onChange={(event) => handleSelectOne(event, customer.id)}
                       value="true"
                     />
-                  </TableCell>
+                  </TableCell> */}
                   <TableCell>
                     <Box
                       sx={{

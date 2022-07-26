@@ -37,7 +37,7 @@ export default function useRegister() {
             const userRef= await doc(db, 'users', res.user.uid);
 
             const stripeCustomerId = async() => {
-                fetch("../api/create-stripe-customer", {
+                fetch("/api/create-stripe-customer", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ 

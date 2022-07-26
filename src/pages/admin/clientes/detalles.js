@@ -34,17 +34,14 @@ function Details() {
 
   useEffect(() => {
 
-   getUserData('users', id)
+   id && getUserData('users', id)
     
  }, [id])
 
-  const {retrieveSubscriptionData, subscriptionData} = useGetSubscriptionData()
+  const {retrieveSubscriptionData, subscriptionData, error} = useGetSubscriptionData()
   const {retrieveOrderData, orderData} = useGetOrderData()
 
   const [currentView, setCurrentView] = useState(0)
-
-  const {user} = useAuthContext()
-
   
   useEffect(() => {
  
@@ -61,9 +58,6 @@ function Details() {
          }
        )
       
-
-    console.log(userData)
-
 }, [userData])
 
 useEffect(() => {
@@ -71,6 +65,8 @@ useEffect(() => {
 data && retrieveSubscriptionData(data.subscriptionId) 
 data && retrieveOrderData(data.customer)
 }, [data])
+
+
 
 
 
@@ -156,7 +152,18 @@ data && retrieveOrderData(data.customer)
       </Container>
      : 
      <Grid container  sx={{justifyContent: 'center', alignItems: 'center', height: '70vh'}}>
-     <CircularProgress sx={{margin: '0 auto'}}/>
+     {userData && userData.subscriptionId != null ? <CircularProgress sx={{margin: '0 auto'}}/> : 
+        <>
+          {error && <>
+          <Tooltip title="Regresar">     
+            <IconButton onClick={() => router.back()}>
+              <ArrowBackIcon  color="primary" />
+            </IconButton>
+        </Tooltip>
+      <Typography>El usuario no está enrolado en alguna suscripción</Typography>
+      </>}
+      </>
+     }
     </Grid>
      } 
       

@@ -47,7 +47,7 @@ export const AuthContextProvider = ({ children } ) => {
     }, [userId])
 
     useEffect(() => {
-      logedUserData &&  dispatch( { type: 'DATA_IS_READY', data: logedUserData})
+      dispatch( { type: 'DATA_IS_READY', data: logedUserData})
     }, [logedUserData])
     
 
@@ -60,7 +60,7 @@ export const AuthContextProvider = ({ children } ) => {
 
     useEffect(() => {
         
-        onAuthStateChanged(auth, (user) => {
+       const unsub = onAuthStateChanged(auth, (user) => {
 
             try{
                 setUserId(user)
@@ -69,12 +69,9 @@ export const AuthContextProvider = ({ children } ) => {
                 setUserId(null)
                 console.log(err)
             }   
-            
+           
         }) 
-
-      
-        
-    
+     
         
     }, [state.authIsReady, auth])
     

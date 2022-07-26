@@ -4,8 +4,9 @@ import NextImage from 'next/image'
 import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { Box, Button, Container, Grid, Link, TextField, Typography, Alert } from '@mui/material';
+import { Box, Button, Container, Grid,TextField, Typography, Alert } from '@mui/material';
 import { useLogin } from '../hooks/useLogin';
+import Link from 'next/link'
 
 import Logo from '../../assets/img/MontecavaLogo.png';
 
@@ -147,6 +148,16 @@ const Login = () => {
                 >
                   Iniciar Sesión
                 </Button>
+                <Link href={'/registro'} passHref>
+                <Button
+                  color="primary"
+                  fullWidth
+                  size="large"
+                  sx={{placeContent: 'end'}}
+                >
+                  ¿No tienes una cuenta? Regístrate
+                </Button>
+                </Link>
               </Box>
             </form>
           </Container>

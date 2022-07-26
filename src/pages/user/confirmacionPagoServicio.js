@@ -1,12 +1,8 @@
 import React, {useEffect, useState} from 'react'
-import { useTheme } from '@emotion/react'
 import { Box, Typography, Grid, CircularProgress, Button, Card } from '@mui/material'
 import { useRouter } from 'next/router'
-import { useAuthContext } from 'src/hooks/useAuthContext';
-import useUpdateUserDoc from 'src/hooks/useUpdateDocUser';
 import Link from 'next/link';
 import CurrencyFormat from 'react-currency-format';
-import useCartActions from 'src/hooks/useCartActions';
 import { useCart } from 'react-use-cart';
 
 const stripe = require("stripe")(process.env.NEXT_PUBLIC_STRIPE_SECRET);
@@ -24,10 +20,6 @@ export default function ConfirmacionPago() {
 
   const payment = router.query
 
-  const {user, data} = useAuthContext()
-  const {updateUserDoc} = useUpdateUserDoc()
-
-  const theme = useTheme()
 
   console.log(payment)
 
@@ -84,8 +76,6 @@ export default function ConfirmacionPago() {
         <Link href={'/user'}><Button variant='contained'>Ir a Dashboard</Button></Link>
       </>
       : <CircularProgress color='inherit' />}
-      {data && data.status === 'succeeded' && <Typography>Tu Plan: {data.metadata.plan} </Typography>}
-      {data && data.amount && <Typography>Monto: {data.amount/100} </Typography>}
       </Typography>
       </Grid>
     </Box>
