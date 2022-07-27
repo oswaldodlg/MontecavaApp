@@ -22,6 +22,9 @@ const AuthRoute = ({ children }) => {
         }
       
       }
+      else   if(router.pathname.startsWith('/')){
+        setAllowed(true)
+      }
 
     
 
