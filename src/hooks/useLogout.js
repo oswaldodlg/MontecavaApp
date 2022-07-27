@@ -1,4 +1,5 @@
 import { signOut } from "firebase/auth";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { auth } from "../firebase/config";
 import { useAuthContext } from "./useAuthContext";
@@ -8,6 +9,8 @@ export const useLogout = () => {
     const [error, setError] = useState(null)
     const [isPending, setIsPending] = useState(false)
     const { dispatch } = useAuthContext()
+
+    const router= useRouter()
 
 
     const logout = async () => {
@@ -40,6 +43,8 @@ export const useLogout = () => {
         dispatch( {
             type: 'LOGOUT'
         })
+
+        router.push("/login")
 
         //update state
 

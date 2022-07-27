@@ -14,8 +14,13 @@ const AuthRoute = ({ children }) => {
      const routeProtection = async() => {
 
       if (!user && authIsReady){
-        await router.push("/login")
-        setAllowed(true)
+        if(router.pathname.startsWith('/')){
+          setAllowed(true)
+        } else {
+          router.push("/login")
+          setAllowed(true)
+        }
+      
       }
 
     
@@ -53,11 +58,6 @@ const AuthRoute = ({ children }) => {
 
       
   }, [user, authIsReady, data])
-
-
-  useEffect(() => {
-    console.log(allowed)
-  }, [allowed])
   
   
 
