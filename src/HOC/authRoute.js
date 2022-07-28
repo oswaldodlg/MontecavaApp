@@ -11,56 +11,85 @@ const AuthRoute = ({ children }) => {
     const [allowed, setAllowed] = useState(false)
 
     useEffect(() => {  
-     const routeProtection = async() => {
-
-      if (!user && authIsReady){
-        if(router.pathname.startsWith('/')){
-          setAllowed(true)
-        } else {
-          router.push("/login")
+      const routeProtection = async() => {
+ 
+       if (!user && authIsReady && !router.pathname.startsWith("/admin") && !router.pathname.startsWith("/user") ){
+         setAllowed(true)
+       } else if ((router.pathname.startsWith("/admin") || (router.pathname.startsWith("/user") ) && !user)) {
+        router.push("/login")
+        setAllowed(true)
+       }
+ 
+       else if (user && authIsReady && data){
+        if (router.pathname.startsWith("/user") && data.credentials === "user" || router.pathname.startsWith("/admin") && data.credentials === "admin" ){
           setAllowed(true)
         }
+        else if (router.pathname.startsWith("/admin") && data.credentials === "user" ){
+          router.push("/user")
+          setAllowed(true)
+        } else if (router.pathname.startsWith("/user") && data.credentials === "admin"){
+          router.push("/admin")
+          setAllowed(true)
+        }
+       }
+     }
       
-      }
-      else if(router.pathname.startsWith('')){
-        setAllowed(true)
-      }
+     return routeProtection()
+ 
+       
+   }, [user, authIsReady])
+
+  //   useEffect(() => {  
+  //    const routeProtection = async() => {
+
+  //     if (!user && authIsReady){
+  //       if(router.pathname.startsWith('/')){
+  //         setAllowed(true)
+  //       } else {
+  //         router.push("/login")
+  //         setAllowed(true)
+  //       }
+      
+  //     }
+  //     else if(router.pathname.startsWith('')){
+  //       setAllowed(true)
+  //     }
 
     
 
-      else if (user && authIsReady && data){
-        if (router.pathname.startsWith("/user") && data.credentials === "user" || router.pathname.startsWith("/admin") && data.credentials === "admin" ){
-          if (router.pathname.startsWith("/user/confirmacionPago")){
-            setAllowed(true)
-          } else {
-            data.credentials === "user" &&   data.subscriptionId ?  await router.push("/user") : await router.push("/user/suscripcion")
-            data.credentials === "admin" && await router.push("/admin")
-            setAllowed(true)
-          }
-        } 
-        else if(router.pathname.startsWith("/admin") && data.credentials === "user"){
-          !data.subscriptionId ? await router.push("/user/suscripcion") : await router.push("/user")
-          setAllowed(true)
-        } else if(router.pathname.startsWith("/user") && data.credentials === "admin"){
-          await router.push("/admin")
-          setAllowed(true)
-        } 
-        else if (router.pathname.startsWith("/user") && data.credentials === "user" && !data.subscriptionId){
-          await router.push("/user/suscripcion")
-          setAllowed(true)
-        } 
-        else if (router.pathname.startsWith("/login") || router.pathname.startsWith("/registro")){
-          data.credentials === "user" &&   data.subscriptionId ?  await router.push("/user") : await router.push("/user/suscripcion")
-          data.credentials === "admin" && await router.push("/admin")
-          setAllowed(true)
-        }
-      }
-    }
+  //     else if (user && authIsReady && data){
+  //       if (router.pathname.startsWith("/user") && data.credentials === "user" || router.pathname.startsWith("/admin") && data.credentials === "admin" ){
+  //         if (router.pathname.startsWith("/user/confirmacionPago")){
+  //           setAllowed(true)
+  //         } else {
+  //           data.credentials === "user" &&   data.subscriptionId ?  await router.push("/user") : await router.push("/user/suscripcion")
+  //           data.credentials === "admin" && await router.push("/admin")
+  //           setAllowed(true)
+  //         }
+  //       } 
+  //       else if(router.pathname.startsWith("/admin") && data.credentials === "user"){
+  //         !data.subscriptionId ? await router.push("/user/suscripcion") : await router.push("/user")
+  //         setAllowed(true)
+  //       } else if(router.pathname.startsWith("/user") && data.credentials === "admin"){
+  //         await router.push("/admin")
+  //         setAllowed(true)
+  //       } 
+  //       else if (router.pathname.startsWith("/user") && data.credentials === "user" && !data.subscriptionId){
+  //         await router.push("/user/suscripcion")
+  //         setAllowed(true)
+  //       } 
+  //       else if (router.pathname.startsWith("/login") || router.pathname.startsWith("/registro")){
+  //         data.credentials === "user" &&   data.subscriptionId ?  await router.push("/user") : await router.push("/user/suscripcion")
+  //         data.credentials === "admin" && await router.push("/admin")
+  //         setAllowed(true)
+  //       }
+  //     }
+  //   }
      
-    routeProtection()
+  //   routeProtection()
 
       
-  }, [user, authIsReady, data])
+  // }, [user, authIsReady, data])
   
   
 

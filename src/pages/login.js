@@ -72,7 +72,7 @@ const Login = () => {
             alignItems: 'center',
             display: 'flex',
             flexGrow: 1,
-            minHeight: '100%',
+            minHeight: '100vh',
             backgroundColor:'#020226',
            
           }}
