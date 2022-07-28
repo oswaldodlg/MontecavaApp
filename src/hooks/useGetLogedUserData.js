@@ -24,7 +24,6 @@ export const useGetLogedUserData = () => {
             const docRef = doc(ref, id)
 
             const unsubscribe = onSnapshot(docRef, (doc) => {
-                    console.log(docRef)
                     setLogedUserData(doc.data()) 
                     unsubscribe()
             }, (error) => {
