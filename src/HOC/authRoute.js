@@ -45,7 +45,7 @@ const AuthRoute = ({ children }) => {
      return routeProtection()
  
        
-   }, [user, authIsReady])
+   }, [user, authIsReady, data])
 
   //   useEffect(() => {  
   //    const routeProtection = async() => {
