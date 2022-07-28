@@ -21,6 +21,14 @@ function App (props)  {
 
   const getLayout = Component.getLayout ?? ((page) => page);
 
+  React.useEffect(() => {
+    // Remove the server-side injected CSS.
+    const jssStyles = document.querySelector('#jss-server-side');
+    if (jssStyles) {
+      jssStyles.parentElement.removeChild(jssStyles);
+    }
+  }, []);
+
   
   
 
@@ -28,7 +36,7 @@ function App (props)  {
 
     <AuthContextProvider>
     <CartProvider>
-    <CacheProvider value={emotionCache}>
+    {/* <CacheProvider value={emotionCache}> */}
       <Head>
         <title>
           MonteCava App
@@ -49,7 +57,7 @@ function App (props)  {
           
         </ThemeProvider>
       </LocalizationProvider>
-    </CacheProvider>
+    {/* </CacheProvider> */}
     </CartProvider>
     </AuthContextProvider>
 
