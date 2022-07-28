@@ -46,7 +46,7 @@ function App (props)  {
           content="initial-scale=1, width=device-width"
         />
       </Head>
-      <LocalizationProvider dateAdapter={AdapterDateFns}>
+      {/* <LocalizationProvider dateAdapter={AdapterDateFns}> */}
         <ThemeProvider theme={theme}>
           <CssBaseline />
           
@@ -56,7 +56,7 @@ function App (props)  {
           </AuthRoute>
           
         </ThemeProvider>
-      </LocalizationProvider>
+      {/* </LocalizationProvider> */}
     {/* </CacheProvider> */}
     </CartProvider>
     </AuthContextProvider>
