@@ -71,6 +71,8 @@ export const AuthContextProvider = ({ children } ) => {
             }   
            
         }) 
+
+        return unsub()
      
         
     }, [state.authIsReady, auth])
@@ -99,7 +101,7 @@ export const AuthContextProvider = ({ children } ) => {
     return (
         <AuthContext.Provider value={{ ...state, dispatch}}>
         
-            {children}
+            {state.authIsReady && children}
         </AuthContext.Provider>
     )
 }

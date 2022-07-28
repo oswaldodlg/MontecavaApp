@@ -11,6 +11,7 @@ import Link from 'next/link'
 import Logo from '../../assets/img/MontecavaLogo.png';
 
 import { useAuthContext } from 'src/hooks/useAuthContext';
+import Layout from 'src/components/landingPage/Layout';
 
 const Login = () => {
 
@@ -74,7 +75,7 @@ const Login = () => {
             flexGrow: 1,
             minHeight: '100vh',
             backgroundColor:'#020226',
-           
+            // paddingTop: {xs: 0, md: '20vh'}
           }}
         >
           <Container maxWidth="sm">
@@ -166,5 +167,11 @@ const Login = () => {
     )
   }
 };
+
+// Login.getLayout = (page) => (
+//   <Layout>
+//     {page}
+//   </Layout>
+// );
 
 export default Login;

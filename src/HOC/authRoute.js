@@ -21,14 +21,14 @@ const AuthRoute = ({ children }) => {
        }
  
        else if (user && authIsReady && data){
-        if (router.pathname.startsWith("/user") && data.credentials === "user" || router.pathname.startsWith("/admin") && data.credentials === "admin" ){
-          setAllowed(true)
-        }
-        else if (router.pathname.startsWith("/admin") && data.credentials === "user" ){
+        
+        if (router.pathname.startsWith("/admin") && data.credentials === "user" ){
           router.push("/user")
           setAllowed(true)
         } else if (router.pathname.startsWith("/user") && data.credentials === "admin"){
           router.push("/admin")
+          setAllowed(true)
+        } else {
           setAllowed(true)
         }
        }
@@ -37,7 +37,7 @@ const AuthRoute = ({ children }) => {
      return routeProtection()
  
        
-   }, [user, authIsReady])
+   }, [user, authIsReady, data])
 
   //   useEffect(() => {  
   //    const routeProtection = async() => {

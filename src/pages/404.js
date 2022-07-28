@@ -63,7 +63,7 @@ const NotFound = () => (
               sx={{ mt: 3 }}
               variant="contained"
             >
-              Regresar al dashboard
+              Regresar
             </Button>
           </NextLink>
         </Box>

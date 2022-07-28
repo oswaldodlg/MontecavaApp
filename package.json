@@ -30,7 +30,7 @@
     "formik": "^2.1.5",
     "history": "^5.0.0",
     "moment": "^2.29.3",
-    "next": "^12.0.3-canary.7",
+    "next": "^12.2.3",
     "nprogress": "^0.2.0",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
@@ -45,9 +45,9 @@
     "yup": "^0.32.9"
   },
   "devDependencies": {
-    "eslint": "^7.32.0",
-    "eslint-config-next": "12.0.3-canary.7",
     "babel-plugin-import": "^1.13.3",
-    "babel-plugin-styled-components": "^2.0.2"
+    "babel-plugin-styled-components": "^2.0.2",
+    "eslint": "^7.32.0",
+    "eslint-config-next": "12.0.3-canary.7"
   }
 }

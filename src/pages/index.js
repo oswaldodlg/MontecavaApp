@@ -5,7 +5,7 @@ import { CircularProgress } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import Layout from 'src/components/landingPage/Layout';
 
-const Hero = "https://images.unsplash.com/photo-1560179707-f14e90ef3623?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2073&q=80"
+const Hero = "https://images.unsplash.com/photo-1560179707-f14e90ef3623"
 
 const useStyles = makeStyles((theme) => ({
   
