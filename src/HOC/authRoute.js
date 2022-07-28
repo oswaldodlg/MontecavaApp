@@ -28,6 +28,12 @@ const AuthRoute = ({ children }) => {
         } else if (router.pathname.startsWith("/user") && data.credentials === "admin"){
           router.push("/admin")
           setAllowed(true)
+        } else if (router.pathname.startsWith("/login") && data.credentials === "user"){
+          router.push("/user")
+          setAllowed(true)
+        } else if (router.pathname.startsWith("/login") && data.credentials === "admin"){
+          router.push("/admin")
+          setAllowed(true)
         } else {
           setAllowed(true)
         }
