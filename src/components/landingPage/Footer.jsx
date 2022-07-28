@@ -6,7 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 
-import Logo from '../../../assets/img/MontecavaLogo.png'
+import Logo from 'assets/img/MontecavaLogo.png'
 
 
 import { makeStyles } from '@mui/styles';
@@ -80,7 +80,7 @@ export default function Footer() {
       <>
         <Box className={classes.contenedorFooter}>
             <Grid container item={true} xs={12} md={10} >
-                <Grid item xs={12} md={4} alignSelf='center' sx={{padding: '4h'}}>
+                <Grid item xs={12} md={4} alignSelf='center' sx={{padding: '4h', position: 'relative'}}>
                     <Image  src={Logo.src} width={150} height={150}/>
                 </Grid>
                 

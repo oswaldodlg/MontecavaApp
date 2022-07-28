@@ -15,7 +15,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 
-import Logo1 from '../../../assets/img/MontecavaLogo-transparent.png'
+import Logo1 from 'assets/img/MontecavaLogo-transparent.png'
 
 
 const pages = ['Nosotros','Servicios','login'];
