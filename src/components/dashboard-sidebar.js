@@ -42,23 +42,6 @@ const adminItems = [
   },
 ];
 
-const userItems = [
-  {
-    href: '/user',
-    icon: (<ChartBarIcon fontSize="small" />),
-    title: 'Home'
-  },
-  {
-    href: '/user/perfil',
-    icon: (<UserIcon fontSize="small" />),
-    title: 'Mi Perfil'
-  },
-  {
-    href: '/ajustes',
-    icon: (<CogIcon fontSize="small" />),
-    title: 'Ajustes'
-  },
-];
 
 export const AdminDashboardSidebar = (props) => {
   const { open, onClose } = props;
