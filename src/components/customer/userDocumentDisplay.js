@@ -4,7 +4,7 @@ import UploadFileModal from './uploadFileModal';
 import NextLink from 'next/link';
 import NextImage from 'next/image';
 
-import ImgArchivo from '../../../assets/img/archivo-pdf.png';
+import ImgArchivo from 'public/static/archivo-pdf.png';
 import useDeleteDoc from 'src/hooks/useDeleteDoc';
 import { useAuthContext } from 'src/hooks/useAuthContext';
 import { SettingsCellRounded } from '@mui/icons-material';

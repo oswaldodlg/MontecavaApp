@@ -8,7 +8,7 @@ import { Box, Button, Container, Grid,TextField, Typography, Alert } from '@mui/
 import { useLogin } from '../hooks/useLogin';
 import Link from 'next/link'
 
-import Logo from '../../assets/img/MontecavaLogo.png';
+import Logo from 'public/static/MontecavaLogo.png';
 
 import { useAuthContext } from 'src/hooks/useAuthContext';
 import Layout from 'src/components/landingPage/Layout';

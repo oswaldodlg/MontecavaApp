@@ -6,7 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 
-import Logo from 'assets/img/MontecavaLogo.png'
+import Logo from 'public/static/MontecavaLogo.png'
 
 
 import { makeStyles } from '@mui/styles';

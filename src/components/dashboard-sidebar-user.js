@@ -14,7 +14,7 @@ import { User as UserIcon } from '../icons/user';
 import { UserAdd as UserAddIcon } from '../icons/user-add';
 import { Users as UsersIcon } from '../icons/users';
 import { XCircle as XCircleIcon } from '../icons/x-circle';
-import Logo from '../../assets/img/MontecavaLogo.png';
+import Logo from 'public/static/MontecavaLogo.png';
 import { NavItem } from './nav-item';
 
 
