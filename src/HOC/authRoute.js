@@ -10,12 +10,17 @@ const AuthRoute = ({ children }) => {
 
     const [allowed, setAllowed] = useState(false)
 
+    useEffect(() => {
+      console.log(data)
+    }, [data])
+    
+
     useEffect(() => {  
       const routeProtection = async() => {
  
        if (!user && authIsReady && !router.pathname.startsWith("/admin") && !router.pathname.startsWith("/user") ){
          setAllowed(true)
-       } else if ((router.pathname.startsWith("/admin") || (router.pathname.startsWith("/user") ) && !user)) {
+       } else if ((router.pathname.startsWith("/admin") || (router.pathname.startsWith("/user") ) && authIsReady && !user)) {
         router.push("/login")
         setAllowed(true)
        }
@@ -29,13 +34,11 @@ const AuthRoute = ({ children }) => {
           router.push("/admin")
           setAllowed(true)
         } 
-        else if (router.pathname.startsWith("/login") && data.credentials === "user"){
-          await router.push("/user")
+        else if (router.pathname.startsWith("/login") || router.pathname.startsWith("/registro")){
+          data.credentials === "user" &&   data.subscriptionId ?  await router.push("/user") : await router.push("/user/suscripcion")
+          data.credentials === "admin" && await router.push("/admin")
           setAllowed(true)
-        } else if (router.pathname.startsWith("/login") && data.credentials === "admin"){
-          await router.push("/admin")
-          setAllowed(true)
-        } 
+        }
         else {
           setAllowed(true)
         }
@@ -86,11 +89,7 @@ const AuthRoute = ({ children }) => {
   //         await router.push("/user/suscripcion")
   //         setAllowed(true)
   //       } 
-  //       else if (router.pathname.startsWith("/login") || router.pathname.startsWith("/registro")){
-  //         data.credentials === "user" &&   data.subscriptionId ?  await router.push("/user") : await router.push("/user/suscripcion")
-  //         data.credentials === "admin" && await router.push("/admin")
-  //         setAllowed(true)
-  //       }
+  //       
   //     }
   //   }
      

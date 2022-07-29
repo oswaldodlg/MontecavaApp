@@ -28,7 +28,7 @@ export const ClientPortal = (props) => {
     
       <Card>
         <CardHeader
-          subheader="Ir a portal de clientes"
+          subheader="En el portal de clientes puedes gestionar tu suscripción y métodos de pago."
           title="Portal de Clientes"
         />
         <Divider />
@@ -47,7 +47,7 @@ export const ClientPortal = (props) => {
             type='submit'
             onClick={handleSubmit}
           >
-            Ir a portal de cliente
+            Ir a portal de clientes
           </Button>
         </Box>
       </Card>

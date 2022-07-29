@@ -84,7 +84,7 @@ const ResponsiveAppBar = () => {
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu} >
                   <Link href={`/${page}`}  passHref>
-                  <Typography   textAlign="center">{page}</Typography>
+                  {page === 'login' ? <Typography> Dashboard </Typography> : <Typography> {page}</Typography>}
                   </Link>
                 </MenuItem>
               ))}
@@ -107,7 +107,7 @@ const ResponsiveAppBar = () => {
                 sx={{ my: 2, color: 'white', display: 'block' }}
                 style={{color:'#FFF'}}
               >
-                {page === 'login' ? <Typography> Iniciar Sesión </Typography> : <Typography> {page}</Typography>}
+                {page === 'login' ? <Typography> Dashboard </Typography> : <Typography> {page}</Typography>}
               </Button>
               </Link>
               )

@@ -65,7 +65,7 @@ export const useSignUp = () => {
 
               dispatch({
                 type: 'LOGIN',
-                payload: res.user
+                payload: res.user,
               }) 
 
 

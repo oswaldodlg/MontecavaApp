@@ -32,15 +32,13 @@ function Settings() {
         {/* <SettingsNotifications /> */}
         <Box sx={{ pt: 3 }}>
           <Grid container>
-            {/* <Grid item xs={12} md={12} padding={2}>
-              <CheckoutForm />
-            </Grid> */}
+              <Grid item xs={12} md={12} padding={2}>
+              <ClientPortal />
+            </Grid>
             <Grid item xs={12} md={12} padding={2}>
               <SettingsPassword />
             </Grid>
-            <Grid item xs={12} md={12} padding={2}>
-              <ClientPortal />
-            </Grid>
+          
             
           </Grid>
         </Box>
