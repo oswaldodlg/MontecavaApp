@@ -64,7 +64,7 @@ export const AuthContextProvider = ({ children } ) => {
        const unsub = onAuthStateChanged(auth, (user) => {
 
             try{
-                setUserId(user.uid)
+                user && setUserId(user.uid)
                 dispatch( { type: 'AUTH_IS_READY', payload: user})
             } catch (err){
                 setUserId(null)
