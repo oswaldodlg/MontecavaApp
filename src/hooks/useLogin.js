@@ -53,15 +53,17 @@ import { auth } from "../firebase/config"
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useAuthContext } from "./useAuthContext"
 import { useGetLogedUserData } from "./useGetLogedUserData";
+import { useGetUserData } from "./useGetUserData";
 
 
 export const useLogin = () => {
     const [isCancelled, setIsCancelled] = useState(false)
+    const [userId, setUserId] = useState()
     const [error, setError] = useState(null)
     const [isPending, setIsPending] = useState(false)
     const { dispatch } = useAuthContext()
 
-    const {logedUserData, getLogedUserData} = useGetLogedUserData()    
+    const {userData: logedUserData} = useGetUserData('users', userId )    
    
 
     const login = async(email, password) => {
@@ -71,8 +73,7 @@ export const useLogin = () => {
         //sign the user in
         try{
             const res = await signInWithEmailAndPassword(auth, email, password)
-            
-            await getLogedUserData('users', res.user.uid).then(() => 
+            setUserId(res.user.uid).then(() => 
             //dispatch login action
             dispatch( {
                 type: 'LOGIN',
