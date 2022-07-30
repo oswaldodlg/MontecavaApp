@@ -106,7 +106,7 @@ import { useAuthContext } from 'src/hooks/useAuthContext';
           }}
         >
           <Grid container>
-          <Grid item>
+          <Grid item xs={12} md={6} lg={8} sx={{textAlign: {xs: 'center', md: 'start'}}}>
           <Typography
             color="textPrimary"
             gutterBottom
@@ -116,11 +116,11 @@ import { useAuthContext } from 'src/hooks/useAuthContext';
             
           </Typography>
           </Grid>
-          <Grid item>
+          <Grid item xs={12} md={6} lg={4} sx={{textAlign: {xs: 'center', md: 'end'}}}>
           {data.credentials === 'admin' && <UploadFileModal name={'Orders'} id={id} order={currentOrder}/>}
           </Grid>
           </Grid>
-          <Grid item>
+          <Grid container xs={12} sx={{display: 'flex', textAlign: {xs: 'center', md: 'start'}, flexDirection: 'column', paddingY: 5}} >
           {orderView && orderView.line_items && orderView.line_items.data.map((item, index) => {
             return(
               <React.Fragment key={index}>

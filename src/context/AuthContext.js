@@ -3,6 +3,7 @@ import { auth } from "../firebase/config";
 import { onAuthStateChanged } from "firebase/auth";
 import { useRouter } from "next/router"
 import { useGetLogedUserData } from "src/hooks/useGetLogedUserData";
+import { useGetUserData } from "src/hooks/useGetUserData";
 
 export const AuthContext = createContext()
 
@@ -29,7 +30,7 @@ export const AuthContextProvider = ({ children } ) => {
     })
 
     const [userId, setUserId] = useState() 
-    const {logedUserData, getLogedUserData} = useGetLogedUserData()
+    const {userData: logedUserData} = useGetUserData('users',  userId)
 
     // useEffect(() => {
 
@@ -41,10 +42,10 @@ export const AuthContextProvider = ({ children } ) => {
     //    }, [userId])
     
 
-     useEffect(() => {
-     userId &&  getLogedUserData('users', userId.uid)
+    //  useEffect(() => {
+    //  userId &&  getLogedUserData('users', userId.uid)
        
-    }, [userId])
+    // }, [userId])
 
     useEffect(() => {
       dispatch( { type: 'DATA_IS_READY', data: logedUserData})
@@ -63,7 +64,7 @@ export const AuthContextProvider = ({ children } ) => {
        const unsub = onAuthStateChanged(auth, (user) => {
 
             try{
-                setUserId(user)
+                setUserId(user.uid)
                 dispatch( { type: 'AUTH_IS_READY', payload: user})
             } catch (err){
                 setUserId(null)

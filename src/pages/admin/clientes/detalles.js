@@ -12,7 +12,6 @@ import useGetSubscriptionData from 'src/hooks/useGetSubscriptionData';
 import useGetOrderData from 'src/hooks/useGetOrders';
 import { SubscriptionDetails } from 'src/components/customer/subscriptionDetails';
 import { UserOrders } from 'src/components/customer/userOrders';
-import { useAuthContext } from 'src/hooks/useAuthContext';
 import { useGetUserData } from 'src/hooks/useGetUserData';
 
 
@@ -30,13 +29,13 @@ function Details() {
 
   const { id } = router.query
 
-  const {userData, getUserData, isPending} = useGetUserData()
+  const {userData,  isPending} = useGetUserData('users', id)
 
-  useEffect(() => {
+//   useEffect(() => {
 
-   id && getUserData('users', id)
+//    id && getUserData('users', id)
     
- }, [id])
+//  }, [id])
 
   const {retrieveSubscriptionData, subscriptionData, error} = useGetSubscriptionData()
   const {retrieveOrderData, orderData} = useGetOrderData()
@@ -57,6 +56,8 @@ function Details() {
            customer: userData.stripeCustomerId
          }
        )
+
+       console.log(userData)
       
 }, [userData])
 
@@ -153,7 +154,8 @@ console.log(data)
       </Container>
      : 
      <Grid container  sx={{justifyContent: 'center', alignItems: 'center', height: '70vh'}}>
-     {data && data.subscriptionId ? <CircularProgress sx={{margin: '0 auto'}}/> :
+     {data && data.subscriptionId && <CircularProgress sx={{margin: '0 auto'}}/>}
+     {data && !data.subscriptionId &&
         <>
           <Tooltip title="Regresar">     
             <IconButton onClick={() => router.back()}>

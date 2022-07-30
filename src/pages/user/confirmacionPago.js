@@ -90,7 +90,7 @@ export default function ConfirmacionPago() {
   }, [resData])
   
   const handleSubmit = async() => {
-    router.push('/user').then(() => router.reload())
+    router.push('/user')
    
   }
 
