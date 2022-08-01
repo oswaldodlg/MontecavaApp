@@ -91,8 +91,8 @@ export default function Footer() {
                         <Link href={"/login"} passHref><Typography sx={{cursor: 'pointer', paddingY: '1vh'}}>Dashboard</Typography></Link>
                     </Grid>
                     <Grid item xs={12} md={4} sx={{justifyContent: 'center', alignSelf: 'center'}} >
-                       <Typography  sx={{cursor: 'pointer', paddingY: '1vh'}}> 8888 888 88</Typography>
-                        <Typography  sx={{cursor: 'pointer', paddingY: '1vh'}}>montecavaapp@gmail.com</Typography>
+                       <Typography  sx={{cursor: 'pointer', paddingY: '1vh'}}> <a href="tel:811-489-3282">811 489 3282</a></Typography>
+                        <Typography  sx={{cursor: 'pointer', paddingY: '1vh'}}>hcmc_19@hotmail.com</Typography>
                     </Grid>   
             </Grid>
         </Box>

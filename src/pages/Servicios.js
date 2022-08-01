@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from 'react';
-import {  Grid, Typography, Button, Paper, List, ListItem } from '@mui/material';
+import React, { useEffect, useRef, useState } from 'react';
+import {  Grid, Typography, Button, Paper, List, ListItem, Card } from '@mui/material';
 import { Box, minHeight, textAlign } from '@mui/system';
 import Image from 'next/image'
 import { makeStyles } from '@mui/styles';
@@ -11,6 +11,8 @@ const fotoGestorias = 'https://images.unsplash.com/photo-1627634777217-c864268db
 // import fotoElaboracion from '../assets/img/FOTOELABORACION.png'
 import { useRouter } from 'next/router';
 import Layout from 'src/components/landingPage/Layout';
+import { monthlyPlans, bimestralPlans, anualPlans, prepay } from 'src/utils/suscription-info';
+import CurrencyFormat from 'react-currency-format';
 
 const useStyles = makeStyles((theme) => ({
     containerBanner: {
@@ -122,33 +124,35 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Servicios() {
 
-    const router = useRouter()
+    const [currentPlan, setCurrentPlan] = useState(monthlyPlans)
 
-    const firstRef = useRef(null)
-    const secondRef = useRef(null)
-    const thirdRef = useRef(null)
-    const fourthRef= useRef(null)
+    // const router = useRouter()
 
-    const executeScroll = (ref) => ref.current.scrollIntoView()    
+    // const firstRef = useRef(null)
+    // const secondRef = useRef(null)
+    // const thirdRef = useRef(null)
+    // const fourthRef= useRef(null)
+
+    // const executeScroll = (ref) => ref.current.scrollIntoView()    
 
 
-    useEffect(() => {
+    // useEffect(() => {
         
-        const { ref } = router.query
-        console.log(ref)
-        if (ref){
-            if(ref==='firstRef'){
-                return executeScroll(firstRef)
-            } else if(ref==='secondRef'){
-                return executeScroll(secondRef)
-            } else if(ref==='thirdRef'){
-                return executeScroll(thirdRef)
-            } else if(ref==='fourthRef'){
-                return executeScroll(fourthRef)
-            }
-        }
+    //     const { ref } = router.query
+    //     console.log(ref)
+    //     if (ref){
+    //         if(ref==='firstRef'){
+    //             return executeScroll(firstRef)
+    //         } else if(ref==='secondRef'){
+    //             return executeScroll(secondRef)
+    //         } else if(ref==='thirdRef'){
+    //             return executeScroll(thirdRef)
+    //         } else if(ref==='fourthRef'){
+    //             return executeScroll(fourthRef)
+    //         }
+    //     }
         
-    }, [router.query])
+    // }, [router.query])
 
    
 
@@ -179,6 +183,7 @@ export default function Servicios() {
                         <Grid item xs={12} md={3}>
                             <Button className={classes.bannerButtons} variant="contained" aria-label="large button group" 
                             // onClick={() => executeScroll(firstRef)}
+                            onClick={() => setCurrentPlan(monthlyPlans)}
                             >
                                <Typography variant='textoBotonesServiciosBanner'> Planes Mensuales</Typography>
                             </Button>
@@ -186,6 +191,7 @@ export default function Servicios() {
                         <Grid item xs={12} md={3}>
                             <Button className={classes.bannerButtons} variant="contained" aria-label="large button group" 
                             // onClick={() => executeScroll(secondRef)}
+                            onClick={() => setCurrentPlan(bimestralPlans)}
                             >
                                 <Typography variant='textoBotonesServiciosBanner'> Planes Bimestrales </Typography>
                                 </Button>
@@ -193,6 +199,7 @@ export default function Servicios() {
                         <Grid item xs={12} md={3}>
                             <Button className={classes.bannerButtons} variant="contained" aria-label="large button group" 
                             // onClick={() => executeScroll(thirdRef)}
+                            onClick={() => setCurrentPlan(anualPlans)}
                             >
                             <Typography variant='textoBotonesServiciosBanner'>Planes Anuales</Typography>
                             </Button>
@@ -200,11 +207,36 @@ export default function Servicios() {
                         <Grid item xs={12} md={3}>
                             <Button className={classes.bannerButtons} variant="contained" aria-label="large button group" 
                             // onClick={() => executeScroll(fourthRef)}
+                            onClick={() => setCurrentPlan(prepay)}
                             >
                             <Typography variant='textoBotonesServiciosBanner'>Servicios Individuales</Typography>
                             </Button>
                         </Grid>
                     </Grid>
+                </Grid>
+        </Box>
+        <Box sx={{minHeight: '50vh', paddingTop: '15vh', paddingBottom: '10vh', backgroundColor: '#010226'}}>
+                <Grid container sx={{justifyContent: 'center'}}>
+                        <Grid item xs={10} sx={{display:'flex', flexWrap: 'wrap', justifyContent:'center'}}>
+                        {currentPlan && currentPlan.map((plan, index) => {
+                            return(
+                            <Grid item key={index} xs={12} md={6} p={2}>
+                            <Card sx={{minHeight: '65vh', padding: '5vh', backgroundColor: '#f1f58f', boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)'}}> 
+                                <Typography variant="h4" sx={{textAlign: 'center'}}>{plan.name}</Typography>
+                                <Typography variant="h6" sx={{textAlign: 'center'}}>{plan.term}</Typography>
+                                <Grid item py={2} sx={{height: {xs:'auto', md: '35vh'}, alignItems: 'center' , display: 'flex', flexWrap: 'wrap'}}>
+                                {plan.privileges.map((privilege, index) => {
+                                    return(
+                                        <Typography key={index}>-{privilege}</Typography>
+                                    )
+                                })}
+                                </Grid>
+                                <CurrencyFormat value={plan.cost} displayType={'text'} thousandSeparator={true} prefix={'$'} suffix={' MXN'} renderText={value => <Typography id="modal-modal-title" variant="h6" component="h2" sx={{textAlign: 'center', py: 2}}>{value}</Typography>} />
+                            </Card>
+                            </Grid>
+                            )
+                        })}
+                        </Grid>
                 </Grid>
         </Box>
 
