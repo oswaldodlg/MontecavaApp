@@ -8,19 +8,20 @@ import CurrencyFormat from 'react-currency-format';
 
 const useStyles = makeStyles((theme) => ({
   hero: {
-    // backgroundImage: `url(${BannerSecundario.src})`,
-    // backgroundSize: 'cover',
     backgroundColor: '#010226',
-    minHeight: '50vh',
+    
     justifyContent:'center',
     alignItems: 'center',
     
+    textAlign: 'center',
     [theme.breakpoints.up('md')]: {
         backgroundPosition:'top',
-        paddingTop: '10vh',
+        paddingTop: '8vh',
+        minHeight: '50vh',
       },
     [theme.breakpoints.down('md')]: {
         backgroundPosition:'inherit',
+        padding:'8vh',
     },
   },
   containerText:{

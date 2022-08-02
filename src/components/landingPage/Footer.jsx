@@ -88,6 +88,7 @@ export default function Footer() {
                         <Link href={"/Nosotros"} passHref><Typography  sx={{cursor: 'pointer', paddingY: '1vh'}}>Nosotros</Typography></Link>
                         <Link href={"/Servicios"} passHref><Typography  sx={{cursor: 'pointer', paddingY: '1vh'}}>Servicios</Typography></Link>
                         <Link href={"/TerminosyCondiciones"} passHref><Typography sx={{cursor: 'pointer', paddingY: '1vh'}}>Términos y Condiciones</Typography></Link>
+                        <Link href={"/AvisodePrivacidad"} passHref><Typography sx={{cursor: 'pointer', paddingY: '1vh'}}>Aviso de Privacidad</Typography></Link>
                         <Link href={"/login"} passHref><Typography sx={{cursor: 'pointer', paddingY: '1vh'}}>Dashboard</Typography></Link>
                     </Grid>
                     <Grid item xs={12} md={4} sx={{justifyContent: 'center', alignSelf: 'center'}} >
