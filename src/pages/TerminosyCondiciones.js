@@ -14,9 +14,10 @@ const useStyles = makeStyles((theme) => ({
     minHeight: '50vh',
     justifyContent:'center',
     alignItems: 'center',
-    paddingTop: '8vh',
+    
     [theme.breakpoints.up('md')]: {
         backgroundPosition:'top',
+        paddingTop: '10vh',
       },
     [theme.breakpoints.down('md')]: {
         backgroundPosition:'inherit',
@@ -42,7 +43,7 @@ const SubscriptionInfo = () => {
 
     return (
         <Grid container sx={{justifyContent: 'center', py:5}} spacing={3}>
-            <Grid item xs={2} sx={{flexDirection: 'column'}}>
+            <Grid item xs={10} md={2} sx={{flexDirection: {xs: 'inherit', md:'column'}}}>
                 <Button fullWidth variant='contained' sx={{my: 1}}
                 onClick={() => setCurrentPlan(monthlyPlans)}
                 >Servicios Mensuales</Button>
@@ -56,7 +57,7 @@ const SubscriptionInfo = () => {
                 onClick={() => setCurrentPlan(individualServices)}
                 >Servicios Individuales</Button>
             </Grid>
-            <Grid item xs={8} sx={{display: 'flex', flexWrap: 'wrap', justifyContent: 'center'}} >
+            <Grid item xs={12} md={8} sx={{display: 'flex', flexWrap: 'wrap', justifyContent: 'center'}} >
             {currentPlan && currentPlan.map((plan, index) => {
                             return(
                                 <Grid item key={index} xs={12} md={6} p={2}>
@@ -95,7 +96,9 @@ export default function TyC() {
   return (
     <Box className={classes.container}>
       <Grid container className={classes.hero} >
+        <Grid item xs={10} sx={{textAlign: 'center'}}>
         <Typography variant='h4' sx={{color: 'white'}}>Términos y Condiciones</Typography>
+        </Grid>
       </Grid>
       <Grid container className={classes.containerText}>
         <Typography variant='h6'>
