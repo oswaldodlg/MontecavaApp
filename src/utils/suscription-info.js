@@ -73,4 +73,66 @@ export const monthlyPlans = [
       privileges: ['Tu pagas solo los servicios que requieras']
     },
   ]
-  
+
+  export const individualServices = [
+    {
+      name: 'Declaración de Impuestos Mensual',
+      cost: 812
+    },
+    {
+      name: 'Declaración de Impuestos Bimestral',
+      cost: 2018
+    },
+    {
+      name: 'Declaración de Impuestos Anual',
+      cost: 941
+    },
+    {
+      name: 'Contabilidad Fiscal',
+      cost: 812
+    },
+    {
+      name: '5 folios Para Factura Elaboradas',
+      cost: 290
+    },
+    {
+      name: '10 folios Para Factura Elaboradas',
+      cost: 522
+    },
+    {
+      name: '25 folios Para Factura Elaboradas',
+      cost: 870
+    },
+    {
+      name: '35 folios Para Factura Elaboradas',
+      cost: 1276
+    },
+    {
+      name: 'IMSS, AFORE, INFONAVIT',
+      cost: 812
+    },
+    {
+      name: 'Tesorería NL',
+      cost: 812
+    },
+    {
+      name: 'Tableros de Control',
+      cost: 2900
+    },
+    {
+      name: 'Consultoría',
+      cost: 11600
+    },
+    {
+      name: 'Seguro de Imprevistos SAT, IMSS, TESORERÍA',
+      cost: 17400
+    },
+    {
+      name: 'Presentación de Resultados en Sala',
+      cost: 3480
+    },
+    {
+      name: 'Trámite de Saldos a Favor',
+      cost: '10% del saldo a favor'
+    },
+  ]

@@ -11,7 +11,7 @@ const fotoGestorias = 'https://images.unsplash.com/photo-1627634777217-c864268db
 // import fotoElaboracion from '../assets/img/FOTOELABORACION.png'
 import { useRouter } from 'next/router';
 import Layout from 'src/components/landingPage/Layout';
-import { monthlyPlans, bimestralPlans, anualPlans, prepay } from 'src/utils/suscription-info';
+import { monthlyPlans, bimestralPlans, anualPlans, individualServices } from 'src/utils/suscription-info';
 import CurrencyFormat from 'react-currency-format';
 
 const useStyles = makeStyles((theme) => ({
