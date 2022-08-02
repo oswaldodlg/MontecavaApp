@@ -62,7 +62,7 @@ export default function Aviso() {
         <br />H. Datos Sensibles: Conforme a la Ley son aquellos Datos Personales que afecten a la esfera más íntima de su Titular, o cuya utilización indebida pueda dar origen a discriminación o conlleve un riesgo grave para este. Conforme al Centro de Políticas de Play Store para Android, se entiende como datos sensibles información de identificación financiera, de pago y de autenticación; datos relacionados con la agenda telefónica, contactos, ubicación del dispositivo, SMS y llamadas; inventario de otras aplicaciones en el dispositivo, el micrófono y la cámara.
         <br />I. Derechos ARCO: Derechos de acceso, rectificación, cancelación y oposición con los que cuenta el Titular, cuyo ejercicio se encuentra reconocido y regulado en la Ley y en el presente Aviso de Privacidad.
         <br />J. Ley: Ley Federal de Protección de Datos Personales en Posesión de los Particulares.
-        <br />K. Plataforma: Las Plataformas digitales las cuales pueden ser el sitio web https://www.montecava.com.mx/ o las aplicaciones móviles en iOS o Android denominadas “MONTECAVA APP”, según corresponda el uso.
+        <br />K. Plataforma: Las Plataformas digitales las cuales pueden ser el sitio web https://www.montecavaconsultores.com o las aplicaciones móviles en iOS o Android denominadas “MONTECAVA APP”, según corresponda el uso.
         <br />L. Reglamento: Reglamento de la Ley Federal de Protección de Datos Personales en Posesión de los Particulares.
         <br />M. Responsable: Persona física o moral de carácter privado que lleva a cabo el tratamiento de Datos Personales. En términos del presente Aviso de Privacidad se entiende por Responsable en lo consecuente al C. Hugo César Montemayor Cavazos.
         <br />N. Titular: La persona física a quien corresponden los Datos Personales registrados.
@@ -75,7 +75,7 @@ export default function Aviso() {
         2. RESPONSABLE DEL TRATAMIENTO.
         </Typography>
         <Typography variant='h6'>
-        El C. Hugo César Montemayor Cavazos, persona física y representante legal de Montecava App (para iOS y Android) y del sitio web https://www.montecava.com.mx/, con domicilio en 2 de abril (Jesús Dionisio González) No. 1620, Col. Nuevo Repueblo, Monterrey, N.L., C.P. 64700, será el Responsable del uso, tratamiento y protección de los Datos Personales que le sean proporcionados por las personas físicas a quienes correspondan los mismos. A su vez el Responsable se compromete a respetar lo establecido en el presente Aviso de Privacidad, así como las disposiciones de la Ley y su Reglamento.
+        El C. Hugo César Montemayor Cavazos, persona física y representante legal de Montecava App (para iOS y Android) y del sitio web https://www.montecavaconsultores.com, con domicilio en 2 de abril (Jesús Dionisio González) No. 1620, Col. Nuevo Repueblo, Monterrey, N.L., C.P. 64700, será el Responsable del uso, tratamiento y protección de los Datos Personales que le sean proporcionados por las personas físicas a quienes correspondan los mismos. A su vez el Responsable se compromete a respetar lo establecido en el presente Aviso de Privacidad, así como las disposiciones de la Ley y su Reglamento.
         <br /><br />De la misma forma, se hace de su conocimiento que, para cualquier duda, comentario, notificación y/o queja al respecto del manejo de sus Datos Personales puede dirigirse al correo electrónico hcmc_19@hotmail.com al número telefónico 811 489 3282 o en el domicilio previamente mencionado en días hábiles en un horario de 9:00 a.m. a 6:00 p.m.
         </Typography>
         </Grid>
@@ -204,7 +204,7 @@ export default function Aviso() {
         12. CAMBIOS AL AVISO DE PRIVACIDAD
         </Typography>
         <Typography variant="h6">
-        El Responsable se reserva el derecho, bajo su exclusiva discreción, de cambiar, modificar, agregar o eliminar partes del presente Aviso de Privacidad en cualquier momento. En tal caso, el Responsable publicará dichas modificaciones en la página de internet https://www.montecava.com.mx/ e indicará la última versión del aviso. Se recomienda visitar periódicamente esta página con la finalidad de informarse si ocurre algún cambio al presente.
+        El Responsable se reserva el derecho, bajo su exclusiva discreción, de cambiar, modificar, agregar o eliminar partes del presente Aviso de Privacidad en cualquier momento. En tal caso, el Responsable publicará dichas modificaciones en la página de internet https://www.montecavaconsultores.com e indicará la última versión del aviso. Se recomienda visitar periódicamente esta página con la finalidad de informarse si ocurre algún cambio al presente.
         </Typography>
         </Grid>
         <Grid item sx={{padding: '2vh 0'}}>
