@@ -41,7 +41,7 @@ const classes = useStyles()
         <Box className={classes.hero}>
         <Grid container sx={{justifyContent: 'center', paddingY: {xs: '10vh', md: '25vh'}}}>
         <Grid item xs={10} sx={{textAlign: 'center'}}>
-            <Typography variant='h2'> Servicios y Soluciones <br /> en Contaduría</Typography>
+            <Typography variant='h2'> Servicios y Soluciones <br /> en Consultoría Contable, Fiscal y Financiera</Typography>
         </Grid>
         </Grid>
         <Grid container sx={{justifyContent: 'center', textAlign: 'end', }}>

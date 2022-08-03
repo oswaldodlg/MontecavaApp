@@ -221,7 +221,7 @@ export default function Servicios() {
                          {currentPlan && currentPlan.map((plan, index) => {
                             return(
                                 <Grid item key={index} xs={12} md={6} p={2}>
-                                <Card sx={{padding: '5vh', backgroundColor: '#f1f58f', boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)'}}> 
+                                <Card sx={{padding: '5vh', backgroundColor: 'white', boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)'}}> 
                                     {currentPlan === individualServices ?  <Typography variant="h6" sx={{textAlign: 'center'}}>{plan.name}</Typography>
                                     :<Typography variant="h4" sx={{textAlign: 'center'}}>{plan.name}</Typography>
                                     }
