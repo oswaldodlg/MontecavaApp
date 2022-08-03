@@ -139,7 +139,7 @@ export const CheckoutForm = () => {
   useEffect(() => {
    
       setIsLoading(true)
-      fetch("../api/create-setup-intent", {
+      fetch("/api/create-setup-intent", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ items: { 
@@ -166,7 +166,7 @@ export const CheckoutForm = () => {
   useEffect(() => {
     
       setIsLoading(true)
-      paymentId && fetch("../api/update-setup-intent", {
+      paymentId && fetch("/api/update-setup-intent", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ items: { 
@@ -309,7 +309,7 @@ const ContinueButton = ({setIsLoading, isLoading, setMessage}) => {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: env === 'development' ? 'http://localhost:3000/user/confirmacionPago' : 'https://montecavaapp.netlify.app/user/confirmacionPago',
+        return_url: env === 'development' ? 'http://localhost:3000/user/confirmacionPago' : 'https://montecavaconsultores.com/user/confirmacionPago',
       },
     });
 

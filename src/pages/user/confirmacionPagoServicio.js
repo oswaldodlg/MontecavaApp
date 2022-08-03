@@ -27,7 +27,7 @@ export default function ConfirmacionPago() {
 
       if (payment){
         setIsLoading(true)
-        fetch("../api/retrieve-order", {
+        fetch("/api/retrieve-order", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ 

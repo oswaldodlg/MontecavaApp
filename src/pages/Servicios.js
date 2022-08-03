@@ -207,7 +207,7 @@ export default function Servicios() {
                         <Grid item xs={12} md={3}>
                             <Button className={classes.bannerButtons} variant="contained" aria-label="large button group" 
                             // onClick={() => executeScroll(fourthRef)}
-                            onClick={() => setCurrentPlan(prepay)}
+                            onClick={() => setCurrentPlan(individualServices)}
                             >
                             <Typography variant='textoBotonesServiciosBanner'>Servicios Individuales</Typography>
                             </Button>
@@ -218,24 +218,31 @@ export default function Servicios() {
         <Box sx={{minHeight: '50vh', paddingTop: '15vh', paddingBottom: '10vh', backgroundColor: '#010226'}}>
                 <Grid container sx={{justifyContent: 'center'}}>
                         <Grid item xs={10} sx={{display:'flex', flexWrap: 'wrap', justifyContent:'center'}}>
-                        {currentPlan && currentPlan.map((plan, index) => {
+                         {currentPlan && currentPlan.map((plan, index) => {
                             return(
-                            <Grid item key={index} xs={12} md={6} p={2}>
-                            <Card sx={{minHeight: '65vh', padding: '5vh', backgroundColor: '#f1f58f', boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)'}}> 
-                                <Typography variant="h4" sx={{textAlign: 'center'}}>{plan.name}</Typography>
-                                <Typography variant="h6" sx={{textAlign: 'center'}}>{plan.term}</Typography>
-                                <Grid item py={2} sx={{height: {xs:'auto', md: '35vh'}, alignItems: 'center' , display: 'flex', flexWrap: 'wrap'}}>
-                                {plan.privileges.map((privilege, index) => {
-                                    return(
-                                        <Typography key={index}>-{privilege}</Typography>
-                                    )
-                                })}
+                                <Grid item key={index} xs={12} md={6} p={2}>
+                                <Card sx={{padding: '5vh', backgroundColor: '#f1f58f', boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)'}}> 
+                                    {currentPlan === individualServices ?  <Typography variant="h6" sx={{textAlign: 'center'}}>{plan.name}</Typography>
+                                    :<Typography variant="h4" sx={{textAlign: 'center'}}>{plan.name}</Typography>
+                                    }
+                                    {plan.term && <Typography variant="h6" sx={{textAlign: 'center'}}>{plan.term}</Typography>}
+                                    {plan.privileges && 
+                                    <Grid item py={2} sx={{height: {xs:'auto', md: '35vh'}, alignItems: 'center' , display: 'flex', flexWrap: 'wrap'}}>
+                                    {plan.privileges.map((privilege, index) => {
+                                        return(
+                                            <Typography key={index}>-{privilege}</Typography>
+                                        )
+                                    })}
+                                    </Grid>
+                                    }
+                                    {Number.isInteger(plan.cost) ? 
+                                    <CurrencyFormat value={plan.cost} displayType={'text'} thousandSeparator={true} prefix={'$'} suffix={' MXN'} renderText={value => <Typography id="modal-modal-title" variant="h6" component="h2" sx={{textAlign: 'center', py: 2}}>{value}</Typography>} />
+                                    : <Typography id="modal-modal-title" variant="h6" component="h2" sx={{textAlign: 'center', py: 2}}>{plan.cost}</Typography>
+                                    }
+                                </Card>
                                 </Grid>
-                                <CurrencyFormat value={plan.cost} displayType={'text'} thousandSeparator={true} prefix={'$'} suffix={' MXN'} renderText={value => <Typography id="modal-modal-title" variant="h6" component="h2" sx={{textAlign: 'center', py: 2}}>{value}</Typography>} />
-                            </Card>
-                            </Grid>
                             )
-                        })}
+                            })}
                         </Grid>
                 </Grid>
         </Box>

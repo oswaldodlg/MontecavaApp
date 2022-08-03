@@ -11,7 +11,8 @@ const useStyles = makeStyles((theme) => ({
   
   hero: {
     
-    backgroundImage: `url(${Hero})`,
+    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.22),
+    rgba(0, 0, 0, 0.22)),url(${Hero})`,
     minHeight: '100vh',
     backgroundPosition: 'center',
     backgroundRepeat: "no-repeat",
@@ -40,14 +41,13 @@ const classes = useStyles()
         <Box className={classes.hero}>
         <Grid container sx={{justifyContent: 'center', paddingY: {xs: '10vh', md: '25vh'}}}>
         <Grid item xs={10} sx={{textAlign: 'center'}}>
-            <Typography variant='h2'> Servicios y Soluciones <br /> en Contaduria</Typography>
+            <Typography variant='h2'> Servicios y Soluciones <br /> en Contaduría</Typography>
         </Grid>
         </Grid>
         <Grid container sx={{justifyContent: 'center', textAlign: 'end', }}>
           <Grid item xs={10}>
-            <Typography variant='textoHero' sx={{display: 'block'}}><Link className={classes.links} underline="hover" color="inherit">Facebook</Link></Typography>
-            {/* <Typography variant='textoHero' sx={{display: 'block'}}><Link className={classes.links} underline="hover" color="inherit">Instagram</Link></Typography> */}
-            <Typography variant='textoHero' sx={{display: 'block'}}><Link className={classes.links} underline="hover" color="inherit">Linkedin</Link></Typography>
+            {/* <Typography variant='textoHero' sx={{display: 'block'}}><Link className={classes.links} underline="hover" color="inherit">Facebook</Link></Typography>
+            <Typography variant='textoHero' sx={{display: 'block'}}><Link className={classes.links} underline="hover" color="inherit">Linkedin</Link></Typography> */}
           </Grid>
           </Grid>  
       </Box>

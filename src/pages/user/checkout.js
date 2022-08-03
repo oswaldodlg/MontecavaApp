@@ -105,7 +105,7 @@ const ContinueButton = ({setIsLoading, isLoading, setMessage}) => {
         elements,
         confirmParams: {
           // Make sure to change this to your payment completion page
-          return_url: env === 'development' ? 'http://localhost:3000/user/confirmacionPagoServicio' : 'https://montecavaapp.netlify.app/user/confirmacionPagoServicio',
+          return_url: env === 'development' ? 'http://localhost:3000/user/confirmacionPagoServicio' : 'https://montecavaconsultores.com/user/confirmacionPagoServicio',
         },
       });
 

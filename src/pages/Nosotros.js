@@ -1,22 +1,45 @@
 import React, { useEffect, useRef } from 'react';
-import {  Grid, Typography, Button, Paper, List, ListItem } from '@mui/material';
-import { Box, minHeight, textAlign } from '@mui/system';
+import {  Grid, Typography, Card} from '@mui/material';
+import { Box } from '@mui/system';
 import Image from 'next/image'
 import { makeStyles } from '@mui/styles';
 
-const Hero = 'https://images.unsplash.com/photo-1447126134204-a9a6c70c2c4d';
-const fotoGestion = 'https://images.unsplash.com/photo-1423592707957-3b212afa6733';
-const fotoAsesoramiento = 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40';
-const fotoGestorias = 'https://images.unsplash.com/photo-1627634777217-c864268db30c';
-// import fotoElaboracion from '../assets/img/FOTOELABORACION.png'
+const Hero = 'https://images.unsplash.com/photo-1505664063603-28e48ca204eb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80';
+
+import IconoCompromiso from '../../public/static/images/ICONOCOMPROMISO.png';
+import IconoConfianza from '../../public/static/images/ICONOCONFIANZA.png';
+import IconoVision from '../../public/static/images/ICONOTRANSPARENCIA.png'
+
 import { useRouter } from 'next/router';
 import Layout from 'src/components/landingPage/Layout';
 
+
+
+const infoNosotros = [
+    {
+        title: 'Misión',
+        img: IconoCompromiso.src,
+        text: 'Resolver las necesidades de nuestros clientes en el área contable, fiscal y financiero.'
+    },
+    {
+        title: 'Visión',
+        img: IconoVision.src,
+        text: 'Convertirnos en el mejor despacho contable de México, con objetivos a corto, mediano y largo plazo.' 
+    },
+    {
+        title: 'Valores',
+        img: IconoConfianza.src,
+        text: 'Honestidad, Responsabilidad, Profesionalismo'
+    }
+    
+]
+
 const useStyles = makeStyles((theme) => ({
     containerBanner: {
-        backgroundImage: `url(${fotoGestion})`,
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5),
+        rgba(0, 0, 0, 0.5)), url(${Hero})`,
         backgroundSize: 'cover',
-        backgroundPosition:'top',
+        backgroundPosition:'bottom',
         minHeight:'62vh',
         position: 'relative',
         display: 'flex', 
@@ -42,13 +65,6 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         color:'#fff',
     },
-
-    containerSocialMedia:{
-        textAlign:'-webkit-right'
-    },
-    containerBotones:{
-     
-    },
     bannerButtons:{
         backgroundColor: '#E9E9E9',
         color:'#163860',
@@ -59,118 +75,56 @@ const useStyles = makeStyles((theme) => ({
             color:'#FFFFFF'
           },
     },
-    contenedor1textoGestion:{
-        padding: '5vh'
-    },
-    contenedorSeccion1:{
-        
-        paddingBottom: '10vh',
-        display:'block',
-        height: 'auto'
-    },
-    contenedorImgSeccion1:{
-        backgroundImage:`url(${fotoGestion})`,
-       minHeight:'44vh',
-       backgroundPosition:'center',
-       backgroundSize:'cover',
-       backgroundRepeat: 'no-repeat',
-    },
-    contenedorSeccion2:{
-    paddingTop:'10vh',
-    paddingBottom: '10vh',
-     backgroundColor: '#F1F1F1',
-     [theme.breakpoints.down('md')]: {
-        paddingTop:'4vh',
-        paddingBottom: '4vh',
-      },
-    },
-    contenedorImgSeccion2:{
-        backgroundImage:`url(${Hero})`,
-        backgroundPosition:'center',
-        minHeight:'73vh',
-        backgroundSize:'cover',
-        backgroundRepeat: 'no-repeat'
-    },
-    listaSeccion2:{
-        paddingTop:'4vh',
-        
-    },
-    contenedorImgSeccion3:{
-        backgroundImage:`url(${fotoAsesoramiento.src})`,
-        backgroundPosition:'center',
-        minHeight:'73vh',
-        backgroundSize:'cover',
-        backgroundRepeat: 'no-repeat'
-    },
-    contenedorSeccion3:{
-        paddingTop:'10vh',
-        paddingBottom: '10vh',
-         backgroundColor: '#FFFFF',
-         [theme.breakpoints.down('md')]: {
-            paddingTop:'4vh',
-            paddingBottom: '4vh',
-          },
-        },
-    contenedorImgSeccion4:{
-        backgroundImage:`url(${fotoGestorias})`,
-        backgroundPosition:'center',
-        minHeight:'73vh',
-        backgroundSize:'cover',
-        backgroundRepeat: 'no-repeat'
-    }
+
 }))
 
 export default function Nosotros() {
-
-    const router = useRouter()
-
-    const firstRef = useRef(null)
-    const secondRef = useRef(null)
-    const thirdRef = useRef(null)
-    const fourthRef= useRef(null)
-
-    const executeScroll = (ref) => ref.current.scrollIntoView()    
-
-
-    useEffect(() => {
-        
-        const { ref } = router.query
-        console.log(ref)
-        if (ref){
-            if(ref==='firstRef'){
-                return executeScroll(firstRef)
-            } else if(ref==='secondRef'){
-                return executeScroll(secondRef)
-            } else if(ref==='thirdRef'){
-                return executeScroll(thirdRef)
-            } else if(ref==='fourthRef'){
-                return executeScroll(fourthRef)
-            }
-        }
-        
-    }, [router.query])
-
-   
-
-    
-
-    
 
     const classes = useStyles()
     return (
         <>
 
         <Box className={classes.containerBanner}>
-            <Grid container sx={{justifyContent: 'center', marginTop: {xs:0 , md: '5vh'},py: {xs: '10vh', md: 0}}} >
+            <Grid container sx={{justifyContent: 'center', marginTop: {xs:0 , md: '8vh'},py: {xs: '10vh', md: 0}}} >
                 <Grid item xs={10} md={5} color="#FFFFFF" >
-                <Typography variant="h3" textTransform='uppercase'  letterSpacing='0.15em'>Nosotros</Typography>
-                <Typography variant='p' paddingTop='8vh'>Montecava</Typography>
+                <Typography variant="h3" textTransform='uppercase'  letterSpacing='0.15em' py={1}>Nosotros</Typography>
+                <Typography variant='p'>Somos un despacho creado en el 2007 diseñado con el objetivo de resolver completamente las necesidades de nuestros clientes en el aspecto contable, fiscal y financiero. Estamos ubicados en Hacienda Coyoacán No. 4112 Col. Residencial La Hacienda, C.P. 64890 Monterrey N.L. México.</Typography>
                 </Grid>        
             </Grid>
         </Box>
-
-
-          
+        <Box>
+            <Grid container sx={{justifyContent: 'center', py: '10vh'}} spacing={3}>
+                {infoNosotros.map((info, index) => {
+                    return (
+                        <Grid item xs={10} md={3} key={index}>
+                            <Card sx={{textAlign: 'center', boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)', py: '2vh'}}>
+                                <Image src={info.img} width={130} height={130}/>
+                                <Typography variant='h5'>{info.title}</Typography>
+                                <Grid item sx={{height: '20vh', padding: '4vh'}}>
+                                <Typography>{info.text}</Typography>
+                                </Grid>
+                            </Card>
+                        </Grid>
+                    )
+                })}
+            </Grid>
+        </Box>
+        <Box sx={{backgroundColor: '#010226'}}>
+            <Grid container sx={{justifyContent: 'center', color: 'white', textAlign: 'center'}}>
+                <Grid item xs={10}>
+                    <Typography py={4} variant="h5" textTransform='uppercase'  letterSpacing='0.15em'>
+                        Siempre listo para servir
+                    </Typography>
+                    <Typography variant='h5'>
+                        Saludos Cordiales
+                    </Typography>
+                    <Typography variant='h6' py={2}>
+                        Despacho MONTECAVA Consultores S.C. <br/>
+                        MBA y C.P. Hugo César Montemayor Cavazos
+                    </Typography>
+                </Grid>
+            </Grid>
+        </Box>
         </>
     )
 }
