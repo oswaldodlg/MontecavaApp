@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Button, Card, CardContent, CardHeader, Divider, TextField, Typography, Grid, Alert, List, ListItem, ListSubheader} from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import CurrencyFormat from 'react-currency-format';
@@ -11,10 +11,12 @@ import {
 
 import { loadStripe } from '@stripe/stripe-js';
 import { useAuthContext } from 'src/hooks/useAuthContext';
-import { monthlyPlans, bimestralPlans, anualPlans } from 'src/utils/suscription-info';
+// import { monthlyPlans, bimestralPlans, anualPlans } from 'src/utils/suscription-info';
 // import { monthlyPlans, bimestralPlans, anualPlans } from 'src/utils/subscription-info-prueba';
 
+
 const env = process.env.NODE_ENV
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -59,6 +61,23 @@ export const CheckoutForm = () => {
   const [plan, setPlan] = useState({})
 
   const {data} = useAuthContext()
+
+
+  let monthlyPlans;
+  let bimestralPlans;
+  let anualPlans;
+
+  if(env === 'development'){
+    const Prueba = require('../../utils/suscription-info-prueba')
+    monthlyPlans = Prueba.monthlyPlans
+    bimestralPlans = Prueba.bimestralPlans
+    anualPlans = Prueba.anualPlans
+  } else {
+    const Live = require('../../utils/suscription-info')
+    monthlyPlans = Live.monthlyPlans
+    bimestralPlans = Live.bimestralPlans
+    anualPlans = Live.anualPlans
+  }
 
 
 
@@ -139,17 +158,17 @@ export const CheckoutForm = () => {
               </Grid>
             <Grid container sx={{placeContent: 'center', py: 2}}>
               
-              {term === 'monthly' && monthlyPlans.map((monthlyPlan, index) => {
+              {term === 'monthly' &&  monthlyPlans && monthlyPlans.map((monthlyPlan, index) => {
                 return(
                   <PlanButton plan={monthlyPlan} key={index} setPlan={setPlan} />
                 )
               })}
-              {term === 'bimestral' && bimestralPlans.map((bimestralPlan, index) => {
+              {term === 'bimestral' && bimestralPlans && bimestralPlans.map((bimestralPlan, index) => {
                 return(
                   <PlanButton plan={bimestralPlan} key={index} setPlan={setPlan} />
                 )
               })}
-              {term === 'anual' && anualPlans.map((anualPlan, index) => {
+              {term === 'anual' && anualPlans && anualPlans.map((anualPlan, index) => {
                 return(
                   <PlanButton plan={anualPlan} key={index} setPlan={setPlan} />
                 )

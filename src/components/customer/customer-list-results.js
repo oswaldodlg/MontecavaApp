@@ -20,6 +20,7 @@ import { getInitials } from '../../utils/get-initials';
 import { DashboardLayout } from 'src/components/dashboard-layout';
 import NextLink from 'next/link'
 import { useCollection } from 'src/hooks/useCollection';
+const env = process.env.NODE_ENV
 
 export const CustomerListResults = ({ customers, uid, ...rest }) => {
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
@@ -76,7 +77,7 @@ export const CustomerListResults = ({ customers, uid, ...rest }) => {
             </TableHead>
             <TableBody>
               {documents && documents.map((customer) => {
-                if(customer.id != uid && customer.credentials != 'admin') {
+                if(customer.id != uid && customer.credentials != 'admin'){
                 return (
                 <NextLink href={`clientes/detalles?id=${customer.key}`} key={customer.key}>
                 <TableRow

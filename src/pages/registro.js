@@ -32,6 +32,7 @@ const Register = () => {
       email: '',
       firstName: '',
       lastName: '',
+      telephone: '',
       password: '',
       policy: false
     },
@@ -63,16 +64,16 @@ const Register = () => {
         
         .required(
         'Se requiere introducir un teléfono'),
-      // policy: Yup
-      //   .boolean()
-      //   .oneOf(
-      //     [true],
-      //     'This field must be checked'
-      //   )
+      policy: Yup
+        .boolean()
+        .oneOf(
+          [true],
+          'Debes aceptar los términos y condiciones para continuar'
+        )
     }),
     onSubmit: () => {
      
-        signup(formik.values.email, formik.values.password, formik.values.firstName, formik.values.lastName)
+        signup(formik.values.email, formik.values.password, formik.values.firstName,  formik.values.lastName, formik.values.telephone, formik.values.policy)
       }
   });
 
@@ -219,7 +220,7 @@ const Register = () => {
               </FormHelperText>
             )}
             <Box sx={{ py: 2 }}>
-              {!isPending ? 
+              {!isPending  ? 
               <Button
                 color="primary"
                 disabled={formik.isSubmitting}

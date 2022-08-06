@@ -6,7 +6,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import { Bell as BellIcon } from '../icons/bell';
 import { UserCircle as UserCircleIcon } from '../icons/user-circle';
 import { Users as UsersIcon } from '../icons/users';
-
+import Link from 'next/link'
 import {useAuthContext} from '../hooks/useAuthContext'
 import CartDrawer from './cart-drawer';
 
@@ -104,11 +104,13 @@ export const DashboardNavbar = (props) => {
           </Tooltip> */}
           {data && data.credentials === 'admin' && 
           <>
+          <Link href={'/admin/clientes'}>
           <Tooltip title="Clientes">
             <IconButton sx={{ ml: 1 }}>
               <UsersIcon fontSize="small" />
             </IconButton>
           </Tooltip>
+          </Link>
           </>}
           {data && data.credentials === 'user' && <CartDrawer />}
           

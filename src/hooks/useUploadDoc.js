@@ -1,7 +1,8 @@
 import {useState, useEffect} from 'react'
-import { doc, updateDoc, arrayUnion} from "firebase/firestore";
+import { doc, updateDoc, arrayUnion, serverTimestamp} from "firebase/firestore";
 import { db, storageRef} from '../firebase/config';
 import { getDownloadURL, ref, uploadBytes} from 'firebase/storage';
+import moment from 'moment';
 
 
 export default function useUploadDoc() {
@@ -102,6 +103,7 @@ export default function useUploadDoc() {
                 if(url != null){
                     setDocArray([...docArray, {
                         docName: file.name,
+                        createdAt: new Date(),
                         url: (url)
                     }])
                     console.log(docArray)

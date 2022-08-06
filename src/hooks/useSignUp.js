@@ -20,7 +20,7 @@ export const useSignUp = () => {
     }, [logedUserData])
     
 
-    const signup = async(email, password, firstName, lastName) => {
+    const signup = async(email, password, firstName, lastName, telephone, termsAndConditions) => {
         setError(null)
         setIsPending(true)
 
@@ -54,7 +54,7 @@ export const useSignUp = () => {
                   })
                   .then((res) => res.json())
                   .then(async(data) => {
-                  await setDoc(userRef, {email, firstName, lastName, credentials: 'user', 'Documentos': {}, 'stripeCustomerId': data.id, termsandconditions: false, createdAt: serverTimestamp()}, 
+                  await setDoc(userRef, {email, firstName, lastName, credentials: 'user', 'Documentos': {}, 'stripeCustomerId': data.id, phoneNumber: telephone, termsandconditions: termsAndConditions, createdAt: serverTimestamp()}, 
                   getLogedUserData('users', res.user.uid)
                 )
                 });

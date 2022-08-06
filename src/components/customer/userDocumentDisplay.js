@@ -80,7 +80,11 @@ const DocViewComponent = ({name, id, data, credentials}) => {
 
   useEffect(() => {
     
-    data && setCurrentDocs(data)
+    data && setCurrentDocs(data.sort(
+      (objA, objB) => Number(objB.createdAt) - Number(objA.createdAt),
+    ))
+
+    console.log(currentDocs)
 
     
 

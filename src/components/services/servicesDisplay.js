@@ -4,9 +4,9 @@ import React from 'react';
 import CurrencyFormat from 'react-currency-format';
 import useCartActions from 'src/hooks/useCartActions';
 import { useAuthContext } from 'src/hooks/useAuthContext';
-import { individualServices } from 'src/utils/suscription-info';
 import { useCart } from "react-use-cart";
 
+const env = process.env.NODE_ENV
 
 const style = {
   position: 'absolute',
@@ -20,6 +20,17 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
+
+let individualServices;
+
+if(env === 'development'){
+  const Prueba = require('../../utils/suscription-info-prueba')
+  individualServices = Prueba.individualServices
+} else {
+  require('../../utils/suscription-info')
+  const Live = require('../../utils/suscription-info')
+  individualServices = Live.individualServices
+}
 
 const services = {
     'Declaraciones': [
