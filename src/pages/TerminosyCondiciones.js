@@ -89,7 +89,7 @@ export const SubscriptionInfo = () => {
     )
 }
 
-export function TyC() {
+export default function TyC() {
 
     const theme= useTheme()
   const classes= useStyles()
