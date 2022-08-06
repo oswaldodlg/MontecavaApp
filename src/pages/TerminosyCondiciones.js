@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 
-const SubscriptionInfo = () => {
+export const SubscriptionInfo = () => {
 
     const [currentPlan, setCurrentPlan] = useState(monthlyPlans)
 
@@ -58,7 +58,7 @@ const SubscriptionInfo = () => {
                 onClick={() => setCurrentPlan(individualServices)}
                 >Servicios Individuales</Button>
             </Grid>
-            <Grid item xs={12} md={8} sx={{display: 'flex', flexWrap: 'wrap', justifyContent: 'center'}} >
+            <Grid item xs={12} md={10} sx={{display: 'flex', flexWrap: 'wrap', justifyContent: 'center'}} >
             {currentPlan && currentPlan.map((plan, index) => {
                             return(
                                 <Grid item key={index} xs={12} md={6} p={2}>
@@ -68,7 +68,7 @@ const SubscriptionInfo = () => {
                                     }
                                     {plan.term && <Typography variant="h6" sx={{textAlign: 'center'}}>{plan.term}</Typography>}
                                     {plan.privileges && 
-                                    <Grid item py={2} sx={{height: {xs:'auto', md: '35vh'}, alignItems: 'center' , display: 'flex', flexWrap: 'wrap'}}>
+                                    <Grid item py={2} sx={{minHeight: {xs:'auto', md: '35vh'}, alignItems: 'center' , display: 'flex', flexWrap: 'wrap'}}>
                                     {plan.privileges.map((privilege, index) => {
                                         return(
                                             <Typography key={index}>-{privilege}</Typography>
@@ -76,9 +76,9 @@ const SubscriptionInfo = () => {
                                     })}
                                     </Grid>
                                     }
-                                    {Number.isInteger(plan.cost) ? 
-                                    <CurrencyFormat value={plan.cost} displayType={'text'} thousandSeparator={true} prefix={'$'} suffix={' MXN'} renderText={value => <Typography id="modal-modal-title" variant="h6" component="h2" sx={{textAlign: 'center', py: 2}}>{value}</Typography>} />
-                                    : <Typography id="modal-modal-title" variant="h6" component="h2" sx={{textAlign: 'center', py: 2}}>{plan.cost}</Typography>
+                                    {Number.isInteger(plan.price) ? 
+                                    <CurrencyFormat value={plan.price} displayType={'text'} thousandSeparator={true} prefix={'$'} suffix={' MXN'} renderText={value => <Typography id="modal-modal-title" variant="h6" component="h2" sx={{textAlign: 'center', py: 2}}>{value}</Typography>} />
+                                    : <Typography id="modal-modal-title" variant="h6" component="h2" sx={{textAlign: 'center', py: 2}}>{plan.price}</Typography>
                                     }
                                 </Card>
                                 </Grid>
@@ -89,7 +89,7 @@ const SubscriptionInfo = () => {
     )
 }
 
-export default function TyC() {
+export function TyC() {
 
     const theme= useTheme()
   const classes= useStyles()
@@ -102,6 +102,15 @@ export default function TyC() {
         </Grid>
       </Grid>
       <Grid container className={classes.containerText}>
+        <TyCText />
+      </Grid>
+    </Box>
+  )
+}
+
+export const TyCText = () => {
+  return(
+    <>
         <Typography variant='h6'>
         EN VIRTUD DEL PRESENTE CONTRATO DE ADHESIÓN, SE DESCRIBEN LOS TÉRMINOS Y CONDICIONES CONTRACTUALES, EN ADELANTE “TÉRMINOS Y CONDICIONES”, QUE REGULAN EL ACCESO Y/O UTILIZACIÓN, EN LO CONSECUENTE “EL USO” QUE EL USUARIO HAGA DE LA APLICACIÓN MÓVIL, LA PÁGINA WEB, SU CONTENIDO Y SERVICIOS, PUESTOS A SU DISPOSICIÓN POR EL C. HUGO CÉSAR MONTEMAYOR CAVAZOS, EN LO SUCESIVO “EL TITULAR DE LA PLATAFORMA”. <br/>
         Mediante su registro en la página web con dominio https://www.montecavaconsultores.com y/o en la Aplicación móvil de la App Store o Google Play de los sistemas operativos iOS y Android, respectivamente, denominada “MONTECAVA APP”, el Usuario consiente establecer una relación contractual con El Titular de la Plataforma, la cual estará sujeta en todo momento al Código Fiscal de la Federación, a la Ley Federal de Protección de Datos Personales en Posesión de los Particulares y demás leyes análogas de observancia obligatoria en la República Mexicana. <br />
@@ -319,8 +328,7 @@ export default function TyC() {
         <br /><br />Última actualización: 30/07/2022.
         </Typography>
         </Grid>
-      </Grid>
-    </Box>
+        </>
   )
 }
 

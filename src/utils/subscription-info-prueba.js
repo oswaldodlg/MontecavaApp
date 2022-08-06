@@ -4,7 +4,7 @@ export const monthlyPlans = [
       name: 'Principiante',
       price: 1450,
       term: 'Mensual',
-      subscription_id: 'price_1LTVTcE6IXsnyFcYuYxYL38s',
+      subscription_id: 'price_1LTV0jE6IXsnyFcY4kB2Fuit',
       privileges: ['Contabilidad Fiscal', 'Declaraciones de Impuestos Mensuales', 'Envio de Comprobantes de Impuestos', 'Envio de Opinión de Cumplimiento de Obligaciones', '5 Folios para facturar']
     },
     {
@@ -12,7 +12,7 @@ export const monthlyPlans = [
       name: 'Básico',
       term: 'Mensual',
       price: 4060,
-      subscription_id: 'price_1LTVTkE6IXsnyFcYNb8xCHWJ',
+      subscription_id: 'price_1LTV87E6IXsnyFcYZPq1plHI',
       privileges: ['Contabilidad Fiscal', 'Declaraciones de Impuestos Mensuales', 'Envio de Comprobantes de Impuestos', 'Envio de Opinión de Cumplimiento de Obligaciones', 'IMSS, Afore, INFONAVIT', 'Tesoreria de NL', 'Estados Financieros','10 Folios para facturar']
     },
     {
@@ -20,7 +20,7 @@ export const monthlyPlans = [
       name: 'Intermedio',
       term: 'Mensual',
       price: 6500,
-      subscription_id: 'price_1LTVTpE6IXsnyFcYXkag4DQf',
+      subscription_id: 'price_1LTV8rE6IXsnyFcYnUjrryvj',
       privileges: ['Contabilidad Fiscal', 'Declaraciones de Impuestos Mensuales', 'Envio de Comprobantes de Impuestos', 'Envio de Opinión de Cumplimiento de Obligaciones', 'IMSS, Afore, INFONAVIT', 'Tesoreria de NL', 'Estados Financieros','Tableros de Control','25 Folios para facturar']
     },
     {
@@ -28,7 +28,7 @@ export const monthlyPlans = [
       name: 'Avanzado',
       term: 'Mensual',
       price: 8700,
-      subscription_id: 'price_1LTVTuE6IXsnyFcY81eMu1t6',
+      subscription_id: 'price_1LTVCVE6IXsnyFcYKuVlV8Bs',
       privileges: ['Contabilidad Fiscal', 'Declaraciones de Impuestos Mensuales', 'Envio de Comprobantes de Impuestos', 'Envio de Opinión de Cumplimiento de Obligaciones', 'IMSS, Afore, INFONAVIT', 'Tesoreria de NL', 'Estados Financieros','Tableros de Control','Presentación y explicación de los números en sala de juntas','35 Folios para facturar']
     },
     {
@@ -36,7 +36,7 @@ export const monthlyPlans = [
       name: 'Premium',
       term: 'Mensual',
       price: 19140,
-      subscription_id: 'price_1LTVU7E6IXsnyFcYBcri68bh',
+      subscription_id: 'price_1LTVDNE6IXsnyFcYiRirxiFd',
       privileges: ['Contabilidad Fiscal', 'Declaraciones de Impuestos Mensuales', 'Envio de Comprobantes de Impuestos', 'Envio de Opinión de Cumplimiento de Obligaciones', 'IMSS, Afore, INFONAVIT', 'Tesoreria de NL', 'Estados Financieros','Tableros de Control','Presentación y explicación de los números en sala de juntas', 'Consultoría','35 Folios para facturar',  ]
     },
   ]
@@ -47,7 +47,7 @@ export const monthlyPlans = [
       name: 'Básico',
       term: 'Bimestral',
       price: 1740,
-      subscription_id: 'price_1LTVUCE6IXsnyFcYwEVqTO4Y',
+      subscription_id: 'price_1LTVJOE6IXsnyFcYGXLB1Na1',
       privileges: ['Contabilidad Fiscal', 'Declaraciones de Impuestos Bimestral', 'Envio de Comprobantes de Impuestos', 'Envio de Opinión de Cumplimiento de Obligaciones', 'IMSS, Afore, INFONAVIT', 'Tesoreria de NL', 'Estados Financieros','10 Folios para facturar']
     },
   ]
@@ -58,86 +58,82 @@ export const monthlyPlans = [
       name: 'Anual',
       term: 'Anual',
       price: 812,
-      subscription_id: 'price_1LTVUHE6IXsnyFcYumc6XV4w',
+      subscription_id: 'price_1LTVK2E6IXsnyFcY92Sio8xt',
       privileges: ['Declaración Anual, Trámite de saldo a favor (10% del saldo a favor)']
     },
   ]
   
 
+
   export const individualServices = [
     {
       name: 'Declaración de Impuestos Mensual',
-      id: 'prod_MBtnETKwUzUXM9',
+      id: 'prod_MBtiLe9OI3bWAn',
       price: 812
     },
     {
       name: 'Declaración de Impuestos Bimestral',
-      id: 'prod_MBtnRyiYtQhaqm',
+      id: 'prod_MBtjthoHeZzDtd',
       price: 2018
     },
     {
       name: 'Declaración de Impuestos Anual',
-      id: 'prod_MBtnYMtu5d5mmU',
+      id: 'prod_MBtjtzEpCL5bQb',
       price: 941
     },
     {
       name: 'Contabilidad Fiscal',
-      id: 'prod_MBtoxNY0Hoq07o',
+      id: 'prod_MBtkETveOgQ3Ql',
       price: 812
     },
     {
       name: '5 folios Para Factura Elaboradas',
       price: 290,
-      id: 'prod_MBtnZNDigXXths'
+      id: 'prod_MBte0dRLxAaagC'
     },
     {
       name: '10 folios Para Factura Elaboradas',
-      id: 'prod_MBtntH5eCAzlLF',
+      id: 'prod_MBtfiWYUd80lzB',
       price: 522
     },
     {
       name: '25 folios Para Factura Elaboradas',
-      id: 'prod_MBtnwB4oobTour',
+      id: 'prod_MBth5QH3zikMGY',
       price: 870
     },
     {
       name: '35 folios Para Factura Elaboradas',
-      id: 'prod_MBtnyYnj8LsSBC',
+      id: 'prod_MBtim9hko7aLLJ',
       price: 1276
     },
     {
       name: 'IMSS, AFORE, INFONAVIT',
-      id: 'prod_MBtowuJbuUlsr4',
+      id: 'prod_MBtlUg8lhDppHn',
       price: 812
     },
     {
       name: 'Tesorería NL',
-      id: 'prod_MBto62LPgqvDLH',
+      id: 'prod_MBtlecoNJ8lzz5',
       price: 812
     },
     {
       name: 'Tableros de Control',
-      id: 'prod_MC0SEM3Vv8mKnM',
+      id: 'price_1LTcPoE6IXsnyFcYQ3DwjvGD',
       price: 2900
     },
     {
       name: 'Consultoría',
-      id: 'prod_MBtouVJMAkU4t1',
+      id: 'prod_MBtmOKeYrhMqNN',
       price: 11600
     },
     {
       name: 'Seguro de Imprevistos SAT, IMSS, TESORERÍA',
-      id: 'prod_MBtoUzHSX3ako4',
+      id: 'prod_MBtmGoVT5Kb8jS',
       price: 17400
     },
     {
       name: 'Presentación de Resultados en Sala',
-      id: 'prod_MBtolHZ90QSnGW',
-      price: 3480
-    },
-    {
-      name: 'Estados Financieros',
-      id: 'prod_MBtoydyqV2E8Mm',
+      id: 'prod_MBtmcNon6MgCaZ',
       price: 3480
     },
     {
@@ -145,4 +141,3 @@ export const monthlyPlans = [
       price: '10% del saldo a favor'
     },
   ]
-

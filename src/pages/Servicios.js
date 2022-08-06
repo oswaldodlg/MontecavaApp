@@ -235,9 +235,9 @@ export default function Servicios() {
                                     })}
                                     </Grid>
                                     }
-                                    {Number.isInteger(plan.cost) ? 
-                                    <CurrencyFormat value={plan.cost} displayType={'text'} thousandSeparator={true} prefix={'$'} suffix={' MXN'} renderText={value => <Typography id="modal-modal-title" variant="h6" component="h2" sx={{textAlign: 'center', py: 2}}>{value}</Typography>} />
-                                    : <Typography id="modal-modal-title" variant="h6" component="h2" sx={{textAlign: 'center', py: 2}}>{plan.cost}</Typography>
+                                    {Number.isInteger(plan.price) ? 
+                                    <CurrencyFormat value={plan.price} displayType={'text'} thousandSeparator={true} prefix={'$'} suffix={' MXN'} renderText={value => <Typography id="modal-modal-title" variant="h6" component="h2" sx={{textAlign: 'center', py: 2}}>{value}</Typography>} />
+                                    : <Typography id="modal-modal-title" variant="h6" component="h2" sx={{textAlign: 'center', py: 2}}>{plan.price}</Typography>
                                     }
                                 </Card>
                                 </Grid>

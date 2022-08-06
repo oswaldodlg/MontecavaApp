@@ -12,10 +12,13 @@ import {
   FormHelperText,
   Link,
   TextField,
-  Typography
+  Typography,
+  Modal,
+  Grid
 } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useSignUp } from 'src/hooks/useSignUp';
+import { SubscriptionInfo, TyCText } from './TerminosyCondiciones';
 
 const Register = () => { 
 
@@ -177,7 +180,7 @@ const Register = () => {
               value={formik.values.password}
               variant="outlined"
             />
-            {/* <Box
+            <Box
               sx={{
                 alignItems: 'center',
                 display: 'flex',
@@ -193,10 +196,11 @@ const Register = () => {
                 color="textSecondary"
                 variant="body2"
               >
-                I have read the
+                He leido y acepto los
                 {' '}
-                <NextLink
-                  href="#"
+                <TyCModal />
+                {/* <NextLink
+                  href="https://montecavaconsultores.com/TerminosyCondiciones"
                   passHref
                 >
                   <Link
@@ -204,11 +208,11 @@ const Register = () => {
                     underline="always"
                     variant="subtitle2"
                   >
-                    Terms and Conditions
+                    
                   </Link>
-                </NextLink>
+                </NextLink> */}
               </Typography>
-            </Box> */}
+            </Box>
             {Boolean(formik.touched.policy && formik.errors.policy) && (
               <FormHelperText error>
                 {formik.errors.policy}
@@ -263,5 +267,44 @@ const Register = () => {
     </>
   );
 };
+
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 800,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
+
+const TyCModal = () => {
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  return (
+    <>
+    <Link onClick={handleOpen} sx={{cursor: 'pointer'}}>Términos y Condiciones</Link>
+    <Modal
+      open={open}
+      onClose={handleClose}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
+
+    >
+      <Box sx={style}>
+      <Grid container sx={{width: '100%', height:'50vh', overflowY: 'scroll'}} >
+        <TyCText />
+      </Grid>
+      </Box>
+    </Modal>
+    </>
+  )
+}
+
 
 export default Register;

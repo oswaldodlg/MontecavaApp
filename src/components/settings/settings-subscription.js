@@ -11,7 +11,8 @@ import {
 
 import { loadStripe } from '@stripe/stripe-js';
 import { useAuthContext } from 'src/hooks/useAuthContext';
-import { monthlyPlans, bimestralPlans, anualPlans, prepay } from 'src/utils/suscription-info';
+import { monthlyPlans, bimestralPlans, anualPlans } from 'src/utils/suscription-info';
+// import { monthlyPlans, bimestralPlans, anualPlans } from 'src/utils/subscription-info-prueba';
 
 const env = process.env.NODE_ENV
 
@@ -45,81 +46,6 @@ const useStyles = makeStyles((theme) => ({
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC);
 
-// const monthlyPlans = [
-//   {
-//     number: 1,
-//     name: 'Principiante',
-//     cost: 1450,
-//     term: 'Mensual',
-//     subscription_id: 'price_1LCvoRLONI3gdtL5Zxhjzm5b',
-//     privileges: ['Contabilidad Fiscal', 'Declaraciones de Impuestos Mensuales', 'Envio de Comprobantes de Impuestos', 'Envio de Opinión de Cumplimiento de Obligaciones', '5 Folios para facturar']
-//   },
-//   {
-//     number: 2,
-//     name: 'Básico',
-//     term: 'Mensual',
-//     cost: 4060,
-//     subscription_id: 'price_1LCvpPLONI3gdtL5mNPLbpP3',
-//     privileges: ['Contabilidad Fiscal', 'Declaraciones de Impuestos Mensuales', 'Envio de Comprobantes de Impuestos', 'Envio de Opinión de Cumplimiento de Obligaciones', 'IMSS, Afore, INFONAVIT', 'Tesoreria de NL', 'Estados Financieros','10 Folios para facturar']
-//   },
-//   {
-//     number: 3,
-//     name: 'Intermedio',
-//     term: 'Mensual',
-//     cost: 6500,
-//     subscription_id: 'price_1LCvs1LONI3gdtL5KZ0D8HQG',
-//     privileges: ['Contabilidad Fiscal', 'Declaraciones de Impuestos Mensuales', 'Envio de Comprobantes de Impuestos', 'Envio de Opinión de Cumplimiento de Obligaciones', 'IMSS, Afore, INFONAVIT', 'Tesoreria de NL', 'Estados Financieros','Tableros de Control','25 Folios para facturar']
-//   },
-//   {
-//     number: 4,
-//     name: 'Avanzado',
-//     term: 'Mensual',
-//     cost: 8700,
-//     subscription_id: 'price_1KwrmrLONI3gdtL5hCc4yDHb',
-//     privileges: ['Contabilidad Fiscal', 'Declaraciones de Impuestos Mensuales', 'Envio de Comprobantes de Impuestos', 'Envio de Opinión de Cumplimiento de Obligaciones', 'IMSS, Afore, INFONAVIT', 'Tesoreria de NL', 'Estados Financieros','Tableros de Control','Presentación y explicación de los números en sala de juntas','35 Folios para facturar']
-//   },
-//   {
-//     number: 5,
-//     name: 'Premium',
-//     term: 'Mensual',
-//     cost: 19140,
-//     subscription_id: 'price_1LCvueLONI3gdtL5MfF42ZH8',
-//     privileges: ['Contabilidad Fiscal', 'Declaraciones de Impuestos Mensuales', 'Envio de Comprobantes de Impuestos', 'Envio de Opinión de Cumplimiento de Obligaciones', 'IMSS, Afore, INFONAVIT', 'Tesoreria de NL', 'Estados Financieros','Tableros de Control','Presentación y explicación de los números en sala de juntas', 'Consultoría','35 Folios para facturar',  ]
-//   },
-// ]
-
-// const bimestralPlans = [
-//   {
-//     number: 1,
-//     name: 'Básico',
-//     term: 'Bimestral',
-//     cost: 1740,
-//     subscription_id: 'price_1LEbyPLONI3gdtL5q23WwwNi',
-//     privileges: ['Contabilidad Fiscal', 'Declaraciones de Impuestos Bimestral', 'Envio de Comprobantes de Impuestos', 'Envio de Opinión de Cumplimiento de Obligaciones', 'IMSS, Afore, INFONAVIT', 'Tesoreria de NL', 'Estados Financieros','10 Folios para facturar']
-//   },
-// ]
-
-// const anualPlans = [
-//   {
-//     number: 1,
-//     name: 'Anual',
-//     term: 'Anual',
-//     cost: 812,
-//     subscription_id: 'price_1LEbzILONI3gdtL5AfnCnyyK',
-//     privileges: ['Declaración Anual']
-//   },
-// ]
-
-// const prepay = [
-//   {
-//     number: 1,
-//     name: 'Prepago',
-//     term: 'prepay',
-//     cost: 0,
-//     subscription_id: 'price_1LPufULONI3gdtL5vheawuxl',
-//     privileges: ['Tu pagas solo los servicios que requieras']
-//   },
-// ]
 
 
 
@@ -142,11 +68,12 @@ export const CheckoutForm = () => {
       fetch("/api/create-setup-intent", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ items: { 
-            price: `${plan.cost}`,
-            plan: plan.name,
-            customer: data.stripeCustomerId,
-            subscription_id: plan.subscription_id
+          body: JSON.stringify({ 
+            items: { 
+              price: `${plan.price}`,
+              plan: plan.name,
+              customer: data.stripeCustomerId,
+              subscription_id: plan.subscription_id
           } 
         }),
         })
@@ -171,7 +98,7 @@ export const CheckoutForm = () => {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ items: { 
             paymentId: paymentId,
-            price: `${plan.cost}`,
+            price: `${plan.price}`,
             plan: plan.name,
             subscription_id: plan.subscription_id
           } 
@@ -208,7 +135,7 @@ export const CheckoutForm = () => {
                 <Button onClick={() => setTerm('monthly')} color='info'>Mensual</Button>
                 <Button onClick={() => setTerm('bimestral')}  color='info'>Bimestral</Button>
                 <Button onClick={() => setTerm('anual')}  color='info'>Anual</Button>
-                <Button onClick={() => setTerm('prepay')} color='info'>Prepago</Button>
+                {/* <Button onClick={() => setTerm('prepay')} color='info'>Prepago</Button> */}
               </Grid>
             <Grid container sx={{placeContent: 'center', py: 2}}>
               
@@ -227,14 +154,14 @@ export const CheckoutForm = () => {
                   <PlanButton plan={anualPlan} key={index} setPlan={setPlan} />
                 )
               })}
-               {term === 'prepay' && prepay.map((prepayPlan, index) => {
+               {/* {term === 'prepay' && prepay.map((prepayPlan, index) => {
                 return(
                   <PlanButton plan={prepayPlan} key={index} setPlan={setPlan} />
                 )
-              })}
+              })} */}
             </Grid>
           </Grid>
-          {plan && plan.cost &&
+          {plan && plan.price &&
           <Grid item md={6} >
           <Typography sx={{textAlign: 'center', fontWeight: 'bold'}}>Detalles</Typography>
           <Typography >Elegiste el plan: <span style={{fontWeight: 'bold'}}>{plan.name} </span></Typography>
@@ -252,10 +179,10 @@ export const CheckoutForm = () => {
             })}
           </List>
           </Grid>}
-          {plan && plan.cost &&
+          {plan && plan.price &&
           <Grid item xs={11} margin={'0 auto'}>
           <Typography>El importe a pagar es de:</Typography>
-          <CurrencyFormat value={plan.cost} displayType={'text'} thousandSeparator={true} prefix={'$'} suffix={' MXN'} renderText={value => <Typography id="modal-modal-title" variant="h6" component="h2">{value}</Typography>} />
+          <CurrencyFormat value={plan.price} displayType={'text'} thousandSeparator={true} prefix={'$'} suffix={' MXN'} renderText={value => <Typography id="modal-modal-title" variant="h6" component="h2">{value}</Typography>} />
           <Grid item sx={{py: 2}}> 
                     {clientSecret &&
                     <Elements stripe={stripePromise} options={options}>
@@ -347,13 +274,13 @@ const PlanButton = ({plan, setPlan}) => {
     <Grid item xs={12} md={5} className={classes.containerPlan}  onClick={() => setPlan({
       number: plan.number,
       name: plan.name,
-      cost: plan.cost,
+      price: plan.price,
       term: plan.term,
       subscription_id: plan.subscription_id,
       privileges: plan.privileges
     })}>
       <Typography>{plan.name}</Typography>
-      <CurrencyFormat value={plan.cost} displayType={'text'} thousandSeparator={true} prefix={'$'} suffix={' MXN'} renderText={value => <Typography id="modal-modal-title" variant="h6" component="h2">{value}</Typography>} />
+      <CurrencyFormat value={plan.price} displayType={'text'} thousandSeparator={true} prefix={'$'} suffix={' MXN'} renderText={value => <Typography id="modal-modal-title" variant="h6" component="h2">{value}</Typography>} />
     </Grid>
   )
 }
